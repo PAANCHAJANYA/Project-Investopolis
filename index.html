@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Investopolis</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel='stylesheet' type='text/css' href='login.css'>
+    <link rel='icon' type='image/icon type' href='assets/tabIcon.png'>
+</head>
+<body>
+    <script>
+        window.onload = function()
+        {
+            if(typeof web3 == 'undefined')
+            {
+                document.getElementById("metamask").innerHTML = "You need to install metamask to run this dApp";
+            }
+        }
+    </script>
+    <div id="metamask">
+        <div class="login-box">
+            <div class="login-page">
+                <h2>Login</h2>
+                <form target="DummyFrame">
+                    <a href="#" style="text-align:center;margin: 20px 0px;">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        Choose Metamask Account
+                    </a>
+                    <div class="striped">
+                        <span class="striped-line"></span>
+                        <span class="striped-text">OR</span>
+                        <span class="striped-line"></span>
+                    </div>
+                    <div class="user-box" style="margin-top: 32px;">
+                        <input type="text" name="loginUserName" required>
+                        <label>Username</label>
+                    </div>
+                    <div class="user-box" style="margin-bottom: 32px;">
+                        <input type="password" name="loginPassword" required>
+                        <label>Password</label>
+                    </div>
+                    <button type="button" id="loginButton">LOGIN</button>
+                </form>
+            </div>
+            <div style="text-align:center;display:flex;flex-direction:column;justify-content:space-around;align-items:center;">
+                <div class="vertical-partition"></div>
+                <img src="assets/tabIcon.png"/>
+                <div class="vertical-partition"></div>
+            </div>
+            <div class="register-page">
+                <h2>Register</h2>
+                <form target="DummyFrame">
+                    <div class="user-box" id="currentMetamask">
+                        <input type="text" name="registerMetamask" required readonly>
+                        <label>Metamask Wallet Address</label>
+                    </div>
+                    <span class="custom-dropdown">
+                        <select>
+                            <option selected disabled>Choose Profile</option>
+                            <option value="investor">Investor</option>  
+                            <option value="ideator">Ideator</option>
+                        </select>
+                    </span>
+                    <div class="user-box">
+                        <input type="text" name="registerUserName" required>
+                        <label>Username</label>
+                    </div>
+                    <div class="user-box">
+                        <input type="password" name="registerSetPassword" required>
+                        <label>Set Password</label>
+                    </div>
+                    <div class="user-box">
+                        <input type="password" name="registerConfirmPassword" required>
+                        <label>Confirm Password</label>
+                    </div>
+                    <button type="button" id="registerButton">REGISTER</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <iframe name="DummyFrame" style="display:none;"></iframe>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js'></script>
+    <script src='web3.min.js'></script>
+    <script type='text/javascript' src='login.js'></script>
+</body>
+</html>
