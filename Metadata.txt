@@ -1,0 +1,4 @@
+Admin Account: 0x10046aF8439F1c7571ffbc6CAb2AC0F1E866ac55
+IPFS Upload for Verification: IPFS.Tech's IPFS.IO JS CDN
+Login Contract Address: 0x4bfC4518368dCd140F265f9523bA04c871694Bf4
+Messages Contract Address: 0x52efD1f4Bc085bC3caf3f7b3980da76346747fc4

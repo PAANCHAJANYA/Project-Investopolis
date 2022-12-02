@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Investopolis</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel='stylesheet' type='text/css' href='home.css'>
+    <link rel='icon' type='image/icon type' href='assets/tabIcon.png'>
+</head>
+<body>
+    <script>
+        if(sessionStorage.getItem('walletAddress')==null)
+        {
+            window.stop();
+        }
+        else
+        {
+            let userRole = sessionStorage.getItem('userRole');
+            if(userRole != 'admin')
+            {
+                window.stop();
+            }
+        }
+    </script>
+    <div id="root">
+        <div class="app-skeleton" id="homePage">
+            <header class="app-header">
+                <div class="app-header__anchor">
+                    <img src="assets/tabIcon.png" style="height:35px;"/>
+                    <span class="app-header__anchor__text">Investopolis</span>
+                </div>
+                <nav>
+                    <ul class="nav">
+                        <li class="nav__item homeButton">
+                            <a class="nav__link nav__link--active" href="#">
+                                <span class="nav__link__element">Home</span>
+                            </a>
+                        </li>
+                        <li class="nav__item messagesButton">
+                            <a class="nav__link " href="#">
+                                <span class="nav__link__element">Broadcast</span>
+                            </a>
+                        </li>
+                        <li class="nav__item developersButton">
+                            <a class="nav__link" href="#">
+                                <span class="nav__link__element">Creators</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+                <div class="logout">
+                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="30" height="30" viewBox="0 0 490.3 490.3" style="enable-background:new 0 0 490.3 490.3;" xml:space="preserve">
+                        <g>
+                            <path d="M0,121.05v248.2c0,34.2,27.9,62.1,62.1,62.1h200.6c34.2,0,62.1-27.9,62.1-62.1v-40.2c0-6.8-5.5-12.3-12.3-12.3    s-12.3,5.5-12.3,12.3v40.2c0,20.7-16.9,37.6-37.6,37.6H62.1c-20.7,0-37.6-16.9-37.6-37.6v-248.2c0-20.7,16.9-37.6,37.6-37.6h200.6    c20.7,0,37.6,16.9,37.6,37.6v40.2c0,6.8,5.5,12.3,12.3,12.3s12.3-5.5,12.3-12.3v-40.2c0-34.2-27.9-62.1-62.1-62.1H62.1    C27.9,58.95,0,86.75,0,121.05z"/>
+                            <path d="M385.4,337.65c2.4,2.4,5.5,3.6,8.7,3.6s6.3-1.2,8.7-3.6l83.9-83.9c4.8-4.8,4.8-12.5,0-17.3l-83.9-83.9    c-4.8-4.8-12.5-4.8-17.3,0s-4.8,12.5,0,17.3l63,63H218.6c-6.8,0-12.3,5.5-12.3,12.3c0,6.8,5.5,12.3,12.3,12.3h229.8l-63,63    C380.6,325.15,380.6,332.95,385.4,337.65z"/>
+                        </g>
+                    </svg>
+                </div>
+            </header>
+            <div class="app-container">
+                <div class="app-a">
+                    <div class="segment-topbar">
+                        <div class="segment-topbar__header">
+                            <h3 class="text-heading3 segment-topbar__title">Home</h3>
+                        </div>
+                    </div>
+                    <div class="nav-section">
+                        <div class="nav-section__header">
+                            <h2 class="nav-section__title">Verifications</h2>
+                        </div>
+                        <div class="nav-section__body">
+                            <ul class="nav" id="unverifiedUsersList">
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="app-main">
+                    <div class="channel-feed">
+                        <div class="segment-topbar">
+                            <div class="segment-topbar__header">
+                                <span class="segment-topbar__overline">Wallet Address:</span>
+                                <h4 class="text-heading4 segment-topbar__title">
+                                    <span class="channel-link">
+                                        <span class="channel-link__icon">#</span>
+                                        <span class="channel-link__element">Admin</span>
+                                    </span>
+                                </h4>
+                            </div>
+                        </div>
+                        <div id="userMarker" style="display:none;"></div>
+                    </div>
+                </div>
+                <div class="app-b">
+                    <div class="pad">
+                        <div class="pad__body">
+                            <h4 class="text-heading3 undefined">About Investopolis</h4>
+                            <p class="text-paragraph1 undefined">Investopolis is an investment platform encompassing customer loyalty through blockchain wherein investors can invest upon ideators' companies which are unlisted in the stock market but would have high market value when deployed.</p>
+                            <p class="text-paragraph1 undefined">The investors on the platform are rewarded for various actions with tokens. As the utility of a token increases, the value of the token shall rise.</p>
+                            <p class="text-paragraph1 undefined">Every transaction an investor performs shall have a 1% transaction fee. He/she can pay by cryptocurrency or use a token he/she was rewarded prior.</p>
+                            <p class="text-paragraph1 undefined">In addition to transactions from investors to ideators, investors can transfer tokens/cryptocurrency to other investors as well.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="app-skeleton" id="messagesPage" style="display: none;">
+            <header class="app-header">
+                <div class="app-header__anchor">
+                    <img src="assets/tabIcon.png" style="height:35px;"/>
+                    <span class="app-header__anchor__text">Investopolis</span>
+                </div>
+                <nav>
+                    <ul class="nav">
+                        <li class="nav__item homeButton">
+                            <a class="nav__link" href="#">
+                                <span class="nav__link__element">Home</span>
+                            </a>
+                        </li>
+                        <li class="nav__item messagesButton">
+                            <a class="nav__link nav__link--active" href="#">
+                                <span class="nav__link__element">Broadcast</span>
+                            </a>
+                        </li>
+                        <li class="nav__item developersButton">
+                            <a class="nav__link" href="#">
+                                <span class="nav__link__element">Creators</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+                <div class="logout">
+                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="30" height="30" viewBox="0 0 490.3 490.3" style="enable-background:new 0 0 490.3 490.3;" xml:space="preserve">
+                        <g>
+                            <path d="M0,121.05v248.2c0,34.2,27.9,62.1,62.1,62.1h200.6c34.2,0,62.1-27.9,62.1-62.1v-40.2c0-6.8-5.5-12.3-12.3-12.3    s-12.3,5.5-12.3,12.3v40.2c0,20.7-16.9,37.6-37.6,37.6H62.1c-20.7,0-37.6-16.9-37.6-37.6v-248.2c0-20.7,16.9-37.6,37.6-37.6h200.6    c20.7,0,37.6,16.9,37.6,37.6v40.2c0,6.8,5.5,12.3,12.3,12.3s12.3-5.5,12.3-12.3v-40.2c0-34.2-27.9-62.1-62.1-62.1H62.1    C27.9,58.95,0,86.75,0,121.05z"/>
+                            <path d="M385.4,337.65c2.4,2.4,5.5,3.6,8.7,3.6s6.3-1.2,8.7-3.6l83.9-83.9c4.8-4.8,4.8-12.5,0-17.3l-83.9-83.9    c-4.8-4.8-12.5-4.8-17.3,0s-4.8,12.5,0,17.3l63,63H218.6c-6.8,0-12.3,5.5-12.3,12.3c0,6.8,5.5,12.3,12.3,12.3h229.8l-63,63    C380.6,325.15,380.6,332.95,385.4,337.65z"/>
+                        </g>
+                    </svg>
+                </div>
+            </header>
+            <div class="app-container">
+                <div class="app-a">
+                    <div class="segment-topbar">
+                        <div class="segment-topbar__header">
+                            <h3 class="text-heading3 segment-topbar__title">Broadcast</h3>
+                        </div>
+                    </div>
+                    <form class="form-search">
+                        <div class="form-group">
+                            <div class="form-control form-control--with-addon">
+                                <input name="query" placeholder="Search..." type="text" autocomplete="off" style="text-transform:uppercase;">
+                                <div class="form-control__addon form-control__addon--prefix">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                        <path d="M21.172 24l-7.387-7.387c-1.388.874-3.024 1.387-4.785 1.387-4.971 0-9-4.029-9-9s4.029-9 9-9 9 4.029 9 9c0 1.761-.514 3.398-1.387 4.785l7.387 7.387-2.828 2.828zm-12.172-8c3.859 0 7-3.14 7-7s-3.141-7-7-7-7 3.14-7 7 3.141 7 7 7z"></path>
+                                    </svg>
+                                </div>
+                            </div>
+                            <ul style="display:none;list-style-type: none;" class="useridslist"></ul>
+                        </div>
+                    </form>
+                    <div class="nav-section">
+                        <div class="nav-section__header">
+                            <h2 class="nav-section__title">Group</h2>
+                        </div>
+                        <div class="nav-section__body">
+                            <ul class="nav">
+                                <li class="nav__item" id="everyonemessage">
+                                    <a class="nav__link nav__link--active" href="#">
+                                        <span class="conversation-link conversation-link--online">
+                                            <span class="conversation-link__icon"></span>
+                                            <span class="conversation-link__element">Everyone</span>
+                                        </span>
+                                    </a>
+                                </li>
+                                <li class="nav__item" id="ideatorsmessage">
+                                    <a class="nav__link" href="#">
+                                        <span class="conversation-link conversation-link--online">
+                                            <span class="conversation-link__icon"></span>
+                                            <span class="conversation-link__element">Ideators</span>
+                                        </span>
+                                    </a>
+                                </li>
+                                <li class="nav__item" id="investorsmessage">
+                                    <a class="nav__link" href="#">
+                                        <span class="conversation-link conversation-link--online">
+                                            <span class="conversation-link__icon"></span>
+                                            <span class="conversation-link__element">Investors</span>
+                                        </span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="nav-section">
+                        <div class="nav-section__header">
+                            <h2 class="nav-section__title">Direct</h2>
+                        </div>
+                        <div class="nav-section__body">
+                            <ul class="nav" id="directMessages">
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="app-main">
+                    <div class="channel-feed">
+                        <div class="segment-topbar">
+                            <div class="segment-topbar__header">
+                                <span class="segment-topbar__overline">Wallet Address:</span>
+                                <h4 class="text-heading4 segment-topbar__title">
+                                    <span class="channel-link ">
+                                        <span class="channel-link__icon">#</span>
+                                        <span class="channel-link__element">Admin</span>
+                                    </span>
+                                </h4>
+                            </div>
+                        </div>
+                        <div class="channel-feed__body" id="everyonemessagecontent">
+                        </div>
+                        <div class="channel-feed__body" id="ideatorsmessagecontent" style="display:none;">
+                        </div>
+                        <div class="channel-feed__body" id="investorsmessagecontent" style="display:none;">
+                        </div>
+                        <div class="channel-feed__footer">
+                            <form class="channel-message-form" action="?" target="DummyFrame">
+                                <div class="form-group">
+                                    <label class="form-label" for="message">Message</label>
+                                    <div class="form-control">
+                                        <textarea id="message" class="form-control" name="message" required maxlength="100"></textarea>
+                                    </div>
+                                </div>
+                                <div class="form-footer">
+                                    <button class="button button--primary button--size-xl" type="submit">
+                                        <span class="button__content">Send</span>
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="app-b">
+                    <div class="pad">
+                        <div class="pad__body">
+                            <h4 class="text-heading3 undefined">Broadcast</h4>
+                            <p class="text-paragraph1 undefined">The <em>Admin</em> can broadcast announcements to everyone on the platform or specifically to either ideators or investors.</p>
+                            <p class="text-paragraph1 undefined">The admin can also send direct messages to the users of the platform thereby maintaining a two-way communication. The goal of this feature is offer assistance to the users of Investopolis through the application administrator.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="app-skeleton" id="developersPage" style="display: none;">
+            <header class="app-header">
+                <div class="app-header__anchor">
+                    <img src="assets/tabIcon.png" style="height:35px;"/>
+                    <span class="app-header__anchor__text">Investopolis</span>
+                </div>
+                <nav>
+                    <ul class="nav">
+                        <li class="nav__item homeButton">
+                            <a class="nav__link" href="#">
+                                <span class="nav__link__element">Home</span>
+                            </a>
+                        </li>
+                        <li class="nav__item messagesButton">
+                            <a class="nav__link" href="#">
+                                <span class="nav__link__element">Broadcast</span>
+                            </a>
+                        </li>
+                        <li class="nav__item developersButton">
+                            <a class="nav__link nav__link--active" href="#">
+                                <span class="nav__link__element">Creators</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+                <div class="logout">
+                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="30" height="30" viewBox="0 0 490.3 490.3" style="enable-background:new 0 0 490.3 490.3;" xml:space="preserve">
+                        <g>
+                            <path d="M0,121.05v248.2c0,34.2,27.9,62.1,62.1,62.1h200.6c34.2,0,62.1-27.9,62.1-62.1v-40.2c0-6.8-5.5-12.3-12.3-12.3    s-12.3,5.5-12.3,12.3v40.2c0,20.7-16.9,37.6-37.6,37.6H62.1c-20.7,0-37.6-16.9-37.6-37.6v-248.2c0-20.7,16.9-37.6,37.6-37.6h200.6    c20.7,0,37.6,16.9,37.6,37.6v40.2c0,6.8,5.5,12.3,12.3,12.3s12.3-5.5,12.3-12.3v-40.2c0-34.2-27.9-62.1-62.1-62.1H62.1    C27.9,58.95,0,86.75,0,121.05z"/>
+                            <path d="M385.4,337.65c2.4,2.4,5.5,3.6,8.7,3.6s6.3-1.2,8.7-3.6l83.9-83.9c4.8-4.8,4.8-12.5,0-17.3l-83.9-83.9    c-4.8-4.8-12.5-4.8-17.3,0s-4.8,12.5,0,17.3l63,63H218.6c-6.8,0-12.3,5.5-12.3,12.3c0,6.8,5.5,12.3,12.3,12.3h229.8l-63,63    C380.6,325.15,380.6,332.95,385.4,337.65z"/>
+                        </g>
+                    </svg>
+                </div>
+            </header>
+            <div class="app-container">
+                <div class="app-a">
+                    <div class="segment-topbar">
+                        <div class="segment-topbar__header">
+                            <h3 class="text-heading3 segment-topbar__title">Creators</h3>
+                        </div>
+                    </div>
+                    <div class="nav-section">
+                        <div class="nav-section__header">
+                            <h2 class="nav-section__title">Faculty Supervisor</h2>
+                        </div>
+                        <div class="nav-section__body">
+                            <ul class="nav">
+                                <li class="nav__item" id="rajendraButton">
+                                    <a class="nav__link nav__link--active" href="#">
+                                        <span class="channel-link conversation-link--unread">
+                                            <span class="channel-link__icon">#</span>
+                                            <span class="channel-link__element">Dr. Rajendra Hegadi</span>
+                                        </span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="nav-section">
+                        <div class="nav-section__header">
+                            <h2 class="nav-section__title">Developer Team</h2>
+                        </div>
+                        <div class="nav-section__body">
+                            <ul class="nav">
+                                <li class="nav__item" id="krishnaButton">
+                                    <a class="nav__link" href="#">
+                                        <span class="channel-link conversation-link--unread">
+                                            <span class="channel-link__icon">#</span>
+                                            <span class="channel-link__element">Krishna Paanchajanya</span>
+                                        </span>
+                                    </a>
+                                </li>
+                                <li class="nav__item" id="karthikButton">
+                                    <a class="nav__link " href="#">
+                                        <span class="channel-link conversation-link--unread">
+                                            <span class="channel-link__icon">#</span>
+                                            <span class="channel-link__element">Karthik Sajjan</span>
+                                        </span>
+                                    </a>
+                                </li>
+                                <li class="nav__item" id="deepakButton">
+                                    <a class="nav__link " href="#">
+                                        <span class="channel-link conversation-link--unread">
+                                            <span class="channel-link__icon">#</span>
+                                            <span class="channel-link__element">Karusala Deepak Chowdary</span>
+                                        </span>
+                                    </a>
+                                </li>
+                                <li class="nav__item" id="manojButton">
+                                    <a class="nav__link " href="#">
+                                        <span class="channel-link conversation-link--unread">
+                                            <span class="channel-link__icon">#</span>
+                                            <span class="channel-link__element">Manoj Sahit Reddy</span>
+                                        </span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="app-main">
+                    <div class="channel-feed">
+                        <div class="segment-topbar">
+                            <div class="segment-topbar__header">
+                                <span class="segment-topbar__overline">Wallet Address: </span>
+                                <h4 class="text-heading4 segment-topbar__title">
+                                    <span class="channel-link ">
+                                        <span class="channel-link__icon">#</span>
+                                        <span class="channel-link__element">Admin</span>
+                                    </span>
+                                </h4>
+                            </div>
+                        </div>
+                        <div class="channel-feed__body">
+                            <div class="card" id="rajendraProfile">
+                                <div class="card-header">
+                                    <img class="card-avatar" src="assets/rajendra.jpeg" alt="avatar" />
+                                    <h1 class="card-fullname">Dr. Rajendra Hegadi</h1>
+                                    <h2 class="card-jobtitle">Ph.D., MGRRI, Chennai</h2>
+                                </div>
+                                <div class="card-main">
+                                    <div class="card-section">
+                                        <div class="card-content">
+                                            <div class="card-subtitle">ABOUT</div>
+                                            <p class="card-desc">Dr. Rajendra Hegadi is the HOD of Data Science and Intelligence Systems at Indian Institute of Information Technology, Dharwad. He has more than 25 years teaching experience at various capacities. He is a senior member of IEEE, member of CRSI, CSI and ISTE. He is a member of IEEE Standard Association-P2145 Standards Development Working Group Standard for Framework and Definitions for Blockchain Governance. His areas of interest are computer networking, information centric network, cryptography & network security and image processing.</p>
+                                        </div>
+                                        <div class="card-social">
+                                            <a href="mailto:rajendrahegadi@iiitdwd.ac.in">
+                                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#1e181e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                                    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                                                    <path d="M22 6l-10 7L2 6"></path>
+                                                </svg>
+                                            </a>
+                                            <a href="https://www.linkedin.com/in/dr-rajendra-hegadi-7463b420/">
+                                                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                                    <path d="M23.994 24v-.001H24v-8.802c0-4.306-.927-7.623-5.961-7.623-2.42 0-4.044 1.328-4.707 2.587h-.07V7.976H8.489v16.023h4.97v-7.934c0-2.089.396-4.109 2.983-4.109 2.549 0 2.587 2.384 2.587 4.243V24zM.396 7.977h4.976V24H.396zM2.882 0C1.291 0 0 1.291 0 2.882s1.291 2.909 2.882 2.909 2.882-1.318 2.882-2.909A2.884 2.884 0 002.882 0z" />
+                                                </svg>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card" id="krishnaProfile" style="display:none;">
+                                <div class="card-header">
+                                    <img class="card-avatar" src="assets/KrishnaPaanchajanya.jpg" alt="avatar" />
+                                    <h1 class="card-fullname">Kuppa Venkata Krishna Paanchajanya</h1>
+                                    <h2 class="card-jobtitle">Blockchain Enthusiast</h2>
+                                </div>
+                                <div class="card-main">
+                                    <div class="card-section">
+                                        <div class="card-content">
+                                            <div class="card-subtitle">ABOUT</div>
+                                            <p class="card-desc">Krishna Paanchajanya, a final year student at IIIT Dharwad, obtained skill set in different realms of Computer Science in addition to reaching the pinnacle in academics; his ultimate goal being to ideate, design a tool that has socio-economic relevance.</p>
+                                        </div>
+                                        <div class="card-social">
+                                            <a href="mailto:19bcs063@iiitdwd.ac.in">
+                                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#1e181e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                                    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                                                    <path d="M22 6l-10 7L2 6"></path>
+                                                </svg>
+                                            </a>
+                                            <a href="https://www.linkedin.com/in/krishna-paanchajanya-5454b71a0/">
+                                                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                                    <path d="M23.994 24v-.001H24v-8.802c0-4.306-.927-7.623-5.961-7.623-2.42 0-4.044 1.328-4.707 2.587h-.07V7.976H8.489v16.023h4.97v-7.934c0-2.089.396-4.109 2.983-4.109 2.549 0 2.587 2.384 2.587 4.243V24zM.396 7.977h4.976V24H.396zM2.882 0C1.291 0 0 1.291 0 2.882s1.291 2.909 2.882 2.909 2.882-1.318 2.882-2.909A2.884 2.884 0 002.882 0z" />
+                                                </svg>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card" id="karthikProfile" style="display:none;">
+                                <div class="card-header">
+                                    <img class="card-avatar" src="assets/KarthikSajjan.jpg" alt="avatar" />
+                                    <h1 class="card-fullname">Karthik Sajjan</h1>
+                                    <h2 class="card-jobtitle">Blockchain Enthusiast</h2>
+                                </div>
+                                <div class="card-main">
+                                    <div class="card-section">
+                                        <div class="card-content">
+                                            <div class="card-subtitle">ABOUT</div>
+                                            <p class="card-desc">Karthik is currently pursuing his B. Tech from IIIT Dharwad. He is well-versed with various emerging technologies like Blockchain and Cloud Computing Platforms and has worked on a myriad of projects in them.</p>
+                                        </div>
+                                        <div class="card-social">
+                                            <a href="mailto:19bcs049@iiitdwd.ac.in">
+                                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#1e181e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                                    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                                                    <path d="M22 6l-10 7L2 6"></path>
+                                                </svg>
+                                            </a>
+                                            <a href="https://www.linkedin.com/in/karthik-sajjan-3949691a6/">
+                                                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                                    <path d="M23.994 24v-.001H24v-8.802c0-4.306-.927-7.623-5.961-7.623-2.42 0-4.044 1.328-4.707 2.587h-.07V7.976H8.489v16.023h4.97v-7.934c0-2.089.396-4.109 2.983-4.109 2.549 0 2.587 2.384 2.587 4.243V24zM.396 7.977h4.976V24H.396zM2.882 0C1.291 0 0 1.291 0 2.882s1.291 2.909 2.882 2.909 2.882-1.318 2.882-2.909A2.884 2.884 0 002.882 0z" />
+                                                </svg>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card" id="deepakProfile" style="display:none;">
+                                <div class="card-header">
+                                    <img class="card-avatar" src="assets/DeepakChowdary.jpg" alt="avatar" />
+                                    <h1 class="card-fullname">Karusala Deepak Chowdary</h1>
+                                    <h2 class="card-jobtitle">UI/UX Design</h2>
+                                </div>
+                                <div class="card-main">
+                                    <div class="card-section">
+                                        <div class="card-content">
+                                            <div class="card-subtitle">ABOUT</div>
+                                            <p class="card-desc">Deepak is currently pursuing his B. Tech from IIIT Dharwad. He is well-versed with various emerging technologies like Full Stack Web Development and Cloud Computing Platforms and has worked on a myriad of projects in them.</p>
+                                        </div>
+                                        <div class="card-social">
+                                            <a href="mailto:19bcs050@iiitdwd.ac.in">
+                                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#1e181e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                                    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                                                    <path d="M22 6l-10 7L2 6"></path>
+                                                </svg>
+                                            </a>
+                                            <a href="https://www.linkedin.com/in/karusala-deepak-chowdary-3701111a5/">
+                                                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                                    <path d="M23.994 24v-.001H24v-8.802c0-4.306-.927-7.623-5.961-7.623-2.42 0-4.044 1.328-4.707 2.587h-.07V7.976H8.489v16.023h4.97v-7.934c0-2.089.396-4.109 2.983-4.109 2.549 0 2.587 2.384 2.587 4.243V24zM.396 7.977h4.976V24H.396zM2.882 0C1.291 0 0 1.291 0 2.882s1.291 2.909 2.882 2.909 2.882-1.318 2.882-2.909A2.884 2.884 0 002.882 0z" />
+                                                </svg>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card" id="manojProfile" style="display:none;">
+                                <div class="card-header">
+                                    <img class="card-avatar" src="assets/ManojSahithReddy.jpg" alt="avatar" />
+                                    <h1 class="card-fullname">Vanga Manoj Sahit Reddy</h1>
+                                    <h2 class="card-jobtitle">Full Stack Developer</h2>
+                                </div>
+                                <div class="card-main">
+                                    <div class="card-section">
+                                        <div class="card-content">
+                                            <div class="card-subtitle">ABOUT</div>
+                                            <p class="card-desc">Manoj is currently pursuing his B. Tech from IIIT Dharwad. He is well-versed with various emerging technologies like Machine Learning, Deep Learning and Cloud Computing Platforms and has worked on a myriad of projects in them.</p>
+                                        </div>
+                                        <div class="card-social">
+                                            <a href="mailto:19bcs110@iiitdwd.ac.in">
+                                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#1e181e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                                    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                                                    <path d="M22 6l-10 7L2 6"></path>
+                                                </svg>
+                                            </a>
+                                            <a href="https://www.linkedin.com/in/manojsahith/">
+                                                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                                    <path d="M23.994 24v-.001H24v-8.802c0-4.306-.927-7.623-5.961-7.623-2.42 0-4.044 1.328-4.707 2.587h-.07V7.976H8.489v16.023h4.97v-7.934c0-2.089.396-4.109 2.983-4.109 2.549 0 2.587 2.384 2.587 4.243V24zM.396 7.977h4.976V24H.396zM2.882 0C1.291 0 0 1.291 0 2.882s1.291 2.909 2.882 2.909 2.882-1.318 2.882-2.909A2.884 2.884 0 002.882 0z" />
+                                                </svg>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="app-b">
+                    <div class="pad">
+                        <div class="pad__body">
+                            <h4 class="text-heading3 undefined">TEAM</h4>
+                            <p class="text-paragraph1 undefined">The strength of the team is each individual member. The strength of each member is the team.</p>
+                            <p class="text-paragraph1 undefined">Alone we can do so little; together we can do so much.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <iframe name="DummyFrame" style="display:none;"></iframe>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js'></script>
+    <script src='web3.min.js'></script>
+    <script type='text/javascript' src='admin.js'></script>
+</body>
+</html>

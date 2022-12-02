@@ -1,0 +1,463 @@
+users.sol
+
+pragma solidity ^0.8.0;
+import "./context.sol";
+contract users is Context
+{
+    event registerevent(string success);
+    address[] private _admins=[0x10046aF8439F1c7571ffbc6CAb2AC0F1E866ac55];
+    struct User
+    {
+        string userid;
+        string password;
+        address metamaskaddress;
+        string role;
+        string aadharNum;
+        string home;
+        string mobile;
+        string verified;
+        string idimage;
+    }
+    User[] private _totalusers;
+    User[] private _unverifiedUsers;
+    string[] private _userids;
+    function _areEqual(string memory a, string memory b) private pure returns (bool)
+    {
+        return (keccak256(abi.encodePacked(a)) == keccak256(abi.encodePacked(b)));
+    }
+    function login(string memory id, string memory pwd, address currentUser) public view returns (string memory)
+    {
+        bytes memory tempEmptyStringTest = bytes(id);
+        if (tempEmptyStringTest.length!=0)
+        {
+            for(uint i=0; i<_totalusers.length;i++)
+            {
+                if(_areEqual(_totalusers[i].userid,id))
+                {
+                    if(_areEqual(_totalusers[i].password,pwd) && _areEqual(_totalusers[i].verified,"YES"))
+                    {
+                        return _totalusers[i].role;
+                    }
+                    else if(_areEqual(_totalusers[i].password,pwd) && _areEqual(_totalusers[i].verified,"YET"))
+                    {
+                        return "YET";
+                    }
+                    else if(_areEqual(_totalusers[i].password,pwd) && _areEqual(_totalusers[i].verified,"NOPE"))
+                    {
+                        return "NOPE";
+                    }
+                    else
+                    {
+                        return "NO";
+                    }
+                }
+            }
+        }
+        else
+        {
+            if(_isadmin(_admins, currentUser))
+            {
+                return "admin";
+            }
+            for(uint i=0; i<_totalusers.length;i++)
+            {
+                if(_totalusers[i].metamaskaddress==currentUser)
+                {
+                    if(_areEqual(_totalusers[i].verified,"YES"))
+                    {
+                        return _totalusers[i].role;
+                    }
+                    else if(_areEqual(_totalusers[i].verified,"YET"))
+                    {
+                        return "YET";
+                    }
+                    else if(_areEqual(_totalusers[i].verified,"NOPE"))
+                    {
+                        return "NOPE";
+                    }
+                    else
+                    {
+                        return "NO";
+                    }
+                }
+            }
+        }
+        return "NO";
+    }
+    function register(string memory id, string memory pwd, address currentUser, string memory rl, string memory idproof) public
+    {
+        if(_isadmin(_admins, currentUser))
+        {
+            emit registerevent("NO");
+            return;
+        }
+        for(uint i=0; i<_totalusers.length;i++)
+        {
+            if(_totalusers[i].metamaskaddress==currentUser || _areEqual(_totalusers[i].userid,id))
+            {
+                emit registerevent("NO");
+                return;
+            }
+        }
+        User memory new_user;
+        new_user.userid = id;
+        new_user.password = pwd;
+        new_user.metamaskaddress = currentUser;
+        new_user.role = rl;
+        new_user.idimage = idproof;
+        new_user.verified="YET";
+        _totalusers.push(new_user);
+        emit registerevent("YES");
+    }
+    function userid(address currentUser) public view returns (string memory)
+    {
+        for(uint i=0; i<_totalusers.length;i++)
+        {
+            if(_totalusers[i].metamaskaddress==currentUser)
+            {
+                return _totalusers[i].userid;
+            }
+        }
+        return "NA";
+    }
+    function verify(address verifiedUser, string memory status, string memory aadhar, string memory homeaddress, string memory phone) public
+    {
+        for(uint i=0; i<_totalusers.length;i++)
+        {
+            if(_totalusers[i].metamaskaddress==verifiedUser)
+            {
+                _totalusers[i].verified = status;
+                if(_areEqual(_totalusers[i].verified,"YES"))
+                {
+                    _totalusers[i].aadharNum = aadhar;
+                    _totalusers[i].home = homeaddress;
+                    _totalusers[i].mobile = phone;
+                }
+            }
+        }
+    }
+    function _isadmin(address[] memory admin, address currentUser) private pure returns (bool)
+    {
+        for(uint i=0; i<admin.length;i++)
+        {
+            if(admin[i]==currentUser)
+            return true;
+        }
+        return false;
+    }
+    function unverified() public returns(User[] memory)
+    {
+        require(_isadmin(_admins, _msgSender()), "Ownable: caller is not the owner");
+        delete _unverifiedUsers;
+        for(uint i=0;i<_totalusers.length;i++)
+        {
+            if(_areEqual(_totalusers[i].verified,"YET"))
+            {
+                _unverifiedUsers.push(_totalusers[i]);
+            }
+        }
+        return _unverifiedUsers;
+    }
+    function userids() public returns(string[] memory)
+    {
+        delete _userids;
+        for(uint i=0;i<_totalusers.length;i++)
+        {
+            _userids.push(_totalusers[i].userid);
+        }
+        return _userids;
+    }
+}
+
+
+context.sol
+
+
+// SPDX-License-Identifier: MIT
+// OpenZeppelin Contracts v4.4.1 (utils/Context.sol)
+
+pragma solidity ^0.8.0;
+abstract contract Context {
+    function _msgSender() internal view virtual returns (address) {
+        return msg.sender;
+    }
+
+    function _msgData() internal view virtual returns (bytes calldata) {
+        return msg.data;
+    }
+}
+
+
+
+
+Messages.sol
+
+pragma solidity ^0.8.0;
+contract messages
+{
+    event messagesent(string success);
+    struct Message
+    {
+        string viewedby;
+        string senderID;
+        string receiverID;
+        string message;
+        uint timestamp;
+    }
+    Message[] private _messages;
+    Message[] private _retrievedMessages;
+    uint private _lastDelete=block.timestamp;
+    function _areEqual(string memory a, string memory b) private pure returns (bool)
+    {
+        return (keccak256(abi.encodePacked(a)) == keccak256(abi.encodePacked(b)));
+    }
+    function retrieve(string memory id, string memory userrole) public returns(Message[] memory)
+    {
+        if(block.timestamp-(_lastDelete)>604800)
+        {
+            delete _messages;
+            _lastDelete=block.timestamp;
+        }
+        delete _retrievedMessages;
+        for(uint i=0; i<_messages.length;i++)
+        {
+            if(_areEqual(id,_messages[i].senderID) || _areEqual(id,_messages[i].receiverID) || _areEqual(_messages[i].viewedby,userrole) || _areEqual(_messages[i].viewedby,"everyone"))
+            {
+                _retrievedMessages.push(_messages[i]);
+            }
+        }
+        return _retrievedMessages;
+    }
+    function send(string memory receiver, string memory receivers, string memory sender, string memory message) public
+    {
+        if(block.timestamp-(_lastDelete)>604800)
+        {
+            delete _messages;
+            _lastDelete=block.timestamp;
+        }
+        if(_areEqual(sender, "ADMIN"))
+        {
+            if(_areEqual(receivers,"everyone"))
+            {
+                Message memory new_message;
+                new_message.senderID = sender;
+                new_message.message = message;
+                new_message.timestamp = block.timestamp;
+                new_message.viewedby = "everyone";
+                _messages.push(new_message);
+            }
+            else if(_areEqual(receivers,"investors"))
+            {
+                Message memory new_message;
+                new_message.senderID = sender;
+                new_message.message = message;
+                new_message.timestamp = block.timestamp;
+                new_message.viewedby = "investor";
+                _messages.push(new_message);
+            }
+            else if(_areEqual(receivers,"ideators"))
+            {
+                Message memory new_message;
+                new_message.senderID = sender;
+                new_message.message = message;
+                new_message.timestamp = block.timestamp;
+                new_message.viewedby = "ideator";
+                _messages.push(new_message);
+            }
+            else
+            {
+                Message memory new_message;
+                new_message.senderID = sender;
+                new_message.receiverID = receiver;
+                new_message.message = message;
+                new_message.timestamp = block.timestamp;
+                _messages.push(new_message);
+            }
+            emit messagesent("YES");
+            return;
+        }
+        else
+        {
+            Message memory new_message;
+            new_message.senderID = sender;
+            new_message.receiverID = receiver;
+            new_message.message = message;
+            new_message.timestamp = block.timestamp;
+            _messages.push(new_message);
+            emit messagesent("YES");
+            return;
+        }
+    }
+}
+
+
+ideators.sol
+
+pragma solidity ^0.8.0;
+contract ideators
+{
+    event infoupdated(string success);
+    struct Profile
+    {
+        string name;
+        string userid;
+        string about;
+        string[] investors;
+        uint[] sharesbought;
+        uint[] assets;
+        uint[] liabilities;
+        uint pv;
+        uint shares;
+        uint[] timestamp;
+    }
+    Profile[] private _ideators;
+    Profile new_ideator;
+    function _areEqual(string memory a, string memory b) private pure returns (bool)
+    {
+        return (keccak256(abi.encodePacked(a)) == keccak256(abi.encodePacked(b)));
+    }
+    function addIdeator(string memory title, string memory id, string memory desc, uint a, uint l, uint value, uint count) public
+    {
+        new_ideator.name = title;
+        new_ideator.userid = id;
+        new_ideator.about = desc;
+        new_ideator.assets.push(a);
+        new_ideator.liabilities.push(l);
+        new_ideator.pv = value;
+        new_ideator.shares = count;
+        new_ideator.timestamp.push(block.timestamp);
+        _ideators.push(new_ideator);
+        delete new_ideator;
+        emit infoupdated("YES");
+        return;
+    }
+    function updateIdeator(string memory id, string memory desc, uint a, uint l) public
+    {
+        for(uint i=0;i<_ideators.length;i++)
+        {
+            if(_areEqual(_ideators[i].userid,id))
+            {
+                _ideators[i].about = desc;
+                _ideators[i].assets.push(a);
+                _ideators[i].liabilities.push(l);
+                _ideators[i].timestamp.push(block.timestamp);
+                emit infoupdated("YES");
+                return;
+            }
+        }
+        emit infoupdated("NO");
+        return;
+    }
+    function retrieve() public view returns(Profile[] memory)
+    {
+        return _ideators;
+    }
+}
+
+
+
+investors.sol
+
+pragma solidity ^0.8.0;
+contract investors
+{
+    event infoupdated(string success);
+    event tokenChance(string token);
+    struct Profile
+    {
+        string userid;
+        uint uru;
+        uint vibranium;
+        uint kryptonite;
+        uint adamantium;
+        uint investments;
+        uint transactionPerThousand;
+    }
+    Profile[] private _investors;
+    function _areEqual(string memory a, string memory b) private pure returns (bool)
+    {
+        return (keccak256(abi.encodePacked(a)) == keccak256(abi.encodePacked(b)));
+    }
+    function addInvestor(string memory id) public
+    {
+        Profile memory new_investor;
+        new_investor.userid = id;
+        new_investor.uru = 0;
+        new_investor.vibranium = 0;
+        new_investor.kryptonite = 0;
+        new_investor.adamantium = 0;
+        new_investor.investments = 0;
+        new_investor.transactionPerThousand = 10;
+        _investors.push(new_investor);
+        emit infoupdated("YES");
+        return;
+    }
+    function invested(string memory id) public
+    {
+        for(uint i=0;i<_investors.length;i++)
+        {
+            if(_areEqual(_investors[i].userid,id))
+            {
+                _investors[i].investments += 1;
+                if(_investors[i].investments>=100)
+                {
+                    emit tokenChance("uru");
+                }
+                else if(_investors[i].investments>=50)
+                {
+                    emit tokenChance("vibranium");
+                }
+                else if(_investors[i].investments>=20)
+                {
+                    emit tokenChance("kryptonite");
+                }
+                else if(_investors[i].investments>=10)
+                {
+                    emit tokenChance("adamantium");
+                }
+                emit infoupdated("YES");
+                return;
+            }
+        }
+        emit infoupdated("NO");
+        return;
+    }
+    function redeem(string memory id, string memory token) public
+    {
+        for(uint i=0;i<_investors.length;i++)
+        {
+            if(_areEqual(_investors[i].userid,id))
+            {
+                if(_areEqual(token,"uru"))
+                {
+                    _investors[i].transactionPerThousand = 0;
+                }
+                else if(_areEqual(token,"vibranium"))
+                {
+                    _investors[i].transactionPerThousand = 0;
+                }
+                else if(_areEqual(token,"kryptonite"))
+                {
+                    _investors[i].transactionPerThousand = 5;
+                }
+                else if(_areEqual(token,"adamantium"))
+                {
+                    _investors[i].transactionPerThousand = 9;
+                }
+            }
+        }
+        return;
+    }
+    function retrieve(string memory id) public view returns(Profile memory)
+    {
+        Profile memory investor;
+        for(uint i=0;i<_investors.length;i++)
+        {
+            if(_areEqual(_investors[i].userid,id))
+            {
+                investor = _investors[i];
+            }
+        }
+        return investor;
+    }
+}
