@@ -497,6 +497,16 @@ a
 	background-color: #1e181e;
 	border: 1px solid #00f3ff;
 }
+.ideatorSearchSuggestions
+{
+	cursor:pointer;
+	padding:8px;
+}
+.ideatorSearchSuggestions:hover
+{
+	background-color: #1e181e;
+	border: 1px solid #00f3ff;
+}
 .message
 {
 	padding-bottom: 1rem;
@@ -532,7 +542,12 @@ a
 .button:hover
 {
 	background-color: #1e181e;
-	color: #fed33f;
+	color:#fed33f;
+}
+.button__active
+{
+	background-color: #1e181e;
+	color:#FF6670;
 }
 .button__icon
 {

@@ -73,6 +73,25 @@ var abi=[
 				"type": "string"
 			}
 		],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "string",
+				"name": "id",
+				"type": "string"
+			}
+		],
+		"name": "metamask",
+		"outputs": [
+			{
+				"internalType": "address",
+				"name": "",
+				"type": "address"
+			}
+		],
 		"stateMutability": "view",
 		"type": "function"
 	},
@@ -235,7 +254,102 @@ var abi=[
 		"type": "function"
 	}
 ];
-var contractAddress = "0x4bfC4518368dCd140F265f9523bA04c871694Bf4";
+var contractAddress = "0x1d86871418907b1D16591785a29fEF00A5350d66";
+var abi2 = [
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": false,
+				"internalType": "string",
+				"name": "success",
+				"type": "string"
+			}
+		],
+		"name": "messagesent",
+		"type": "event"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "string",
+				"name": "id",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "userrole",
+				"type": "string"
+			}
+		],
+		"name": "retrieve",
+		"outputs": [
+			{
+				"components": [
+					{
+						"internalType": "string",
+						"name": "viewedby",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "senderID",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "receiverID",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "message",
+						"type": "string"
+					},
+					{
+						"internalType": "uint256",
+						"name": "timestamp",
+						"type": "uint256"
+					}
+				],
+				"internalType": "struct messages.Message[]",
+				"name": "",
+				"type": "tuple[]"
+			}
+		],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "string",
+				"name": "receiver",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "receivers",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "sender",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "message",
+				"type": "string"
+			}
+		],
+		"name": "send",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	}
+];
+var contractAddress2 = "0x8560e505582B0EAB45e4767CC49088D4884A03f8";
 $(".segment-topbar__overline").html("Wallet Address: "+window.sessionStorage.getItem("walletAddress"));
 var userids;
 var unverifiedUsers;
@@ -452,101 +566,6 @@ function rejectUser(ele)
 		return;
 	}
 }
-var abi2 = [
-	{
-		"anonymous": false,
-		"inputs": [
-			{
-				"indexed": false,
-				"internalType": "string",
-				"name": "success",
-				"type": "string"
-			}
-		],
-		"name": "messagesent",
-		"type": "event"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "string",
-				"name": "id",
-				"type": "string"
-			},
-			{
-				"internalType": "string",
-				"name": "userrole",
-				"type": "string"
-			}
-		],
-		"name": "retrieve",
-		"outputs": [
-			{
-				"components": [
-					{
-						"internalType": "string",
-						"name": "viewedby",
-						"type": "string"
-					},
-					{
-						"internalType": "string",
-						"name": "senderID",
-						"type": "string"
-					},
-					{
-						"internalType": "string",
-						"name": "receiverID",
-						"type": "string"
-					},
-					{
-						"internalType": "string",
-						"name": "message",
-						"type": "string"
-					},
-					{
-						"internalType": "uint256",
-						"name": "timestamp",
-						"type": "uint256"
-					}
-				],
-				"internalType": "struct messages.Message[]",
-				"name": "",
-				"type": "tuple[]"
-			}
-		],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "string",
-				"name": "receiver",
-				"type": "string"
-			},
-			{
-				"internalType": "string",
-				"name": "receivers",
-				"type": "string"
-			},
-			{
-				"internalType": "string",
-				"name": "sender",
-				"type": "string"
-			},
-			{
-				"internalType": "string",
-				"name": "message",
-				"type": "string"
-			}
-		],
-		"name": "send",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	}
-];
-var contractAddress2 = "0x52efD1f4Bc085bC3caf3f7b3980da76346747fc4";
 var messagesCount=0;
 var othermessageids=[];
 var retrievedMessages;

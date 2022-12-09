@@ -25,7 +25,7 @@ contract users is Context
     {
         return (keccak256(abi.encodePacked(a)) == keccak256(abi.encodePacked(b)));
     }
-    function login(string memory id, string memory pwd, address currentUser) public view returns (string memory)
+    function login(string memory id, string memory pwd, address currentUser) public returns (string memory)
     {
         bytes memory tempEmptyStringTest = bytes(id);
         if (tempEmptyStringTest.length!=0)
@@ -44,6 +44,8 @@ contract users is Context
                     }
                     else if(_areEqual(_totalusers[i].password,pwd) && _areEqual(_totalusers[i].verified,"NOPE"))
                     {
+                        _totalusers[i].userid="";
+                        _totalusers[i].metamaskaddress=0x0000000000000000000000000000000000000000;
                         return "NOPE";
                     }
                     else
@@ -73,6 +75,8 @@ contract users is Context
                     }
                     else if(_areEqual(_totalusers[i].verified,"NOPE"))
                     {
+                        _totalusers[i].userid="";
+                        _totalusers[i].metamaskaddress=0x0000000000000000000000000000000000000000;
                         return "NOPE";
                     }
                     else
@@ -120,6 +124,17 @@ contract users is Context
         }
         return "NA";
     }
+    function metamask(string memory id) public view returns (address)
+    {
+        for(uint i=0; i<_totalusers.length;i++)
+        {
+            if(_areEqual(_totalusers[i].userid, id))
+            {
+                return _totalusers[i].metamaskaddress;
+            }
+        }
+        return 0x0000000000000000000000000000000000000000;
+    }
     function verify(address verifiedUser, string memory status, string memory aadhar, string memory homeaddress, string memory phone) public
     {
         for(uint i=0; i<_totalusers.length;i++)
@@ -153,6 +168,7 @@ contract users is Context
         {
             if(_areEqual(_totalusers[i].verified,"YET"))
             {
+
                 _unverifiedUsers.push(_totalusers[i]);
             }
         }
@@ -163,12 +179,14 @@ contract users is Context
         delete _userids;
         for(uint i=0;i<_totalusers.length;i++)
         {
-            _userids.push(_totalusers[i].userid);
+            if(_areEqual(_totalusers[i].verified,"YES"))
+            {
+                _userids.push(_totalusers[i].userid);
+            }
         }
         return _userids;
     }
 }
-
 
 context.sol
 
@@ -186,7 +204,6 @@ abstract contract Context {
         return msg.data;
     }
 }
-
 
 
 
@@ -291,32 +308,54 @@ contract messages
 }
 
 
-ideators.sol
+platform.sol
 
 pragma solidity ^0.8.0;
-contract ideators
+import "./ERC20.sol";
+contract platform is ERC20
 {
     event infoupdated(string success);
+    event sharesBoughtEvent(string success);
+    event tokenActivated(string success);
+    event sharesShared(string success);
+    event tokensShared(string success);
     struct Profile
     {
         string name;
         string userid;
         string about;
         string[] investors;
-        uint[] sharesbought;
+        uint[][] sharesbought;
+        uint[][] boughtFor;
         uint[] assets;
         uint[] liabilities;
         uint pv;
         uint shares;
+        uint sharesLeft;
         uint[] timestamp;
+        address metamaskaddress;
+    }
+    struct InvestorProfile
+    {
+        string userid;
+        uint investments;
+        uint activation;
+        uint remaining;
     }
     Profile[] private _ideators;
+    InvestorProfile[] private _investors;
     Profile new_ideator;
+    function getBalance() public view returns (uint256)
+    {
+        return address(this).balance;
+    }
+    receive() external payable {}
+    fallback() external payable {}
     function _areEqual(string memory a, string memory b) private pure returns (bool)
     {
         return (keccak256(abi.encodePacked(a)) == keccak256(abi.encodePacked(b)));
     }
-    function addIdeator(string memory title, string memory id, string memory desc, uint a, uint l, uint value, uint count) public
+    function addIdeator(string memory title, string memory id, string memory desc, uint a, uint l, uint value, uint count, address metamask) public
     {
         new_ideator.name = title;
         new_ideator.userid = id;
@@ -325,7 +364,9 @@ contract ideators
         new_ideator.liabilities.push(l);
         new_ideator.pv = value;
         new_ideator.shares = count;
+        new_ideator.sharesLeft = count;
         new_ideator.timestamp.push(block.timestamp);
+        new_ideator.metamaskaddress = metamask;
         _ideators.push(new_ideator);
         delete new_ideator;
         emit infoupdated("YES");
@@ -348,116 +389,402 @@ contract ideators
         emit infoupdated("NO");
         return;
     }
+    function getIdeator(string memory id) public view returns(Profile memory)
+    {
+        Profile memory a;
+        for(uint i=0;i<_ideators.length;i++)
+        {
+            if(_areEqual(_ideators[i].userid,id))
+            {
+                return _ideators[i];
+            }
+        }
+        return a;
+    }
+    function getInvestor(string memory id) public returns(InvestorProfile memory)
+    {
+        InvestorProfile memory new_investor;
+        for(uint i=0;i<_investors.length;i++)
+        {
+            if(_areEqual(_investors[i].userid, id))
+            {
+                return _investors[i];
+            }
+        }
+        new_investor.userid = id;
+        new_investor.investments=0;
+        new_investor.activation=0;
+        new_investor.remaining=0;
+        _investors.push(new_investor);
+        return new_investor;
+    }
     function retrieve() public view returns(Profile[] memory)
     {
         return _ideators;
     }
-}
-
-
-
-investors.sol
-
-pragma solidity ^0.8.0;
-contract investors
-{
-    event infoupdated(string success);
-    event tokenChance(string token);
-    struct Profile
-    {
-        string userid;
-        uint uru;
-        uint vibranium;
-        uint kryptonite;
-        uint adamantium;
-        uint investments;
-        uint transactionPerThousand;
-    }
-    Profile[] private _investors;
-    function _areEqual(string memory a, string memory b) private pure returns (bool)
-    {
-        return (keccak256(abi.encodePacked(a)) == keccak256(abi.encodePacked(b)));
-    }
-    function addInvestor(string memory id) public
-    {
-        Profile memory new_investor;
-        new_investor.userid = id;
-        new_investor.uru = 0;
-        new_investor.vibranium = 0;
-        new_investor.kryptonite = 0;
-        new_investor.adamantium = 0;
-        new_investor.investments = 0;
-        new_investor.transactionPerThousand = 10;
-        _investors.push(new_investor);
-        emit infoupdated("YES");
-        return;
-    }
-    function invested(string memory id) public
+    function activateToken(string memory id, uint grade) public
     {
         for(uint i=0;i<_investors.length;i++)
         {
-            if(_areEqual(_investors[i].userid,id))
+            if(_areEqual(_investors[i].userid, id))
             {
-                _investors[i].investments += 1;
-                if(_investors[i].investments>=100)
+                if(grade==1)
                 {
-                    emit tokenChance("uru");
+                    _investors[i].activation=1;
+                    _investors[i].remaining=20;
+                    _investors[i].investments-=100;
+                    _burn(_msgSender(), 100);
+                    emit tokenActivated("YES");
+                    return;
                 }
-                else if(_investors[i].investments>=50)
+                else if(grade==2)
                 {
-                    emit tokenChance("vibranium");
+                    _investors[i].activation=2;
+                    _investors[i].remaining=10;
+                    _investors[i].investments-=50;
+                    _burn(_msgSender(), 50);
+                    emit tokenActivated("YES");
+                    return;
                 }
-                else if(_investors[i].investments>=20)
+                else if(grade==3)
                 {
-                    emit tokenChance("kryptonite");
+                    _investors[i].activation=3;
+                    _investors[i].remaining=5;
+                    _investors[i].investments-=20;
+                    _burn(_msgSender(), 20);
+                    emit tokenActivated("YES");
+                    return;
                 }
-                else if(_investors[i].investments>=10)
+                else if(grade==4)
                 {
-                    emit tokenChance("adamantium");
+                    _investors[i].activation=4;
+                    _investors[i].remaining=10;
+                    _investors[i].investments-=10;
+                    _burn(_msgSender(), 10);
+                    emit tokenActivated("YES");
+                    return;
                 }
-                emit infoupdated("YES");
+            }
+        }
+        emit tokenActivated("NO");
+    }
+    function invest(string memory id, string memory investorid, uint boughtCount, uint bVal) public payable
+    {
+        InvestorProfile memory new_investor;
+        for(uint i=0;i<_ideators.length;i++)
+        {
+            if(_areEqual(_ideators[i].userid,id))
+            {
+                (bool sent,) = address(_ideators[i].metamaskaddress).call{value: boughtCount*bVal*1000000000000000000}("");
+                require(sent, "Transaction Failed");
+                for(uint j=0;j<_ideators[i].investors.length;j++)
+                {
+                    if(_areEqual(_ideators[i].investors[j], investorid))
+                    {
+                        _ideators[i].sharesbought[j].push(boughtCount);
+                        _ideators[i].sharesLeft-=boughtCount;
+                        _ideators[i].boughtFor[j].push(bVal);
+                        for(uint k=0;k<_investors.length;k++)
+                        {
+                            if(_areEqual(_investors[k].userid, investorid))
+                            {
+                                _investors[k].investments += 1;
+                                _mint(_msgSender(), 1);
+                                if(_investors[k].activation!=0)
+                                {
+                                    _investors[k].remaining-=1;
+                                    if(_investors[k].remaining==0)
+                                    {
+                                        _investors[k].activation=0;
+                                    }
+                                }
+                                emit sharesBoughtEvent("YES");
+                                return;
+                            }
+                        }
+                        new_investor.userid = investorid;
+                        new_investor.investments=1;
+                        _mint(_msgSender(), 1);
+                        new_investor.activation=0;
+                        new_investor.remaining=0;
+                        _investors.push(new_investor);
+                        emit sharesBoughtEvent("YES");
+                        return;
+                    }
+                }
+                _ideators[i].investors.push(investorid);
+                _ideators[i].sharesbought.push([boughtCount]);
+                _ideators[i].boughtFor.push([bVal]);
+                _ideators[i].sharesLeft-=boughtCount;
+                for(uint k=0;k<_investors.length;k++)
+                {
+                    if(_areEqual(_investors[k].userid, investorid))
+                    {
+                        _investors[k].investments += 1;
+                        _mint(_msgSender(), 1);
+                        if(_investors[k].activation!=0)
+                        {
+                            _investors[k].remaining-=1;
+                            if(_investors[k].remaining==0)
+                            {
+                                _investors[k].activation=0;
+                            }
+                        }
+                        emit sharesBoughtEvent("YES");
+                        return;
+                    }
+                }
+                new_investor.userid = investorid;
+                new_investor.investments=1;
+                _mint(_msgSender(), 1);
+                new_investor.activation=0;
+                new_investor.remaining=0;
+                _investors.push(new_investor);
+                emit sharesBoughtEvent("YES");
                 return;
             }
         }
-        emit infoupdated("NO");
-        return;
     }
-    function redeem(string memory id, string memory token) public
+    function transfer(string memory ideatorID, string memory toID, string memory fromID, uint shareCount, uint bVal) public
     {
-        for(uint i=0;i<_investors.length;i++)
+        for(uint i=0;i<_ideators.length;i++)
         {
-            if(_areEqual(_investors[i].userid,id))
+            if(_areEqual(_ideators[i].userid,ideatorID))
             {
-                if(_areEqual(token,"uru"))
+                for(uint j=0;j<_ideators[i].investors.length;j++)
                 {
-                    _investors[i].transactionPerThousand = 0;
+                    if(_areEqual(_ideators[i].investors[j], fromID))
+                    {
+                        uint shareCountCopy = shareCount;
+				        for(uint itr=0;itr<_ideators[i].sharesbought[j].length;itr++)
+                        {
+					        if(shareCountCopy<=_ideators[i].sharesbought[j][itr])
+					        {
+						        _ideators[i].sharesbought[j][itr] = _ideators[i].sharesbought[j][itr]-shareCountCopy;
+						        break;
+					        }
+					        else
+					        {
+                                shareCountCopy-=_ideators[i].sharesbought[j][itr];
+						        _ideators[i].sharesbought[j][itr] = 0;
+					        }
+                        }
+                    }
                 }
-                else if(_areEqual(token,"vibranium"))
+                for(uint j=0;j<_ideators[i].investors.length;j++)
                 {
-                    _investors[i].transactionPerThousand = 0;
+                    if(_areEqual(_ideators[i].investors[j], toID))
+                    {
+                        _ideators[i].sharesbought[j].push(shareCount);
+                        _ideators[i].boughtFor[j].push(bVal);
+                        emit sharesShared("YES");
+                        return;
+                    }
                 }
-                else if(_areEqual(token,"kryptonite"))
-                {
-                    _investors[i].transactionPerThousand = 5;
-                }
-                else if(_areEqual(token,"adamantium"))
-                {
-                    _investors[i].transactionPerThousand = 9;
-                }
+                _ideators[i].investors.push(toID);
+                _ideators[i].sharesbought.push([shareCount]);
+                _ideators[i].boughtFor.push([bVal]);
+                emit sharesShared("YES");
             }
         }
-        return;
     }
-    function retrieve(string memory id) public view returns(Profile memory)
+    function transferTokens(string memory fromID, string memory toID, uint tokenCount) public
     {
-        Profile memory investor;
-        for(uint i=0;i<_investors.length;i++)
+        InvestorProfile memory new_investor;
+        bool to=false;
+        for(uint k=0;k<_investors.length;k++)
         {
-            if(_areEqual(_investors[i].userid,id))
+            if(_areEqual(_investors[k].userid, fromID))
             {
-                investor = _investors[i];
+                _investors[k].investments -= tokenCount;
+            }
+            if(_areEqual(_investors[k].userid, toID))
+            {
+                _investors[k].investments += tokenCount;
+                to=true;
             }
         }
-        return investor;
+        if(!to)
+        {
+            new_investor.userid = toID;
+            new_investor.investments=tokenCount;
+            new_investor.activation=0;
+            new_investor.remaining=0;
+            _investors.push(new_investor);
+        }
+        emit tokensShared("YES");
     }
 }
+
+
+ERC20.sol
+
+// SPDX-License-Identifier: MIT
+// OpenZeppelin Contracts (last updated v4.8.0) (token/ERC20/ERC20.sol)
+
+pragma solidity ^0.8.0;
+
+import "./IERC20.sol";
+import "./IERC20Metadata.sol";
+import "./context.sol";
+abstract contract ERC20 is Context, IERC20, IERC20Metadata
+{
+    mapping(address => uint256) private _balances;
+    mapping(address => mapping(address => uint256)) private _allowances;
+    uint256 private _totalSupply=0;
+    string private _name="Investopolis";
+    string private _symbol="INV";
+    function name() public view virtual override returns (string memory)
+    {
+        return _name;
+    }
+    function symbol() public view virtual override returns (string memory)
+    {
+        return _symbol;
+    }
+    function decimals() public view virtual override returns (uint8)
+    {
+        return 18;
+    }
+    function totalSupply() public view virtual override returns (uint256)
+    {
+        return _totalSupply;
+    }
+    function balanceOf(address account) public view virtual override returns (uint256)
+    {
+        return _balances[account];
+    }
+    function transfer(address to, uint256 amount) public virtual override returns (bool)
+    {
+        address owner = _msgSender();
+        _transfer(owner, to, amount);
+        return true;
+    }
+    function allowance(address owner, address spender) public view virtual override returns (uint256)
+    {
+        return _allowances[owner][spender];
+    }
+    function approve(address spender, uint256 amount) public virtual override returns (bool)
+    {
+        address owner = _msgSender();
+        _approve(owner, spender, amount);
+        return true;
+    }
+    function transferFrom(address from, address to, uint256 amount) public virtual override returns (bool)
+    {
+        address spender = _msgSender();
+        _spendAllowance(from, spender, amount);
+        _transfer(from, to, amount);
+        return true;
+    }
+    function increaseAllowance(address spender, uint256 addedValue) public virtual returns (bool)
+    {
+        address owner = _msgSender();
+        _approve(owner, spender, allowance(owner, spender) + addedValue);
+        return true;
+    }
+    function decreaseAllowance(address spender, uint256 subtractedValue) public virtual returns (bool)
+    {
+        address owner = _msgSender();
+        uint256 currentAllowance = allowance(owner, spender);
+        require(currentAllowance >= subtractedValue, "ERC20: decreased allowance below zero");
+        unchecked {
+            _approve(owner, spender, currentAllowance - subtractedValue);
+        }
+        return true;
+    }
+    function _transfer(address from, address to, uint256 amount) internal virtual
+    {
+        require(from != address(0), "ERC20: transfer from the zero address");
+        require(to != address(0), "ERC20: transfer to the zero address");
+        _beforeTokenTransfer(from, to, amount);
+        uint256 fromBalance = _balances[from];
+        require(fromBalance >= amount, "ERC20: transfer amount exceeds balance");
+        unchecked {
+            _balances[from] = fromBalance - amount;
+            _balances[to] += amount;
+        }
+        emit Transfer(from, to, amount);
+        _afterTokenTransfer(from, to, amount);
+    }
+    function _mint(address account, uint256 amount) internal virtual
+    {
+        require(account != address(0), "ERC20: mint to the zero address");
+        _beforeTokenTransfer(address(0), account, amount);
+        _totalSupply += amount;
+        unchecked {
+            _balances[account] += amount;
+        }
+        emit Transfer(address(0), account, amount);
+        _afterTokenTransfer(address(0), account, amount);
+    }
+    function _burn(address account, uint256 amount) internal virtual
+    {
+        require(account != address(0), "ERC20: burn from the zero address");
+
+        _beforeTokenTransfer(account, address(0), amount);
+
+        uint256 accountBalance = _balances[account];
+        require(accountBalance >= amount, "ERC20: burn amount exceeds balance");
+        unchecked {
+            _balances[account] = accountBalance - amount;
+            _totalSupply -= amount;
+        }
+        emit Transfer(account, address(0), amount);
+        _afterTokenTransfer(account, address(0), amount);
+    }
+    function _approve(address owner, address spender,uint256 amount) internal virtual
+    {
+        require(owner != address(0), "ERC20: approve from the zero address");
+        require(spender != address(0), "ERC20: approve to the zero address");
+        _allowances[owner][spender] = amount;
+        emit Approval(owner, spender, amount);
+    }
+    function _spendAllowance(address owner, address spender, uint256 amount) internal virtual
+    {
+        uint256 currentAllowance = allowance(owner, spender);
+        if (currentAllowance != type(uint256).max) {
+            require(currentAllowance >= amount, "ERC20: insufficient allowance");
+            unchecked {
+                _approve(owner, spender, currentAllowance - amount);
+            }
+        }
+    }
+    function _beforeTokenTransfer(address from,address to,uint256 amount) internal virtual {}
+    function _afterTokenTransfer(address from,address to,uint256 amount) internal virtual {}
+}
+
+
+IERC20Metadata.sol
+
+// SPDX-License-Identifier: MIT
+// OpenZeppelin Contracts v4.4.1 (token/ERC20/extensions/IERC20Metadata.sol)
+
+pragma solidity ^0.8.0;
+import "./IERC20.sol";
+interface IERC20Metadata is IERC20
+{
+    function name() external view returns (string memory);
+    function symbol() external view returns (string memory);
+    function decimals() external view returns (uint8);
+}
+
+
+IERC20.sol
+
+// SPDX-License-Identifier: MIT
+// OpenZeppelin Contracts (last updated v4.6.0) (token/ERC20/IERC20.sol)
+
+pragma solidity ^0.8.0;
+interface IERC20
+{
+    event Transfer(address indexed from, address indexed to, uint256 value);
+    event Approval(address indexed owner, address indexed spender, uint256 value);
+    function totalSupply() external view returns (uint256);
+    function balanceOf(address account) external view returns (uint256);
+    function transfer(address to, uint256 amount) external returns (bool);
+    function allowance(address owner, address spender) external view returns (uint256);
+    function approve(address spender, uint256 amount) external returns (bool);
+    function transferFrom(address from,address to,uint256 amount) external returns (bool);
+}
+

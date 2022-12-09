@@ -1,4 +1,39 @@
 Admin Account: 0x10046aF8439F1c7571ffbc6CAb2AC0F1E866ac55
 IPFS Upload for Verification: IPFS.Tech's IPFS.IO JS CDN
-Login Contract Address: 0x4bfC4518368dCd140F265f9523bA04c871694Bf4
-Messages Contract Address: 0x52efD1f4Bc085bC3caf3f7b3980da76346747fc4
+Login Contract Address: 0x1d86871418907b1D16591785a29fEF00A5350d66
+Messages Contract Address: 0x8560e505582B0EAB45e4767CC49088D4884A03f8
+Platform Contract Address: 0x42C9bf392ab95e4b40ba22BeEC47503cC54dEACC
+
+Public address of the key:   0x8f5011CD883D368cba8c1c988002972B69444e49
+Path of the secret key file: data\keystore\UTC--2022-12-07T04-11-17.617557300Z--8f5011cd883d368cba8c1c988002972b69444e49
+
+Public address of the key:   0x44770EF95a09B5882688296BAE6198E98DbaD3AE
+Path of the secret key file: data\keystore\UTC--2022-12-07T04-13-04.796633700Z--44770ef95a09b5882688296bae6198e98dbad3ae
+
+Public address of the key:   0x91408659cCd79f82D57575DC35382d7A483E652E
+Path of the secret key file: data\keystore\UTC--2022-12-07T04-20-10.266108200Z--91408659ccd79f82d57575dc35382d7a483e652e
+
+Public address of the key:   0xeE57fd5e62Df1062A87AB7D9F83522C49815fFD3
+Path of the secret key file: data\keystore\UTC--2022-12-07T04-20-34.876951800Z--ee57fd5e62df1062a87ab7d9f83522c49815ffd3
+
+Public address of the key:   0xB319De446E341bd68b9AA62ECb0d2dd612dE84F8
+Path of the secret key file: data\keystore\UTC--2022-12-07T04-20-58.615197700Z--b319de446e341bd68b9aa62ecb0d2dd612de84f8
+
+Public address of the key:   0xD41aA1ba26B8E4635B60E814292B94A70e0D09C7
+Path of the secret key file: data\keystore\UTC--2022-12-07T04-21-21.158332300Z--d41aa1ba26b8e4635b60e814292b94a70e0d09c7
+
+Public address of the key:   0xd6077bC329F9E773970f9d5CB07E568bc9c2dAbC
+Path of the secret key file: data\keystore\UTC--2022-12-07T04-21-43.443628600Z--d6077bc329f9e773970f9d5cb07e568bc9c2dabc
+
+Public address of the key:   0x12a9cBC6eb0cD8A8549dcde594EFc2EF33FAb9Ed
+Path of the secret key file: data\keystore\UTC--2022-12-07T04-22-05.961849300Z--12a9cbc6eb0cd8a8549dcde594efc2ef33fab9ed
+
+Public address of the key:   0x0Fe216C38425bFaFb85C67128cc5C1C9825ee90c
+Path of the secret key file: data\keystore\UTC--2022-12-07T04-22-25.484063400Z--0fe216c38425bfafb85c67128cc5c1c9825ee90c
+
+Public address of the key:   0x95e2C8e8f127F8302493e6EfE8d82981E1Be4Cd0
+Path of the secret key file: data\keystore\UTC--2022-12-07T04-22-43.465793800Z--95e2c8e8f127f8302493e6efe8d82981e1be4cd0
+
+BootNode enode:
+enode://fe91355159fc2987e9602dc0354d9e76066b47a486abe5c75e692d90c561875ecfeb975428095b46d920ebb1eb190e02d663166e2eeea2e03a2ed49045f541fb@127.0.0.1:0?discport=30301
+

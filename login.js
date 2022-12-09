@@ -70,6 +70,25 @@ var abi = [
 				"type": "string"
 			}
 		],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "string",
+				"name": "id",
+				"type": "string"
+			}
+		],
+		"name": "metamask",
+		"outputs": [
+			{
+				"internalType": "address",
+				"name": "",
+				"type": "address"
+			}
+		],
 		"stateMutability": "view",
 		"type": "function"
 	},
@@ -232,7 +251,7 @@ var abi = [
 		"type": "function"
 	}
 ];
-var contractAddress = "0x4bfC4518368dCd140F265f9523bA04c871694Bf4";
+var contractAddress = "0x1d86871418907b1D16591785a29fEF00A5350d66";
 $("#loginButton").click(function()
 {
     if(chosen)
