@@ -1,6 +1,5 @@
 var currentAccount;
 var chosen=false;
-var idproof="";
 async function loadWeb3()
 {
     if(window.ethereum)
@@ -9,17 +8,32 @@ async function loadWeb3()
         window.ethereum.enable();
         var checkCurrentAccount = setInterval(function(){
             web3.eth.getAccounts().then(function(acc){
+				if(chosen)
+				{
+					$("#chooseMetamask").html(`<span></span>
+						<span></span>
+						<span></span>
+						<span></span>`+
+						acc[0]);
+				}
                 $("#currentMetamask input").val(acc[0]);
                 currentAccount = acc[0];
             });
         }, 1000);
     }
+	try
+	{
+		window.contract = await new web3.eth.Contract(abi, contractAddress);
+	}
+	catch(err)
+	{
+		alert(err.message);
+	}
 }
 async function load()
 {
     await loadWeb3();
 }
-load();
 $("#chooseMetamask").click(function()
 {
     $("#chooseMetamask").html(`<span></span>
@@ -41,8 +55,53 @@ var abi = [
 				"type": "string"
 			}
 		],
+		"name": "adminEvent",
+		"type": "event"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": false,
+				"internalType": "string",
+				"name": "success",
+				"type": "string"
+			}
+		],
 		"name": "registerevent",
 		"type": "event"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "newAdmin",
+				"type": "address"
+			}
+		],
+		"name": "addAdmin",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "string",
+				"name": "id",
+				"type": "string"
+			}
+		],
+		"name": "getInfo",
+		"outputs": [
+			{
+				"internalType": "string[2]",
+				"name": "",
+				"type": "string[2]"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
 	},
 	{
 		"inputs": [
@@ -53,7 +112,7 @@ var abi = [
 			},
 			{
 				"internalType": "string",
-				"name": "pwd",
+				"name": "pwd2",
 				"type": "string"
 			},
 			{
@@ -126,6 +185,43 @@ var abi = [
 		"type": "function"
 	},
 	{
+		"inputs": [
+			{
+				"internalType": "string",
+				"name": "id",
+				"type": "string"
+			},
+			{
+				"internalType": "address",
+				"name": "currentUser",
+				"type": "address"
+			}
+		],
+		"name": "registerPossible",
+		"outputs": [
+			{
+				"internalType": "string",
+				"name": "",
+				"type": "string"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "removableFiles",
+		"outputs": [
+			{
+				"internalType": "string[]",
+				"name": "",
+				"type": "string[]"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
 		"inputs": [],
 		"name": "unverified",
 		"outputs": [
@@ -137,9 +233,9 @@ var abi = [
 						"type": "string"
 					},
 					{
-						"internalType": "string",
+						"internalType": "bytes32",
 						"name": "password",
-						"type": "string"
+						"type": "bytes32"
 					},
 					{
 						"internalType": "address",
@@ -170,6 +266,11 @@ var abi = [
 						"internalType": "string",
 						"name": "verified",
 						"type": "string"
+					},
+					{
+						"internalType": "address",
+						"name": "verifiedBy",
+						"type": "address"
 					},
 					{
 						"internalType": "string",
@@ -218,6 +319,71 @@ var abi = [
 		"type": "function"
 	},
 	{
+		"inputs": [],
+		"name": "usersdb",
+		"outputs": [
+			{
+				"components": [
+					{
+						"internalType": "string",
+						"name": "userid",
+						"type": "string"
+					},
+					{
+						"internalType": "bytes32",
+						"name": "password",
+						"type": "bytes32"
+					},
+					{
+						"internalType": "address",
+						"name": "metamaskaddress",
+						"type": "address"
+					},
+					{
+						"internalType": "string",
+						"name": "role",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "aadharNum",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "home",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "mobile",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "verified",
+						"type": "string"
+					},
+					{
+						"internalType": "address",
+						"name": "verifiedBy",
+						"type": "address"
+					},
+					{
+						"internalType": "string",
+						"name": "idimage",
+						"type": "string"
+					}
+				],
+				"internalType": "struct users.User[]",
+				"name": "",
+				"type": "tuple[]"
+			}
+		],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
 		"inputs": [
 			{
 				"internalType": "address",
@@ -251,7 +417,8 @@ var abi = [
 		"type": "function"
 	}
 ];
-var contractAddress = "0x1d86871418907b1D16591785a29fEF00A5350d66";
+var contractAddress = "0x6f1E85EFDcFb1fFdC54FC103BA61145eACa2581c";
+load();
 $("#loginButton").click(function()
 {
     if(chosen)
@@ -260,15 +427,6 @@ $("#loginButton").click(function()
         {
             async function login()
             {
-                try
-                {
-                    window.contract = await new web3.eth.Contract(abi, contractAddress);
-                }
-                catch(err)
-                {
-                    alert(err.message);
-                    return;
-                }
                 var loginBool = await window.contract.methods.login("","",currentAccount).call();
                 if(loginBool=="investor")
                 {
@@ -283,6 +441,20 @@ $("#loginButton").click(function()
 					window.sessionStorage.setItem("userRole", "ideator");
 					window.sessionStorage.setItem("loginMode","1");
                     window.location = "ideator.html";
+                }
+				else if(loginBool=="vendor")
+                {
+					window.sessionStorage.setItem("walletAddress", currentAccount);
+					window.sessionStorage.setItem("userRole", "vendor");
+					window.sessionStorage.setItem("loginMode","1");
+                    window.location = "vendor.html";
+                }
+				else if(loginBool=="registrar")
+                {
+					window.sessionStorage.setItem("walletAddress", currentAccount);
+					window.sessionStorage.setItem("userRole", "registrar");
+					window.sessionStorage.setItem("loginMode","1");
+                    window.location = "registrar.html";
                 }
 				else if(loginBool=="admin")
 				{
@@ -320,15 +492,6 @@ $("#loginButton").click(function()
             {
                 async function login2()
                 {
-                    try
-                    {
-                        window.contract = await new web3.eth.Contract(abi, contractAddress);
-                    }
-                    catch(err)
-                    {
-                        alert(err.message);
-                        return;
-                    }
                     var loginBool = await window.contract.methods.login($("#loginuserid").val().toUpperCase(),$("#loginpwd").val(),currentAccount).call();
                     if(loginBool=="investor")
                     {
@@ -345,6 +508,22 @@ $("#loginButton").click(function()
 						window.sessionStorage.setItem("userRole", "ideator");
 						window.sessionStorage.setItem("loginMode","2");
                         window.location = "ideator.html";
+                    }
+					else if(loginBool=="vendor")
+                    {
+						window.sessionStorage.setItem("walletAddress", currentAccount);
+						window.sessionStorage.setItem("username", $("#loginuserid").val().toUpperCase());
+						window.sessionStorage.setItem("userRole", "vendor");
+						window.sessionStorage.setItem("loginMode","2");
+                        window.location = "vendor.html";
+                    }
+					else if(loginBool=="registrar")
+                    {
+						window.sessionStorage.setItem("walletAddress", currentAccount);
+						window.sessionStorage.setItem("username", $("#loginuserid").val().toUpperCase());
+						window.sessionStorage.setItem("userRole", "registrar");
+						window.sessionStorage.setItem("loginMode","2");
+                        window.location = "registrar.html";
                     }
 					else if(loginBool=="admin")
 					{
@@ -381,61 +560,95 @@ $("#loginButton").click(function()
         }
     }
 });
-$("#registerButton").click(function()
+$("#registerButton").click(async function()
 {
-    if($("#registeruserid").val().length>=8 && $("#registerpwd1").val().length>=8 && $("#registerpwd2").val().length>=8 && $("#registerpwd1").val()==$("#registerpwd2").val() && $("#registerrole").val()!==null && uploaded_image.length>0)
+	$("#registerButton").prop('disabled', true);
+    if($("#registeruserid").val().length>=8 && !$("#registeruserid").val().includes(" ") && $("#registerpwd1").val().length>=8 && !$("#registerpwd1").val().includes(" ") && $("#registerpwd1").val()==$("#registerpwd2").val() && $("#registerrole").val()!==null && uploaded_image.length>0)
     {
         try
         {
             async function register()
             {
-				let node = await Ipfs.create();
-				let {path} = await node.add(uploaded_image);
-                try
-                {
-                    window.contract = await new web3.eth.Contract(abi, contractAddress);
-                }
-                catch(err)
-                {
-                    alert(err.message);
-                    return;
-                }
-                web3.eth.getAccounts().then(function(acc){
-                    accounts = acc;
-                    window.contract.methods.register($("#registeruserid").val().toUpperCase(),$("#registerpwd1").val(),currentAccount,$("#registerrole").val(), path).send({from: accounts[0], gas: 4000000}, function(err, result) {
-                        if(err)
-                        {
-                            alert(err);
-                        }
-                    }).on("receipt",function(res)
+				var encryptedImageDataString = CryptoJS.AES.encrypt(uploaded_image, $("#registeruserid").val()).toString();
+				$.ajax({
+					"async": true,
+					"crossDomain": true,
+					"url": "https://api.web3.storage/upload",
+					"method": "POST",
+					"headers": {
+					  "accept": "application/json",
+					  "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkaWQ6ZXRocjoweEZmMjMzNkE4NjdFMzQxYmUyYTI4QUI4YTU5ZDQ3MmNFRjQzNDk1MTIiLCJpc3MiOiJ3ZWIzLXN0b3JhZ2UiLCJpYXQiOjE2Nzk3NjEyNjM3NDEsIm5hbWUiOiJJbnZlc3RvcG9saXMifQ.yXRVRbyOmctb8oc-_MiZXWIH2uzG4ePN17DTF-H2hwM",
+					},
+					"data": encryptedImageDataString,
+					success: async function (data) {
+						var path = data["cid"];
+						web3.eth.getAccounts().then(function(acc){
+							accounts = acc;
+							window.contract.methods.register($("#registeruserid").val().toUpperCase(),$("#registerpwd1").val(),currentAccount,$("#registerrole").val(), path).send({from: accounts[0], gas: 4000000}, function(err, result) {
+								if(err)
+								{
+									alert(err);
+								}
+							}).on("receipt",function(res)
+							{
+								if(res.events.registerevent.returnValues.success=="YES")
+								{
+									alert("Registration request submitted! You will be notified via SMS once the verification is done");
+									$("#registerButton").prop('disabled', false);
+								}
+								else if(res.events.registerevent.returnValues.success=="NO")
+								{
+									alert("Metamask Account/Username already exists!");
+									$("#registerButton").prop('disabled', false);
+								}
+								else
+								{
+									alert("Registration Unsuccessful");
+									$("#registerButton").prop('disabled', false);
+								}
+							});
+						});
+					},
+					error: function (e)
 					{
-                        if(res.events.registerevent.returnValues.success=="YES")
-						{
-							alert("Registration request submitted! You will be notified by SMS once the verification is done");
-						}
-						else if(res.events.registerevent.returnValues.success=="NO")
-						{
-							alert("Metamask Account/Username already exists!");
-						}
-						else
-						{
-							alert("Registration Unsuccessful");
-						}
-					});
-                });
+						console.log("ERROR: ", e);
+						$("#registerButton").prop('disabled', false);
+					}
+				});
             }
-            register();
+			var possible = await window.contract.methods.registerPossible($("#registeruserid").val().toUpperCase(),currentAccount).call();
+			if(possible=="YES")
+			{
+				register();
+			}
+			else
+			{
+				alert("Metamask Account/Username already exists!");
+				$("#registerButton").prop('disabled', false);
+			}
         }
         catch(err)
         {
             alert(err.message);
+			$("#registerButton").prop('disabled', false);
             return;
         }
     }
     else
     {
         alert("Fill in the details properly! The credentials should be a minimum of 8 characters in length");
+		$("#registerButton").prop('disabled', false);
     }
+});
+$("#registerrole").on("change", function(){
+	if(this.value=="registrar")
+	{
+		$("#buttonText").html("Upload ID Proof");
+	}
+	else
+	{
+		$("#buttonText").html("Upload Aadhar");
+	}
 });
 var uploaded_image="";
 $('[data-image-uploader-button]').click(function() {
@@ -454,3 +667,13 @@ $('[data-image-uploader]').change(function()
 	});
 	reader.readAsDataURL(this.files[0]);
 });
+function registerClicked()
+{
+	$(".login-page").removeClass("active");
+	$(".register-page").addClass("active");
+}
+function loginClicked()
+{
+	$(".register-page").removeClass("active");
+	$(".login-page").addClass("active");
+}

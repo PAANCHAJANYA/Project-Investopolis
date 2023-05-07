@@ -319,3 +319,53 @@ body
 {
     color: rgba(0,0,0,.4);
 }
+.switch
+{
+    font-size: 16px;
+    color: #fff;
+    display: none;
+}
+.switch a
+{
+    text-transform: none !important;
+    font-size: 16px !important;
+    padding: 0px !important;
+    font-size: 16px !important;
+    letter-spacing:normal !important;
+    display: inline !important;
+}
+.switch a:hover
+{
+    color:#fed33f !important;
+    background:none;
+    border-radius:0px;
+    box-shadow:none;
+}
+@media only screen and (max-width: 1000px)
+{
+    .login-box
+    {
+        width: min-content;
+        min-width: 350px;
+    }
+    .login-page, .register-page
+    {
+        width: 100%;
+    }
+    .switch
+    {
+        display: block;
+    }
+    .middle-line
+    {
+        display: none !important;
+    }
+    .login-page:not(.active)
+    {
+        display: none;
+    }
+    .register-page:not(.active)
+    {
+        display: none;
+    }
+}
