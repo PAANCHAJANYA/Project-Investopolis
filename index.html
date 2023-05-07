@@ -5,7 +5,12 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel='stylesheet' type='text/css' href='login.css'>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@200;300;400;500&family=Raleway:wght@100;200;300;400;500&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel='stylesheet' type='text/css' href='welcome.css'>
     <link rel='icon' type='image/icon type' href='assets/tabIcon.png'>
 </head>
 <body>
@@ -18,85 +23,300 @@
             }
         }
     </script>
-    <div id="metamask">
-        <div class="login-box">
-            <div class="login-page">
-                <h2>Login</h2>
-                <form target="DummyFrame">
-                    <a href="#" style="text-align:center;margin: 20px 0px;" id="chooseMetamask">
-                        <span></span>
-                        <span></span>
-                        <span></span>
-                        <span></span>
-                        Choose Metamask Account
-                    </a>
-                    <div class="striped">
-                        <span class="striped-line"></span>
-                        <span class="striped-text">OR</span>
-                        <span class="striped-line"></span>
-                    </div>
-                    <div class="user-box" style="margin-top: 32px;">
-                        <input type="text" required name="loginUserName" id="loginuserid" style="text-transform:uppercase;" autocomplete="off">
-                        <label>Username</label>
-                    </div>
-                    <div class="user-box" style="margin-bottom: 32px;">
-                        <input type="password" required name="loginPassword" id="loginpwd">
-                        <label>Password</label>
-                    </div>
-                    <button type="button" id="loginButton">LOGIN</button>
-                </form>
-            </div>
-            <div style="text-align:center;display:flex;flex-direction:column;justify-content:space-around;align-items:center;">
-                <div class="vertical-partition"></div>
-                <img src="assets/tabIcon.png"/>
-                <div class="vertical-partition"></div>
-            </div>
-            <div class="register-page">
-                <h2>Register</h2>
-                <form target="DummyFrame">
-                    <div class="user-box" id="currentMetamask">
-                        <input type="text" name="registerMetamask" required readonly>
-                        <label>Metamask Wallet Address</label>
-                    </div>
-                    <span class="custom-dropdown">
-                        <select id="registerrole">
-                            <option selected disabled>Choose Profile</option>
-                            <option value="investor">Investor</option>  
-                            <option value="ideator">Ideator</option>
-                        </select>
-                    </span>
-                    <div class="user-box">
-                        <input type="text" name="registerUserName" autocomplete="off" required id="registeruserid" style="text-transform:uppercase;">
-                        <label>Username</label>
-                    </div>
-                    <div class="user-box">
-                        <input type="password" name="registerSetPassword" required id="registerpwd1">
-                        <label>Set Password</label>
-                    </div>
-                    <div class="user-box">
-                        <input type="password" name="registerConfirmPassword" required id="registerpwd2">
-                        <label>Confirm Password</label>
-                    </div>
-                    <div id="idproofcontainer">
-                        <button type="button" data-image-uploader-button id="uploadIDButton">
-                            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="20" height="20" viewBox="0 0 487.451 487.451" style="enable-background:new 0 0 487.451 487.451;fill:white;" xml:space="preserve">
-                                <g>
-                                    <path d="M371.694,63.921h-87.83V88.06c0,4.046-3.281,7.326-7.326,7.326h-59.521c-3.164,0-5.851-2.01-6.876-4.819   c0.353,0.054,0.71,0.089,1.077,0.089h59.521c4.045,0,7.325-3.28,7.325-7.326V7.326c0-4.045-3.28-7.326-7.325-7.326h-59.521   c-4.047,0-7.326,3.281-7.326,7.326v56.596h-88.136c-4.046,0-7.326,3.281-7.326,7.326v408.879c0,4.045,3.28,7.324,7.326,7.324   h255.938c4.046,0,7.326-3.279,7.326-7.324V71.247C379.021,67.203,375.74,63.921,371.694,63.921z M226.48,26.247h28.994   c5.271,0,9.541,4.271,9.541,9.54s-4.271,9.54-9.541,9.54H226.48c-5.268,0-9.54-4.271-9.54-9.54S221.212,26.247,226.48,26.247z    M205.566,169.084l0.293-0.337c1.13-0.82,1.68-2.11,1.464-3.43c-2.823-17.042-0.974-24.141-0.336-25.921   c4.931-15.135,20.479-22.223,23.53-23.474c0.638-0.248,1.827-0.615,3.082-0.811l0.32-0.075l2.575-0.143l0.014,0.158l0.55-0.045   l2.183-0.386c0.479,0.003,6.479,0.752,15.52,3.53l6.237,2.14c11.382,3.365,16.676,9.663,17.656,10.922   c9.139,10.367,6.701,26.012,4.424,34.415c-0.248,0.966-0.098,1.975,0.449,2.796l0.516,0.659c0.834,1.11,1.146,4.843-0.719,11.769   c-0.383,2.26-1.213,4.094-2.457,5.315c-0.429,0.473-0.75,1.117-0.871,1.807c-3.096,18.125-19.323,38.402-36.438,38.402   c-14.546,0-31.129-18.662-34.11-38.384c-0.11-0.72-0.417-1.361-0.918-1.912c-1.238-1.285-2.035-3.145-2.518-5.899   C204.573,174.992,204.429,170.824,205.566,169.084z M172.086,248.342c0.121-0.156,3.497-4.445,11.511-7.504   c0,0,17.322-6.747,17.646-6.855c9.015-3.272,18.066-10.093,18.066-10.093l0.621,0.539c7.484,6.446,15.589,9.857,23.432,9.857   c0.045,0,0.091-0.004,0.136-0.006c0,0,0.546,0.006,0.591,0.006c7.843,0,15.947-3.411,23.432-9.857l0.622-0.539   c0,0,9.051,6.82,18.064,10.093c0.324,0.108,17.646,6.855,17.646,6.855c8.014,3.059,11.391,7.348,11.511,7.504   c12.41,18.43,14.507,58.693,14.718,63.191c-0.097,6.309-1.885,7.915-2.361,8.238c-26.687,11.939-62.956,16.791-84.223,16.791   s-57.082-4.852-83.768-16.791c-0.477-0.323-2.265-1.932-2.36-8.238C157.58,307.036,159.677,266.771,172.086,248.342z    M285.438,433.861H150.569v-21.553h134.868V433.861L285.438,433.861z M336.882,391.455H150.569v-21.553h186.312V391.455z"/>
-                                </g>
-                            </svg>
-                            Upload Aadhar
-                        </button>
-                        <input data-image-uploader style="display:none;" type="file" name="fileToUpload" id="fileToUpload" accept="image/*"/>
-                    </div>
-                    <button type="button" id="registerButton">REGISTER</button>
-                </form>
-            </div>
+    <section class="nav" id="metamask">
+        <h1>Investopolis</h1>
+        <h4 class="span loader">
+            <span class="m">D</span>
+            <span class="m">E</span>
+            <span class="m">C</span>
+            <span class="m">E</span>
+            <span class="m">N</span>
+            <span class="m">T</span>
+            <span class="m">R</span>
+            <span class="m">A</span>
+            <span class="m">L</span>
+            <span class="m">I</span>
+            <span class="m">Z</span>
+            <span class="m">E</span>
+            <span class="m">D</span>
+            <span class="m">&nbsp;</span>
+            <span class="m">I</span>
+            <span class="m">N</span>
+            <span class="m">V</span>
+            <span class="m">E</span>
+            <span class="m">S</span>
+            <span class="m">T</span>
+            <span class="m">M</span>
+            <span class="m">E</span>
+            <span class="m">N</span>
+            <span class="m">T</span>
+            <span class="m">&nbsp;</span>
+            <span class="m">P</span>
+            <span class="m">L</span>
+            <span class="m">A</span>
+            <span class="m">T</span>
+            <span class="m">F</span>
+            <span class="m">O</span>
+            <span class="m">R</span>
+            <span class="m">M</span>
+            <span class="m">&nbsp;</span>
+            <span class="m">F</span>
+            <span class="m">O</span>
+            <span class="m">R</span>
+            <span class="m">&nbsp;</span>
+            <span class="m">S</span>
+            <span class="m">T</span>
+            <span class="m">O</span>
+            <span class="m">C</span>
+            <span class="m">K</span>
+            <span class="m">-</span>
+            <span class="m">E</span>
+            <span class="m">X</span>
+            <span class="m">C</span>
+            <span class="m">H</span>
+            <span class="m">A</span>
+            <span class="m">N</span>
+            <span class="m">G</span>
+            <span class="m">E</span>
+            <span class="m">,</span>
+            <span class="m">&nbsp;</span>
+            <span class="m">N</span>
+            <span class="m">F</span>
+            <span class="m">T</span>
+            <span class="m">s</span>
+            <span class="m">&nbsp;</span>
+            <span class="m">A</span>
+            <span class="m">N</span>
+            <span class="m">D</span>
+            <span class="m">&nbsp;</span>
+            <span class="m">R</span>
+            <span class="m">E</span>
+            <span class="m">A</span>
+            <span class="m">L</span>
+            <span class="m">-</span>
+            <span class="m">E</span>
+            <span class="m">S</span>
+            <span class="m">T</span>
+            <span class="m">A</span>
+            <span class="m">T</span>
+            <span class="m">E</span>
+        </h4>
+        <div class="website-button">
+            <a href="login.html">Visit the Platform</a>
         </div>
+        <div class="nav-container">
+            <a class="nav-tab" href="#tab-about">ABOUT</a>
+            <a class="nav-tab" href="#tab-features">FEATURES</a>
+            <a class="nav-tab" href="#tab-creators">CREATORS</a>
+            <span class="nav-tab-slider"></span>
+        </div>
+    </section>
+    <div>
+        <section class="slider" id="tab-about">
+            <p>
+                Investopolis is a decentralized investment platform built on a private permissionless blockchain network.
+                This platform acts as a one-stop solution for investment in budding start-ups in the country even if they are currently unlisted in the stock market, real-estate, and artworks via NFTs.
+                The platform encompasses customer loyalty programs in order to encourage the investors and other stakeholders on the network to perform various actions.
+                The investors and ideators on the platform are rewarded for various actions with tokens. As the utility of a token increases, the value of the token shall rise.
+                The rewards the user can claim depends upon the number of tokens they collected and their utility.
+                Every transaction performed on the platform shall have a 1% transaction fee. The user can pay by cryptocurrency in the network or barter a token he/she was rewarded prior.
+            </p>
+        </section>
+        <section class="slider" id="tab-features">
+            <div style="display:flex;flex-direction:row;align-items: center;margin-bottom:20px;">
+                <img height="200" class="icon" src="assets/Feature_Shares.png"/>
+                <div style="display:flex;flex-direction: column;">
+                    <h3>Investment in Start-up Shares</h3>
+                    <p>Ideators admitted into the network share the details and vision of their start-up company, and periodically
+                        update their company valuation. Investors can analyse the company's growth overtime, communicate with them and
+                        after careful consideration can proceed further to buy their shares. He can later resale the shares at their then-market value.
+                    </p>
+                </div>
+            </div>
+            <div style="display:flex;flex-direction:row;align-items: center;margin-bottom:20px;">
+                <div style="display:flex;flex-direction: column;">
+                    <h3>Investment in Real-Estate</h3>
+                    <p>Users of the network can act as a seller/buyer in a property transaction (currently limited to lands).
+                        The platform acts as an intermediary and a registry for the same and enables smooth transactions mitigating the chances of transaction frauds and illegal occupancies.
+                    </p>
+                </div>
+                <img height="200" class="icon" src="assets/Feature_Lands.png"/>
+            </div>
+            <div style="display:flex;flex-direction:row;align-items: center;">
+                <img height="200" class="icon" src="assets/Feature_NFT.png"/>
+                <div style="display:flex;flex-direction: column;">
+                    <h3>Investment in NFTs</h3>
+                    <p>Users of the network can post their digital arts, photography, paintings, on the network and mint them as NFTs (Non Fungible Tokens).
+                        Users who are interested in gaining rights to the aforementioned images can quote a price and obtain the NFT.
+                    </p>
+                </div>
+            </div>
+        </section>
+        <section class="slider" id="tab-creators" style="display:flex;flex-direction:column;align-items: center;">
+            <div class="slider2">
+                <div style="display:flex;flex-direction: row;justify-content: space-around;align-items: center;margin-bottom:20px;">
+                    <div class="previous_btn" title="Previous">
+                        <svg version="1.1" xmlns="http://www.w3.org/2000/svg" fill="#00f3ff" xmlns:xlink="http://www.w3.org/1999/xlink" width="65px" height="65px" viewBox="-11 -11.5 65 66"><g><g><path d="M-10.5,22.118C-10.5,4.132,4.133-10.5,22.118-10.5S54.736,4.132,54.736,22.118 c0,17.985-14.633,32.618-32.618,32.618S-10.5,40.103-10.5,22.118z M-8.288,22.118c0,16.766,13.639,30.406,30.406,30.406 c16.765,0,30.405-13.641,30.405-30.406c0-16.766-13.641-30.406-30.405-30.406C5.35-8.288-8.288,5.352-8.288,22.118z"/><path d="M25.43,33.243L14.628,22.429c-0.433-0.432-0.433-1.132,0-1.564L25.43,10.051c0.432-0.432,1.132-0.432,1.563,0	c0.431,0.431,0.431,1.132,0,1.564L16.972,21.647l10.021,10.035c0.432,0.433,0.432,1.134,0,1.564	c-0.215,0.218-0.498,0.323-0.78,0.323C25.929,33.569,25.646,33.464,25.43,33.243z"/></g></g></svg>
+                    </div>
+                    <div class="slide_group">
+                        <div class="slide">
+                            <div class="card" id="rajendraProfile" style="width:90%;">
+                                <div class="card-header">
+                                    <img class="card-avatar" src="assets/rajendra.jpeg" alt="avatar" />
+                                    <h1 class="card-fullname">Dr. Rajendra Hegadi</h1>
+                                    <h4 class="card-jobtitle">Ph.D., MGRRI, Chennai</h4>
+                                </div>
+                                <div class="card-main">
+                                    <div class="card-section">
+                                        <div class="card-content">
+                                            <div class="card-subtitle">ABOUT</div>
+                                            <p class="card-desc">Dr. Rajendra Hegadi is the HOD of Data Science and Intelligence Systems at Indian Institute of Information Technology, Dharwad. He has more than 25 years teaching experience at various capacities. He is a senior member of IEEE, member of CRSI, CSI and ISTE. He is a member of IEEE Standard Association-P2145 Standards Development Working Group Standard for Framework and Definitions for Blockchain Governance. His areas of interest are computer networking, information centric network, cryptography & network security and image processing.</p>
+                                        </div>
+                                        <div class="card-social">
+                                            <a href="mailto:rajendrahegadi@iiitdwd.ac.in">
+                                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#1e181e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                                    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                                                    <path d="M22 6l-10 7L2 6"></path>
+                                                </svg>
+                                            </a>
+                                            <a href="https://www.linkedin.com/in/dr-rajendra-hegadi-7463b420/">
+                                                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                                    <path d="M23.994 24v-.001H24v-8.802c0-4.306-.927-7.623-5.961-7.623-2.42 0-4.044 1.328-4.707 2.587h-.07V7.976H8.489v16.023h4.97v-7.934c0-2.089.396-4.109 2.983-4.109 2.549 0 2.587 2.384 2.587 4.243V24zM.396 7.977h4.976V24H.396zM2.882 0C1.291 0 0 1.291 0 2.882s1.291 2.909 2.882 2.909 2.882-1.318 2.882-2.909A2.884 2.884 0 002.882 0z" />
+                                                </svg>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="slide">
+                            <div class="card" id="krishnaProfile" style="width:45%;">
+                                <div class="card-header">
+                                    <img class="card-avatar" src="assets/KrishnaPaanchajanya.jpg" alt="avatar" />
+                                    <h1 class="card-fullname krishna">Kuppa V. Krishna Paanchajanya</h1>
+                                    <h4 class="card-jobtitle">Blockchain Enthusiast</h4>
+                                </div>
+                                <div class="card-main">
+                                    <div class="card-section">
+                                        <div class="card-content">
+                                            <div class="card-subtitle">ABOUT</div>
+                                            <p class="card-desc">Krishna Paanchajanya, a final year student at IIIT Dharwad, obtained skill set in different realms of Computer Science in addition to reaching the pinnacle in academics; his ultimate goal being to ideate, design a tool that has socio-economic relevance.</p>
+                                        </div>
+                                        <div class="card-social">
+                                            <a href="mailto:19bcs063@iiitdwd.ac.in">
+                                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#1e181e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                                    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                                                    <path d="M22 6l-10 7L2 6"></path>
+                                                </svg>
+                                            </a>
+                                            <a href="https://www.linkedin.com/in/krishna-paanchajanya-5454b71a0/">
+                                                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                                    <path d="M23.994 24v-.001H24v-8.802c0-4.306-.927-7.623-5.961-7.623-2.42 0-4.044 1.328-4.707 2.587h-.07V7.976H8.489v16.023h4.97v-7.934c0-2.089.396-4.109 2.983-4.109 2.549 0 2.587 2.384 2.587 4.243V24zM.396 7.977h4.976V24H.396zM2.882 0C1.291 0 0 1.291 0 2.882s1.291 2.909 2.882 2.909 2.882-1.318 2.882-2.909A2.884 2.884 0 002.882 0z" />
+                                                </svg>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card" id="karthikProfile" style="width:45%;">
+                                <div class="card-header">
+                                    <img class="card-avatar" src="assets/KarthikSajjan.jpg" alt="avatar" />
+                                    <h1 class="card-fullname">Karthik Sajjan</h1>
+                                    <h4 class="card-jobtitle">Blockchain Enthusiast</h4>
+                                </div>
+                                <div class="card-main">
+                                    <div class="card-section">
+                                        <div class="card-content">
+                                            <div class="card-subtitle">ABOUT</div>
+                                            <p class="card-desc">Karthik is currently pursuing his B. Tech from IIIT Dharwad. He is well-versed with various emerging technologies like Blockchain and Cloud Computing Platforms and has worked on a myriad of projects in them.</p>
+                                        </div>
+                                        <div class="card-social">
+                                            <a href="mailto:19bcs049@iiitdwd.ac.in">
+                                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#1e181e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                                    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                                                    <path d="M22 6l-10 7L2 6"></path>
+                                                </svg>
+                                            </a>
+                                            <a href="https://www.linkedin.com/in/karthik-sajjan-3949691a6/">
+                                                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                                    <path d="M23.994 24v-.001H24v-8.802c0-4.306-.927-7.623-5.961-7.623-2.42 0-4.044 1.328-4.707 2.587h-.07V7.976H8.489v16.023h4.97v-7.934c0-2.089.396-4.109 2.983-4.109 2.549 0 2.587 2.384 2.587 4.243V24zM.396 7.977h4.976V24H.396zM2.882 0C1.291 0 0 1.291 0 2.882s1.291 2.909 2.882 2.909 2.882-1.318 2.882-2.909A2.884 2.884 0 002.882 0z" />
+                                                </svg>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="slide">
+                            <div class="card" id="deepakProfile" style="width:45%;">
+                                <div class="card-header">
+                                    <img class="card-avatar" src="assets/DeepakChowdary.jpg" alt="avatar" />
+                                    <h1 class="card-fullname">Karusala Deepak Chowdary</h1>
+                                    <h4 class="card-jobtitle">UI/UX Design</h4>
+                                </div>
+                                <div class="card-main">
+                                    <div class="card-section">
+                                        <div class="card-content">
+                                            <div class="card-subtitle">ABOUT</div>
+                                            <p class="card-desc">Deepak is currently pursuing his B. Tech from IIIT Dharwad. He is well-versed with various emerging technologies like Full Stack Web Development and Cloud Computing Platforms and has worked on a myriad of projects in them.</p>
+                                        </div>
+                                        <div class="card-social">
+                                            <a href="mailto:19bcs050@iiitdwd.ac.in">
+                                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#1e181e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                                    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                                                    <path d="M22 6l-10 7L2 6"></path>
+                                                </svg>
+                                            </a>
+                                            <a href="https://www.linkedin.com/in/karusala-deepak-chowdary-3701111a5/">
+                                                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                                    <path d="M23.994 24v-.001H24v-8.802c0-4.306-.927-7.623-5.961-7.623-2.42 0-4.044 1.328-4.707 2.587h-.07V7.976H8.489v16.023h4.97v-7.934c0-2.089.396-4.109 2.983-4.109 2.549 0 2.587 2.384 2.587 4.243V24zM.396 7.977h4.976V24H.396zM2.882 0C1.291 0 0 1.291 0 2.882s1.291 2.909 2.882 2.909 2.882-1.318 2.882-2.909A2.884 2.884 0 002.882 0z" />
+                                                </svg>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card" id="manojProfile" style="width:45%;">
+                                <div class="card-header">
+                                    <img class="card-avatar" src="assets/ManojSahithReddy.jpg" alt="avatar" />
+                                    <h1 class="card-fullname">Vanga Manoj Sahit Reddy</h1>
+                                    <h4 class="card-jobtitle">Full Stack Developer</h4>
+                                </div>
+                                <div class="card-main">
+                                    <div class="card-section">
+                                        <div class="card-content">
+                                            <div class="card-subtitle">ABOUT</div>
+                                            <p class="card-desc">Manoj is currently pursuing his B. Tech from IIIT Dharwad. He is well-versed with various emerging technologies like Machine Learning, Deep Learning and Cloud Computing Platforms and has worked on a myriad of projects in them.</p>
+                                        </div>
+                                        <div class="card-social">
+                                            <a href="mailto:19bcs110@iiitdwd.ac.in">
+                                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#1e181e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                                    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                                                    <path d="M22 6l-10 7L2 6"></path>
+                                                </svg>
+                                            </a>
+                                            <a href="https://www.linkedin.com/in/manojsahith/">
+                                                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                                    <path d="M23.994 24v-.001H24v-8.802c0-4.306-.927-7.623-5.961-7.623-2.42 0-4.044 1.328-4.707 2.587h-.07V7.976H8.489v16.023h4.97v-7.934c0-2.089.396-4.109 2.983-4.109 2.549 0 2.587 2.384 2.587 4.243V24zM.396 7.977h4.976V24H.396zM2.882 0C1.291 0 0 1.291 0 2.882s1.291 2.909 2.882 2.909 2.882-1.318 2.882-2.909A2.884 2.884 0 002.882 0z" />
+                                                </svg>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="next_btn" title="Next">
+                        <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" fill="#00f3ff" width="65px" height="65px" viewBox="-11 -11.5 65 66"><g><g><path d="M22.118,54.736C4.132,54.736-10.5,40.103-10.5,22.118C-10.5,4.132,4.132-10.5,22.118-10.5	c17.985,0,32.618,14.632,32.618,32.618C54.736,40.103,40.103,54.736,22.118,54.736z M22.118-8.288	c-16.765,0-30.406,13.64-30.406,30.406c0,16.766,13.641,30.406,30.406,30.406c16.768,0,30.406-13.641,30.406-30.406 C52.524,5.352,38.885-8.288,22.118-8.288z"/><path d="M18.022,33.569c 0.282,0-0.566-0.105-0.781-0.323c-0.432-0.431-0.432-1.132,0-1.564l10.022-10.035 			L17.241,11.615c 0.431-0.432-0.431-1.133,0-1.564c0.432-0.432,1.132-0.432,1.564,0l10.803,10.814c0.433,0.432,0.433,1.132,0,1.564 L18.805,33.243C18.59,33.464,18.306,33.569,18.022,33.569z"/></g></g></svg>
+                    </div>
+                </div>
+            </div>
+            <div class="slide_buttons"></div>
+        </section>
     </div>
-    <iframe name="DummyFrame" style="display:none;"></iframe>
+    <canvas class="background"></canvas>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/particlesjs/2.2.3/particles.min.js"></script>
     <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js'></script>
-    <script src='web3.min.js'></script>
-    <script src="https://cdn.jsdelivr.net/npm/ipfs/dist/index.min.js"></script>
-    <script type='text/javascript' src='login.js'></script>
+    <script type="text/javascript" src="welcome.js"></script>
 </body>
 </html>

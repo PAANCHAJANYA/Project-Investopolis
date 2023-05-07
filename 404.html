@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Investopolis</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@200;300;400;500&family=Raleway:wght@100;200;300;400;500&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <link rel='icon' type='image/icon type' href='assets/tabIcon.png'>
+    <style>
+        @font-face
+        {
+            font-family: "neon-tubes-2-regular";
+            src:
+            url("https://assets.codepen.io/2585/NeonTubes2.otf") format("woff"),
+            url("https://assets.codepen.io/2585/NeonTubes2.otf") format("opentype"),
+            url("https://assets.codepen.io/2585/NeonTubes2.otf") format("truetype");
+        }
+        html
+        {
+            block-size: 100%;
+            inline-size: 100%;
+            background-color: hsl(0 0% 5%);
+        }
+        body
+        {
+            min-block-size: 100%;
+            min-inline-size: 100%;
+            margin: 0;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            font-family: "neon-tubes-2-regular", sans-serif;
+        }
+        .neon-red
+        {
+            --neon: hsl(355 100% 95%);
+            --neon-glow: hsl(355 98% 40%);
+        }
+        .neon-blue
+        {
+            --neon: hsl(192 100% 95%);
+            --neon-glow: hsl(194 100% 40%);
+        }
+        h1
+        {
+            text-align: center;
+            font-size: 10vmin;
+            font-weight: normal;
+        }
+        h1 > i
+        {
+            color: var(--neon);
+            text-shadow: 0 0 20px var(--neon-glow), 0 0 2.5vmin var(--neon-glow), 0 0 5vmin var(--neon-glow), 0 0 10vmin var(--neon-glow), 0 0 15vmin var(--neon-glow);
+        }
+        .website-button
+        {
+            font-family: "Josefin Sans", sans-serif;
+            font-size: 16px;
+            color: #fff;
+            overflow: hidden;
+            z-index: 15 !important;
+            margin-top: 25px;
+            cursor: pointer;
+            border: 0.1875em solid #fff;
+            width: 200px;
+            height: 35px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+        .website-button a
+        {
+            overflow: hidden;
+            text-decoration: none;
+            font-size: 0.875em;
+            text-transform: uppercase;
+            color: #fff;
+            width: 100%;
+        }
+        .website-button:hover
+        {
+            border: 0.1875em solid #fed33f;
+        }
+        .website-button:hover a
+        {
+            color: #fed33f;
+        }
+        @media (dynamic-range: high)
+        {
+            .neon-red
+            {
+                --neon-glow: color(display-p3 1 0 0);
+            }
+            .neon-blue
+            {
+                --neon-glow: color(display-p3 0 0.75 1);
+            }
+            h1 > i
+            {
+                text-shadow: 0 0 2.5vmin var(--neon-glow), 0 0 10vmin var(--neon-glow),0 0 15vmin var(--neon-glow);
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>
+        <i class="neon-red">404</i>
+        <i class="neon-blue">Page not Found</i>
+    </h1>
+    <div class="website-button">
+        <a href="index.html">Return Home</a>
+    </div>
+</body>
+</html>
