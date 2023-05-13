@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Investopolis</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel='stylesheet' type='text/css' href='home.css'>
+    <link rel='icon' type='image/icon type' href='assets/tabIcon.png'>
+</head>
+<body>
+    <script>
+        if(sessionStorage.getItem('walletAddress')==null)
+        {
+            window.stop();
+        }
+        else
+        {
+            let userRole = sessionStorage.getItem('userRole');
+            if(userRole != 'registrar')
+            {
+                window.stop();
+            }
+        }
+    </script>
+    <div id="root">
+        <div class="app-skeleton" id="verificationPage">
+            <header class="app-header">
+                <div class="app-header__anchor">
+                    <img src="assets/tabIcon.png" style="height:35px;"/>
+                    <span class="app-header__anchor__text">Investopolis</span>
+                </div>
+                <nav>
+                    <ul class="nav">
+                        <li class="nav__item verificationButton">
+                            <a class="nav__link nav__link--active" href="#">
+                                <span class="nav__link__element">Verifications</span>
+                            </a>
+                        </li>
+                        <li class="nav__item messagesButton">
+                            <a class="nav__link " href="#">
+                                <span class="nav__link__element">Messages</span>
+                            </a>
+                        </li>
+                        <li class="nav__item profileButton">
+                            <a class="nav__link " href="#">
+                                <span class="nav__link__element">Profile</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+                <div class="logout">
+                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="30" height="30" viewBox="0 0 490.3 490.3" style="enable-background:new 0 0 490.3 490.3;" xml:space="preserve">
+                        <g>
+                            <path d="M0,121.05v248.2c0,34.2,27.9,62.1,62.1,62.1h200.6c34.2,0,62.1-27.9,62.1-62.1v-40.2c0-6.8-5.5-12.3-12.3-12.3    s-12.3,5.5-12.3,12.3v40.2c0,20.7-16.9,37.6-37.6,37.6H62.1c-20.7,0-37.6-16.9-37.6-37.6v-248.2c0-20.7,16.9-37.6,37.6-37.6h200.6    c20.7,0,37.6,16.9,37.6,37.6v40.2c0,6.8,5.5,12.3,12.3,12.3s12.3-5.5,12.3-12.3v-40.2c0-34.2-27.9-62.1-62.1-62.1H62.1    C27.9,58.95,0,86.75,0,121.05z"/>
+                            <path d="M385.4,337.65c2.4,2.4,5.5,3.6,8.7,3.6s6.3-1.2,8.7-3.6l83.9-83.9c4.8-4.8,4.8-12.5,0-17.3l-83.9-83.9    c-4.8-4.8-12.5-4.8-17.3,0s-4.8,12.5,0,17.3l63,63H218.6c-6.8,0-12.3,5.5-12.3,12.3c0,6.8,5.5,12.3,12.3,12.3h229.8l-63,63    C380.6,325.15,380.6,332.95,385.4,337.65z"/>
+                        </g>
+                    </svg>
+                </div>
+            </header>
+            <div class="app-container">
+                <div class="app-a">
+                    <div class="segment-topbar">
+                        <div class="segment-topbar__header">
+                            <h3 class="text-heading3 segment-topbar__title">Verifications</h3>
+                        </div>
+                    </div>
+                    <div class="nav-section" style="max-height:40%;">
+                        <div class="nav-section__header">
+                            <h2 class="nav-section__title">Registrations</h2>
+                        </div>
+                        <div class="nav-section__body">
+                            <ul class="nav" id="pendingRegistrationsList">
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="nav-section" style="max-height:40%;">
+                        <div class="nav-section__header">
+                            <h2 class="nav-section__title">Transfers of Ownership</h2>
+                        </div>
+                        <div class="nav-section__body">
+                            <ul class="nav" id="pendingTransfersList">
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="app-main">
+                    <div class="channel-feed">
+                        <div class="segment-topbar">
+                            <div class="segment-topbar__header">
+                                <span class="segment-topbar__overline">Wallet Address:</span>
+                                <h4 class="text-heading4 segment-topbar__title">
+                                    <span class="channel-link">
+                                        <span class="channel-link__icon">#</span>
+                                        <span class="channel-link__element username">Username</span>
+                                    </span>
+                                </h4>
+                            </div>
+                            <div class="segment-topbar__aside" style="display:none;">
+                                <div class="button-toolbar">
+                                    <a class="button button--default" onclick="previousVerification();">
+                                        <svg class="button__icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" data-name="Flat Color"><path d="M17.45,2.11a1,1,0,0,0-1.05.09l-12,9a1,1,0,0,0,0,1.6l12,9a1,1,0,0,0,1.05.09A1,1,0,0,0,18,21V3A1,1,0,0,0,17.45,2.11Z"/></svg>
+                                    </a>
+                                    <a class="button button--default" onclick="nextVerification();">
+                                        <svg class="button__icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" data-name="Flat Color"><path d="M18.6,11.2l-12-9A1,1,0,0,0,5,3V21a1,1,0,0,0,.55.89,1,1,0,0,0,1-.09l12-9a1,1,0,0,0,0-1.6Z"/></svg>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="registrationMarker" style="display:none;"></div>
+                    </div>
+                </div>
+                <div class="app-b">
+                    <div class="pad">
+                        <div class="pad__body">
+                            <h4 class="text-heading3 undefined">Registration/Transfer Verifications</h4>
+                            <p class="text-paragraph1 undefined">Hello Sir/Ma'am!</p>
+                            <p class="text-paragraph1 undefined">You are given the authority to enact a very important task to perform verification of property transactions.</p>
+                            <p class="text-paragraph1 undefined">In case of registration of already existing properties on Investopolis, simple verification online is sufficient.</p>
+                            <p class="text-paragraph1 undefined">In case of Transfer of Ownership transaction, as and when users of this platform submit the details of their transaction such as details of the parties involved, agreement conditions and clauses, and property details, a slot will alloted to them to visit your SRO i.e., Sub-Registrar Office</p>
+                            <p class="text-paragraph1 undefined">
+                                After the verification of all the details submitted via the platform and performing E-KYC during the alloted slot, you can verify the transaction to make it successful.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="app-skeleton" id="messagesPage" style="display: none;">
+            <header class="app-header">
+                <div class="app-header__anchor">
+                    <img src="assets/tabIcon.png" style="height:35px;"/>
+                    <span class="app-header__anchor__text">Investopolis</span>
+                </div>
+                <nav>
+                    <ul class="nav">
+                        <li class="nav__item verificationButton">
+                            <a class="nav__link" href="#">
+                                <span class="nav__link__element">Verifications</span>
+                            </a>
+                        </li>
+                        <li class="nav__item messagesButton">
+                            <a class="nav__link nav__link--active" href="#">
+                                <span class="nav__link__element">Messages</span>
+                            </a>
+                        </li>
+                        <li class="nav__item profileButton">
+                            <a class="nav__link " href="#">
+                                <span class="nav__link__element">Profile</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+                <div class="logout">
+                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="30" height="30" viewBox="0 0 490.3 490.3" style="enable-background:new 0 0 490.3 490.3;" xml:space="preserve">
+                        <g>
+                            <path d="M0,121.05v248.2c0,34.2,27.9,62.1,62.1,62.1h200.6c34.2,0,62.1-27.9,62.1-62.1v-40.2c0-6.8-5.5-12.3-12.3-12.3    s-12.3,5.5-12.3,12.3v40.2c0,20.7-16.9,37.6-37.6,37.6H62.1c-20.7,0-37.6-16.9-37.6-37.6v-248.2c0-20.7,16.9-37.6,37.6-37.6h200.6    c20.7,0,37.6,16.9,37.6,37.6v40.2c0,6.8,5.5,12.3,12.3,12.3s12.3-5.5,12.3-12.3v-40.2c0-34.2-27.9-62.1-62.1-62.1H62.1    C27.9,58.95,0,86.75,0,121.05z"/>
+                            <path d="M385.4,337.65c2.4,2.4,5.5,3.6,8.7,3.6s6.3-1.2,8.7-3.6l83.9-83.9c4.8-4.8,4.8-12.5,0-17.3l-83.9-83.9    c-4.8-4.8-12.5-4.8-17.3,0s-4.8,12.5,0,17.3l63,63H218.6c-6.8,0-12.3,5.5-12.3,12.3c0,6.8,5.5,12.3,12.3,12.3h229.8l-63,63    C380.6,325.15,380.6,332.95,385.4,337.65z"/>
+                        </g>
+                    </svg>
+                </div>
+            </header>
+            <div class="app-container">
+                <div class="app-a">
+                    <div class="segment-topbar">
+                        <div class="segment-topbar__header">
+                            <h3 class="text-heading3 segment-topbar__title">Messages</h3>
+                        </div>
+                    </div>
+                    <form class="form-search">
+                        <div class="form-group">
+                            <div class="form-control form-control--with-addon">
+                                <input name="query" placeholder="Search..." type="text" autocomplete="off" style="text-transform:uppercase;">
+                                <div class="form-control__addon form-control__addon--prefix">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                        <path d="M21.172 24l-7.387-7.387c-1.388.874-3.024 1.387-4.785 1.387-4.971 0-9-4.029-9-9s4.029-9 9-9 9 4.029 9 9c0 1.761-.514 3.398-1.387 4.785l7.387 7.387-2.828 2.828zm-12.172-8c3.859 0 7-3.14 7-7s-3.141-7-7-7-7 3.14-7 7 3.141 7 7 7z"></path>
+                                    </svg>
+                                </div>
+                            </div>
+                            <ul style="display:none;list-style-type: none;" class="useridslist"></ul>
+                        </div>
+                    </form>
+                    <div class="nav-section" style="max-height:80%;">
+                        <div class="nav-section__header">
+                            <h2 class="nav-section__title">Direct</h2>
+                        </div>
+                        <div class="nav-section__body">
+                            <ul class="nav" id="directMessages">
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="app-main">
+                    <div class="channel-feed">
+                        <div class="segment-topbar">
+                            <div class="segment-topbar__header">
+                                <span class="segment-topbar__overline">Wallet Address:</span>
+                                <h4 class="text-heading4 segment-topbar__title">
+                                    <span class="channel-link ">
+                                        <span class="channel-link__icon">#</span>
+                                        <span class="channel-link__element username">Username</span>
+                                    </span>
+                                </h4>
+                                <span class="nav-mobile" style="display:none;"></span>
+                            </div>
+                            <form class="form-search" style="display:none;width: 140px;">
+                                <div class="form-group">
+                                    <div class="form-control form-control--with-addon">
+                                        <input name="query" placeholder="Search..." type="text" autocomplete="off" style="text-transform:uppercase;">
+                                        <div class="form-control__addon form-control__addon--prefix">
+                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                                <path d="M21.172 24l-7.387-7.387c-1.388.874-3.024 1.387-4.785 1.387-4.971 0-9-4.029-9-9s4.029-9 9-9 9 4.029 9 9c0 1.761-.514 3.398-1.387 4.785l7.387 7.387-2.828 2.828zm-12.172-8c3.859 0 7-3.14 7-7s-3.141-7-7-7-7 3.14-7 7 3.141 7 7 7z"></path>
+                                            </svg>
+                                        </div>
+                                    </div>
+                                    <ul style="display:none;list-style-type: none;position: absolute;backdrop-filter: blur(10px);background: rgba(30, 24, 30,0.5);margin-top: 0;z-index: 5;padding-left: 0;" class="useridslist"></ul>
+                                </div>
+                            </form>
+                        </div>
+                        <div style="display:none;" id="messageMarker"></div>
+                        <div class="channel-feed__footer">
+                            <form class="channel-message-form" action="?" target="DummyFrame">
+                                <div class="form-group">
+                                    <label class="form-label" for="message">Message</label>
+                                    <div class="form-control">
+                                        <textarea id="message" class="form-control" name="message" required maxlength="100"></textarea>
+                                    </div>
+                                </div>
+                                <div class="form-footer">
+                                    <button class="button button--primary button--size-xl" type="submit">
+                                        <span class="button__content">Send</span>
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="app-b">
+                    <div class="pad">
+                        <div class="pad__body">
+                            <h4 class="text-heading3 undefined">Messages</h4>
+                            <p class="text-paragraph1 undefined"><em>You</em> can send messages to anyone on the platform including the Admin</p>
+                            <p class="text-paragraph1 undefined">The goal of this feature is to offer 2-way communication for registrars to interact with investors and help them get through the registration formalities and procedure.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="app-skeleton" id="profilePage" style="display: none;">
+            <header class="app-header">
+                <div class="app-header__anchor">
+                    <img src="assets/tabIcon.png" style="height:35px;"/>
+                    <span class="app-header__anchor__text">Investopolis</span>
+                </div>
+                <nav>
+                    <ul class="nav">
+                        <li class="nav__item verificationButton">
+                            <a class="nav__link" href="#">
+                                <span class="nav__link__element">Verifications</span>
+                            </a>
+                        </li>
+                        <li class="nav__item messagesButton">
+                            <a class="nav__link" href="#">
+                                <span class="nav__link__element">Messages</span>
+                            </a>
+                        </li>
+                        <li class="nav__item profileButton">
+                            <a class="nav__link nav__link--active" href="#">
+                                <span class="nav__link__element">Profile</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+                <div class="logout">
+                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="30" height="30" viewBox="0 0 490.3 490.3" style="enable-background:new 0 0 490.3 490.3;" xml:space="preserve">
+                        <g>
+                            <path d="M0,121.05v248.2c0,34.2,27.9,62.1,62.1,62.1h200.6c34.2,0,62.1-27.9,62.1-62.1v-40.2c0-6.8-5.5-12.3-12.3-12.3    s-12.3,5.5-12.3,12.3v40.2c0,20.7-16.9,37.6-37.6,37.6H62.1c-20.7,0-37.6-16.9-37.6-37.6v-248.2c0-20.7,16.9-37.6,37.6-37.6h200.6    c20.7,0,37.6,16.9,37.6,37.6v40.2c0,6.8,5.5,12.3,12.3,12.3s12.3-5.5,12.3-12.3v-40.2c0-34.2-27.9-62.1-62.1-62.1H62.1    C27.9,58.95,0,86.75,0,121.05z"/>
+                            <path d="M385.4,337.65c2.4,2.4,5.5,3.6,8.7,3.6s6.3-1.2,8.7-3.6l83.9-83.9c4.8-4.8,4.8-12.5,0-17.3l-83.9-83.9    c-4.8-4.8-12.5-4.8-17.3,0s-4.8,12.5,0,17.3l63,63H218.6c-6.8,0-12.3,5.5-12.3,12.3c0,6.8,5.5,12.3,12.3,12.3h229.8l-63,63    C380.6,325.15,380.6,332.95,385.4,337.65z"/>
+                        </g>
+                    </svg>
+                </div>
+            </header>
+            <div class="app-container">
+                <div class="app-a">
+                    <div class="segment-topbar">
+                        <div class="segment-topbar__header">
+                            <h3 class="text-heading3 segment-topbar__title">Profile</h3>
+                        </div>
+                    </div>
+                    <div class="nav-section">
+                        <div class="nav-section__header">
+                            <h2 class="nav-section__title">Profile</h2>
+                        </div>
+                        <div class="nav-section__body">
+                            <ul class="nav">
+                                <li class="nav__item">
+                                    <a class="nav__link nav__link--active" href="#">
+                                        <span class="conversation-link conversation-link--online">
+                                            <span class="conversation-link__icon"></span>
+                                            <span class="conversation-link__element">Update Profile Info</span>
+                                        </span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="app-main">
+                    <div class="channel-feed">
+                        <div class="segment-topbar">
+                            <div class="segment-topbar__header">
+                                <span class="segment-topbar__overline">Wallet Address:</span>
+                                <h4 class="text-heading4 segment-topbar__title">
+                                    <span class="channel-link ">
+                                        <span class="channel-link__icon">#</span>
+                                        <span class="channel-link__element username">Username</span>
+                                    </span>
+                                </h4>
+                            </div>
+                        </div>
+                        <div class="channel-feed__body">
+                            <div class="message">
+                                <div class="message__body">
+                                    <div style="display: flex;justify-content:space-between;margin-top:20px;">
+                                        <div style="width:45%;">
+                                            <form id="profileForm" action="#">
+                                                <div class="user-box">
+                                                    <input type="text" required maxlength="100" id="registrarFullName">
+                                                    <label>Full Name: </label>
+                                                </div>
+                                                <div class="user-box">
+                                                    <input type="number" required id="registrarSD">
+                                                    <label>Stamp Duty (In ₹): </label>
+                                                </div>
+                                                <div class="user-box">
+                                                    <input type="number" required id="registrarTD">
+                                                    <label>Transfer Duty (In ₹): </label>
+                                                </div>
+                                                <div class="user-box">
+                                                    <input type="number" required id="registrarRF">
+                                                    <label>Registration Fees (In ₹): </label>
+                                                </div>
+                                                <div style="display:flex;justify-content:center;margin-right:32px;">
+                                                    <button onclick="updateRegistrar();" class="AcceptRejectButton" style="margin-right:30px;" type="button" id="registerButton">Update</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                        <div style="width:40%">
+                                            <div class="user-box" style="display:flex;margin-bottom:30px;">
+                                                <input type="text" required id="registrarCity" style="margin-bottom:0px;">
+                                                <label>Search City/Town: </label>
+                                                <button onclick="searchCity();" class="AddDeleteButton" style="margin-left:10px;margin-top:0px;height:80%;align-self: center;" type="button">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="white" viewBox="0 0 24 24">
+                                                        <path d="M21.172 24l-7.387-7.387c-1.388.874-3.024 1.387-4.785 1.387-4.971 0-9-4.029-9-9s4.029-9 9-9 9 4.029 9 9c0 1.761-.514 3.398-1.387 4.785l7.387 7.387-2.828 2.828zm-12.172-8c3.859 0 7-3.14 7-7s-3.141-7-7-7-7 3.14-7 7 3.141 7 7 7z"></path>
+                                                    </svg>
+                                                </button>
+                                            </div>
+                                            <div id="map-canvas" style="height:200px;margin-bottom:30px;"></div>
+                                            <div class="user-box" style="display:flex;">
+                                                <input type="text" required id="registrarLatLng" style="margin-bottom:0px;">
+                                                <label>Coordinates: </label>
+                                                <button onclick="resetMap();" class="AddDeleteButton" style="margin-left:10px;margin-top:0px;height:80%;align-self: center;" type="button">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="17" height="17" fill="white" viewBox="0 0 1024 1024" t="1569683368540" version="1.1"><path d="M899.1 869.6l-53-305.6H864c14.4 0 26-11.6 26-26V346c0-14.4-11.6-26-26-26H618V138c0-14.4-11.6-26-26-26H432c-14.4 0-26 11.6-26 26v182H160c-14.4 0-26 11.6-26 26v192c0 14.4 11.6 26 26 26h17.9l-53 305.6c-0.3 1.5-0.4 3-0.4 4.4 0 14.4 11.6 26 26 26h723c1.5 0 3-0.1 4.4-0.4 14.2-2.4 23.7-15.9 21.2-30zM204 390h272V182h72v208h272v104H204V390z m468 440V674c0-4.4-3.6-8-8-8h-48c-4.4 0-8 3.6-8 8v156H416V674c0-4.4-3.6-8-8-8h-48c-4.4 0-8 3.6-8 8v156H202.8l45.1-260H776l45.1 260H672z"/></svg>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="message__footer">
+                                    <span class="message__authoring">Update your profile information</span>
+                                </div>
+                            </div>
+                        </div>
+                     </div>
+                </div>
+                <div class="app-b">
+                    <div class="pad">
+                        <div class="pad__body">
+                            <h4 class="text-heading3 undefined">Profile</h4>
+                            <p class="text-paragraph1 undefined">This is where the registrar needs to periodically update the Stamp Duty, Transfer Duty and Registration Fees for property transactions in his jurisdiction.</p>
+                            <p class="text-paragraph1 undefined">The registrar also needs to assign region restriction for property transactions initially.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <iframe name="DummyFrame" style="display:none;"></iframe>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js'></script>
+    <script src="https://cdn.jsdelivr.net/npm/@turf/turf@6.5.0/turf.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/downloadjs/1.4.8/download.min.js" integrity="sha512-WiGQZv8WpmQVRUFXZywo7pHIO0G/o3RyiAJZj8YXNN4AV7ReR1RYWVmZJ6y3H06blPcjJmG/sBpOVZjTSFFlzQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src='web3.min.js'></script>
+    <script type='text/javascript' src='registrar.js'></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAky5fqKd5-PO4f0Qc3516DfJIJaktRtIw&callback=initMap" async defer></script>
+</body>
+</html>

@@ -17,7 +17,7 @@
         else
         {
             let userRole = sessionStorage.getItem('userRole');
-            if(userRole != 'ideator')
+            if(userRole != 'vendor')
             {
                 window.stop();
             }
@@ -37,14 +37,14 @@
                                 <span class="nav__link__element">Home</span>
                             </a>
                         </li>
+                        <li class="nav__item NFTsButton">
+                            <a class="nav__link " href="#">
+                                <span class="nav__link__element">NFT</span>
+                            </a>
+                        </li>
                         <li class="nav__item messagesButton">
                             <a class="nav__link " href="#">
                                 <span class="nav__link__element">Messages</span>
-                            </a>
-                        </li>
-                        <li class="nav__item myProfileButton">
-                            <a class="nav__link " href="#">
-                                <span class="nav__link__element">Profile</span>
                             </a>
                         </li>
                     </ul>
@@ -1969,7 +1969,7 @@
                 </div>
             </div>
         </div>
-        <div class="app-skeleton" id="messagesPage" style="display: none;">
+        <div class="app-skeleton" id="NFTsPage" style="display:none;">
             <header class="app-header">
                 <div class="app-header__anchor">
                     <img src="assets/tabIcon.png" style="height:35px;"/>
@@ -1982,14 +1982,173 @@
                                 <span class="nav__link__element">Home</span>
                             </a>
                         </li>
-                        <li class="nav__item messagesButton">
+                        <li class="nav__item NFTsButton">
                             <a class="nav__link nav__link--active" href="#">
+                                <span class="nav__link__element">NFT</span>
+                            </a>
+                        </li>
+                        <li class="nav__item messagesButton">
+                            <a class="nav__link " href="#">
                                 <span class="nav__link__element">Messages</span>
                             </a>
                         </li>
-                        <li class="nav__item myProfileButton">
+                    </ul>
+                </nav>
+                <div class="logout">
+                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="30" height="30" viewBox="0 0 490.3 490.3" style="enable-background:new 0 0 490.3 490.3;" xml:space="preserve">
+                        <g>
+                            <path d="M0,121.05v248.2c0,34.2,27.9,62.1,62.1,62.1h200.6c34.2,0,62.1-27.9,62.1-62.1v-40.2c0-6.8-5.5-12.3-12.3-12.3    s-12.3,5.5-12.3,12.3v40.2c0,20.7-16.9,37.6-37.6,37.6H62.1c-20.7,0-37.6-16.9-37.6-37.6v-248.2c0-20.7,16.9-37.6,37.6-37.6h200.6    c20.7,0,37.6,16.9,37.6,37.6v40.2c0,6.8,5.5,12.3,12.3,12.3s12.3-5.5,12.3-12.3v-40.2c0-34.2-27.9-62.1-62.1-62.1H62.1    C27.9,58.95,0,86.75,0,121.05z"/>
+                            <path d="M385.4,337.65c2.4,2.4,5.5,3.6,8.7,3.6s6.3-1.2,8.7-3.6l83.9-83.9c4.8-4.8,4.8-12.5,0-17.3l-83.9-83.9    c-4.8-4.8-12.5-4.8-17.3,0s-4.8,12.5,0,17.3l63,63H218.6c-6.8,0-12.3,5.5-12.3,12.3c0,6.8,5.5,12.3,12.3,12.3h229.8l-63,63    C380.6,325.15,380.6,332.95,385.4,337.65z"/>
+                        </g>
+                    </svg>
+                </div>
+            </header>
+            <canvas id="canvas" style="position: absolute;top: 0;left: 0;z-index: 0;object-fit: cover;opacity: 0.1;"></canvas>
+            <div class="app-container">
+                <div class="app-a">
+                    <div class="segment-topbar">
+                        <div class="segment-topbar__header">
+                            <h3 class="text-heading3 segment-topbar__title">NFT</h3>
+                        </div>
+                    </div>
+                    <div class="nav-section" style="max-height:80%;">
+                        <div class="nav-section__header">
+                            <h2 class="nav-section__title">Control Panel</h2>
+                        </div>
+                        <div class="nav-section__body">
+                            <ul class="nav">
+                                <li class="nav__item" id="mintNFT">
+                                    <a class="nav__link nav__link--active" href="#">
+                                        <span class="conversation-link conversation-link--online">
+                                            <span class="conversation-link__icon"></span>
+                                            <span class="conversation-link__element">Mint New NFTs</span>
+                                        </span>
+                                    </a>
+                                </li>
+                                <li class="nav__item" id="viewNFT">
+                                    <a class="nav__link" href="#">
+                                        <span class="conversation-link conversation-link--online">
+                                            <span class="conversation-link__icon"></span>
+                                            <span class="conversation-link__element">View your NFTs</span>
+                                        </span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="app-main">
+                    <div class="channel-feed">
+                        <div class="segment-topbar">
+                            <div class="segment-topbar__header">
+                                <span class="segment-topbar__overline">Wallet Address:</span>
+                                <h4 class="text-heading4 segment-topbar__title">
+                                    <span class="channel-link ">
+                                        <span class="channel-link__icon">#</span>
+                                        <span class="channel-link__element username">Username</span>
+                                    </span>
+                                </h4>
+                            </div>
+                            <div class="segment-topbar__aside" style="display:none;">
+                                <div class="button-toolbar">
+                                    <a class="button button--default" id="mintButton" onclick="mintNFTClicked();">
+                                        <svg style="height:1.4rem;" class="button__icon" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Uploaded to svgrepo.com" viewBox="0 0 32 32" xml:space="preserve">
+                                            <path class="stone_een" d="M17,15h3v2h-3v3h-2v-3h-3v-2h3v-3h2V15z M27,10.243V27c0,1.657-1.343,3-3,3H8c-1.657,0-3-1.343-3-3V5  c0-1.657,1.343-3,3-3h10.757C19.192,2,19.612,2.102,20,2.279V7c0,1.103,0.897,2,2,2h4.721C26.898,9.388,27,9.808,27,10.243z M21,15  c0-0.552-0.448-1-1-1h-2v-2c0-0.552-0.448-1-1-1h-2c-0.552,0-1,0.448-1,1v2h-2c-0.552,0-1,0.448-1,1v2c0,0.552,0.448,1,1,1h2v2  c0,0.552,0.448,1,1,1h2c0.552,0,1-0.448,1-1v-2h2c0.552,0,1-0.448,1-1V15z M22,8h4l-5-5v4C21,7.552,21.448,8,22,8z"/>
+                                        </svg>
+                                    </a>
+                                    <a class="button button--default" id="viewButton" onclick="viewNFTClicked();">
+                                        <svg style="height:1.4rem;" class="button__icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                            <path fill-rule="evenodd" clip-rule="evenodd" d="M20.7703 12C20.7703 11.6412 20.5762 11.4056 20.188 10.9343C18.768 9.21014 15.6357 6 12 6C8.36428 6 5.23207 9.21014 3.81198 10.9343C3.42382 11.4056 3.22974 11.6412 3.22974 12C3.22974 12.3588 3.42382 12.5944 3.81198 13.0657C5.23207 14.7899 8.36428 18 12 18C15.6357 18 18.768 14.7899 20.188 13.0657C20.5762 12.5944 20.7703 12.3588 20.7703 12ZM12 15C13.6569 15 15 13.6569 15 12C15 10.3431 13.6569 9 12 9C10.3432 9 9.00002 10.3431 9.00002 12C9.00002 13.6569 10.3432 15 12 15Z"/>
+                                        </svg>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="channel-feed__body" id="mintNFTcontent">
+                            <div class="message">
+                                <div class="message__body">
+                                    <form action="#">
+                                        <div class="user-box" style="margin-top: 10px;">
+                                            <input type="text" required maxlength="100" id="nftTitle">
+                                            <label>Title: </label>
+                                        </div>
+                                        <div id="nftcontainer" style="display:flex;justify-content:center;">
+                                            <button type="button" data-image-uploader-button id="uploadIDButton">
+                                                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="20" height="20" viewBox="0 0 487.451 487.451" style="enable-background:new 0 0 487.451 487.451;fill:white;" xml:space="preserve">
+                                                    <g>
+                                                        <path d="M371.694,63.921h-87.83V88.06c0,4.046-3.281,7.326-7.326,7.326h-59.521c-3.164,0-5.851-2.01-6.876-4.819   c0.353,0.054,0.71,0.089,1.077,0.089h59.521c4.045,0,7.325-3.28,7.325-7.326V7.326c0-4.045-3.28-7.326-7.325-7.326h-59.521   c-4.047,0-7.326,3.281-7.326,7.326v56.596h-88.136c-4.046,0-7.326,3.281-7.326,7.326v408.879c0,4.045,3.28,7.324,7.326,7.324   h255.938c4.046,0,7.326-3.279,7.326-7.324V71.247C379.021,67.203,375.74,63.921,371.694,63.921z M226.48,26.247h28.994   c5.271,0,9.541,4.271,9.541,9.54s-4.271,9.54-9.541,9.54H226.48c-5.268,0-9.54-4.271-9.54-9.54S221.212,26.247,226.48,26.247z    M205.566,169.084l0.293-0.337c1.13-0.82,1.68-2.11,1.464-3.43c-2.823-17.042-0.974-24.141-0.336-25.921   c4.931-15.135,20.479-22.223,23.53-23.474c0.638-0.248,1.827-0.615,3.082-0.811l0.32-0.075l2.575-0.143l0.014,0.158l0.55-0.045   l2.183-0.386c0.479,0.003,6.479,0.752,15.52,3.53l6.237,2.14c11.382,3.365,16.676,9.663,17.656,10.922   c9.139,10.367,6.701,26.012,4.424,34.415c-0.248,0.966-0.098,1.975,0.449,2.796l0.516,0.659c0.834,1.11,1.146,4.843-0.719,11.769   c-0.383,2.26-1.213,4.094-2.457,5.315c-0.429,0.473-0.75,1.117-0.871,1.807c-3.096,18.125-19.323,38.402-36.438,38.402   c-14.546,0-31.129-18.662-34.11-38.384c-0.11-0.72-0.417-1.361-0.918-1.912c-1.238-1.285-2.035-3.145-2.518-5.899   C204.573,174.992,204.429,170.824,205.566,169.084z M172.086,248.342c0.121-0.156,3.497-4.445,11.511-7.504   c0,0,17.322-6.747,17.646-6.855c9.015-3.272,18.066-10.093,18.066-10.093l0.621,0.539c7.484,6.446,15.589,9.857,23.432,9.857   c0.045,0,0.091-0.004,0.136-0.006c0,0,0.546,0.006,0.591,0.006c7.843,0,15.947-3.411,23.432-9.857l0.622-0.539   c0,0,9.051,6.82,18.064,10.093c0.324,0.108,17.646,6.855,17.646,6.855c8.014,3.059,11.391,7.348,11.511,7.504   c12.41,18.43,14.507,58.693,14.718,63.191c-0.097,6.309-1.885,7.915-2.361,8.238c-26.687,11.939-62.956,16.791-84.223,16.791   s-57.082-4.852-83.768-16.791c-0.477-0.323-2.265-1.932-2.36-8.238C157.58,307.036,159.677,266.771,172.086,248.342z    M285.438,433.861H150.569v-21.553h134.868V433.861L285.438,433.861z M336.882,391.455H150.569v-21.553h186.312V391.455z"/>
+                                                    </g>
+                                                </svg>
+                                                <span>Upload NFT</span>
+                                            </button>
+                                            <input data-image-uploader style="display:none;" type="file" name="fileToUpload" id="fileToUpload" accept="image/*"/>
+                                        </div>
+                                        <div style="display:flex;justify-content:center;">
+                                            <button onclick="mintNFTFun();" id="mintFunButton" class="AcceptRejectButton" type="button">Mint</button>
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="message__footer">
+                                    <span class="message__authoring">Mint new NFTs</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="channel-feed__body" id="viewNFTcontent">
+                            <div class="message">
+                                <div class="message__body">
+                                    <div style="display:flex;align-items:center;justify-content: space-between;">
+                                        <div class="carousel" style="width:55%;">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="message__footer">
+                                    <span class="message__authoring">View the NFTs you still have ownership of</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="app-b">
+                    <div class="pad"style="margin-bottom:20px;">
+                        <div class="pad__body">
+                            <h4 class="text-heading3 undefined">NFTs</h4>
+                            <p class="text-paragraph1 undefined"><em>NFTs</em> have been used to exchange digital tokens that link to a digital file asset.</p>
+                            <p class="text-paragraph1 undefined">Digital art is a common use case for NFTs. This feature of Investopolis enables vendors to mint image NFTs i.e., digital arts, paintings or photography and list them for selling.</p>
+                        </div>
+                    </div>
+                    <div class="pad" style="max-height: 50%;">
+                        <div class="pad__body">
+                            <h4 class="text-heading3 undefined">NFTs</h4>
+                            <p class="text-paragraph1 undefined">There are various AI Art Generators available on the internet that you can use in order to mint digital art NFTs.</p>
+                            <p class="text-paragraph1 undefined" style="margin-bottom:10px;">Platforms like <a class="ai-links" href="https://www.midjourney.com/">MidJourney.ai</a>, <a class="ai-links" href="https://hotpot.ai/art-generator">Hotpot.ai</a>, <a class="ai-links" href="https://creator.nightcafe.studio/">NightCafe</a>, <a class="ai-links" href="https://openart.ai/">Openart.ai</a> and <a class="ai-links" href="https://starryai.com/">StarryAI</a> might come in handy.</p>
+                            <button onclick="generateAIPrompt();" class="AddDeleteButton" type="button" style="margin-bottom:10px;">Generate Prompts</button>
+                            <p class="text-paragraph1 undefined" id="aiPrompt" style="color:#FF6670;"></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="app-skeleton" id="messagesPage" style="display:none;">
+            <header class="app-header">
+                <div class="app-header__anchor">
+                    <img src="assets/tabIcon.png" style="height:35px;"/>
+                    <span class="app-header__anchor__text">Investopolis</span>
+                </div>
+                <nav>
+                    <ul class="nav">
+                        <li class="nav__item homeButton">
+                            <a class="nav__link" href="#">
+                                <span class="nav__link__element">Home</span>
+                            </a>
+                        </li>
+                        <li class="nav__item NFTsButton">
                             <a class="nav__link " href="#">
-                                <span class="nav__link__element">Profile</span>
+                                <span class="nav__link__element">NFT</span>
+                            </a>
+                        </li>
+                        <li class="nav__item messagesButton">
+                            <a class="nav__link nav__link--active" href="#">
+                                <span class="nav__link__element">Messages</span>
                             </a>
                         </li>
                     </ul>
@@ -2083,99 +2242,7 @@
                         <div class="pad__body">
                             <h4 class="text-heading3 undefined">Messages</h4>
                             <p class="text-paragraph1 undefined"><em>You</em> can send messages to anyone on the platform including the Admin</p>
-                            <p class="text-paragraph1 undefined">The goal of this feature is to offer 2-way communication for ideators to interact with investors and help them get a clear idea of what the future prospects of their company are.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="app-skeleton" id="myProfilePage" style="display: none;">
-            <header class="app-header">
-                <div class="app-header__anchor">
-                    <img src="assets/tabIcon.png" style="height:35px;"/>
-                    <span class="app-header__anchor__text">Investopolis</span>
-                </div>
-                <nav>
-                    <ul class="nav">
-                        <li class="nav__item homeButton">
-                            <a class="nav__link" href="#">
-                                <span class="nav__link__element">Home</span>
-                            </a>
-                        </li>
-                        <li class="nav__item messagesButton">
-                            <a class="nav__link" href="#">
-                                <span class="nav__link__element">Messages</span>
-                            </a>
-                        </li>
-                        <li class="nav__item myProfileButton">
-                            <a class="nav__link nav__link--active" href="#">
-                                <span class="nav__link__element">Profile</span>
-                            </a>
-                        </li>
-                    </ul>
-                </nav>
-                <div class="logout">
-                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="30" height="30" viewBox="0 0 490.3 490.3" style="enable-background:new 0 0 490.3 490.3;" xml:space="preserve">
-                        <g>
-                            <path d="M0,121.05v248.2c0,34.2,27.9,62.1,62.1,62.1h200.6c34.2,0,62.1-27.9,62.1-62.1v-40.2c0-6.8-5.5-12.3-12.3-12.3    s-12.3,5.5-12.3,12.3v40.2c0,20.7-16.9,37.6-37.6,37.6H62.1c-20.7,0-37.6-16.9-37.6-37.6v-248.2c0-20.7,16.9-37.6,37.6-37.6h200.6    c20.7,0,37.6,16.9,37.6,37.6v40.2c0,6.8,5.5,12.3,12.3,12.3s12.3-5.5,12.3-12.3v-40.2c0-34.2-27.9-62.1-62.1-62.1H62.1    C27.9,58.95,0,86.75,0,121.05z"/>
-                            <path d="M385.4,337.65c2.4,2.4,5.5,3.6,8.7,3.6s6.3-1.2,8.7-3.6l83.9-83.9c4.8-4.8,4.8-12.5,0-17.3l-83.9-83.9    c-4.8-4.8-12.5-4.8-17.3,0s-4.8,12.5,0,17.3l63,63H218.6c-6.8,0-12.3,5.5-12.3,12.3c0,6.8,5.5,12.3,12.3,12.3h229.8l-63,63    C380.6,325.15,380.6,332.95,385.4,337.65z"/>
-                        </g>
-                    </svg>
-                </div>
-            </header>
-            <div class="app-container">
-                <div class="app-a">
-                    <div class="segment-topbar">
-                        <div class="segment-topbar__header">
-                            <h3 class="text-heading3 segment-topbar__title">Profile</h3>
-                        </div>
-                    </div>
-                    <div class="nav-section" style="max-height:90%;">
-                        <div class="nav-section__header">
-                            <h2 class="nav-section__title">Your Investors</h2>
-                        </div>
-                        <div class="nav-section__body">
-                            <ul class="nav" id="investorsList">
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <div class="app-main">
-                    <div class="channel-feed">
-                        <div class="segment-topbar">
-                            <div class="segment-topbar__header">
-                                <span class="segment-topbar__overline">Wallet Address:</span>
-                                <h4 class="text-heading4 segment-topbar__title">
-                                    <span class="channel-link ">
-                                        <span class="channel-link__icon">#</span>
-                                        <span class="channel-link__element username">Username</span>
-                                    </span>
-                                </h4>
-                            </div>
-                            <div class="segment-topbar__aside">
-                                <div class="button-toolbar">
-                                    <a class="button button--default" onclick="editClicked();">
-                                        <svg class="button__icon" width="24" height="24" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 59.985 59.985" style="enable-background:new 0 0 59.985 59.985;" xml:space="preserve">
-                                            <g>
-                                                <path d="M5.243,44.844L42.378,7.708l9.899,9.899L15.141,54.742L5.243,44.844z"/>
-                                                <path d="M56.521,13.364l1.414-1.414c1.322-1.322,2.05-3.079,2.05-4.949s-0.728-3.627-2.05-4.949S54.855,0,52.985,0   s-3.627,0.729-4.95,2.051l-1.414,1.414L56.521,13.364z"/>
-                                                <path d="M4.099,46.527L0.051,58.669c-0.12,0.359-0.026,0.756,0.242,1.023c0.19,0.19,0.446,0.293,0.707,0.293   c0.106,0,0.212-0.017,0.316-0.052l12.141-4.047L4.099,46.527z"/>
-                                                <path d="M43.793,6.294l1.415-1.415l9.899,9.899l-1.415,1.415L43.793,6.294z"/>
-                                            </g>
-                                        </svg>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="channel-feed__body" id="profileInfo">
-                        </div>
-                    </div>
-                </div>
-                <div class="app-b">
-                    <div class="pad">
-                        <div class="pad__body">
-                            <h4 class="text-heading3 undefined">Growth</h4>
-                            <div id="calculator" style="width:100%; height: 300px;"></div>
+                            <p class="text-paragraph1 undefined">The goal of this feature is to offer 2-way communication for vendors to interact with investors and help them get a clear idea of what they are selling.</p>
                         </div>
                     </div>
                 </div>
@@ -2185,7 +2252,6 @@
     <iframe name="DummyFrame" style="display:none;"></iframe>
     <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js'></script>
     <script src='web3.min.js'></script>
-    <script src="https://www.desmos.com/api/v1.7/calculator.js?apiKey=dcb31709b452b1cf9dc26972add0fda6"></script>
-    <script type='text/javascript' src='ideator.js'></script>
+    <script type='text/javascript' src='vendor.js'></script>
 </body>
 </html>

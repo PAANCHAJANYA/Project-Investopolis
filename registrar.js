@@ -502,7 +502,7 @@ var abi2 = [
 	}
 ];
 var contractAddress2 = "0xA440C37C13fF5162015c39e7F11BF42565763f70";
-var abi3 = [
+var abi5 = [
 	{
 		"anonymous": false,
 		"inputs": [
@@ -513,7 +513,7 @@ var abi3 = [
 				"type": "string"
 			}
 		],
-		"name": "disinterestMarked",
+		"name": "registerevent",
 		"type": "event"
 	},
 	{
@@ -526,7 +526,7 @@ var abi3 = [
 				"type": "string"
 			}
 		],
-		"name": "infoupdated",
+		"name": "registrarUpdated",
 		"type": "event"
 	},
 	{
@@ -539,45 +539,7 @@ var abi3 = [
 				"type": "string"
 			}
 		],
-		"name": "interestMarked",
-		"type": "event"
-	},
-	{
-		"anonymous": false,
-		"inputs": [
-			{
-				"indexed": false,
-				"internalType": "string",
-				"name": "success",
-				"type": "string"
-			},
-			{
-				"indexed": false,
-				"internalType": "bytes32",
-				"name": "verificationStr",
-				"type": "bytes32"
-			}
-		],
-		"name": "sharesBoughtEvent",
-		"type": "event"
-	},
-	{
-		"anonymous": false,
-		"inputs": [
-			{
-				"indexed": false,
-				"internalType": "string",
-				"name": "success",
-				"type": "string"
-			},
-			{
-				"indexed": false,
-				"internalType": "bytes32",
-				"name": "verificationStr",
-				"type": "bytes32"
-			}
-		],
-		"name": "sharesShared",
+		"name": "transferevent",
 		"type": "event"
 	},
 	{
@@ -588,7 +550,7 @@ var abi3 = [
 		"inputs": [
 			{
 				"internalType": "string",
-				"name": "title",
+				"name": "name",
 				"type": "string"
 			},
 			{
@@ -597,29 +559,24 @@ var abi3 = [
 				"type": "string"
 			},
 			{
+				"internalType": "uint256",
+				"name": "sd",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "td",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "rf",
+				"type": "uint256"
+			},
+			{
 				"internalType": "string",
-				"name": "desc",
+				"name": "coord",
 				"type": "string"
-			},
-			{
-				"internalType": "uint256",
-				"name": "a",
-				"type": "uint256"
-			},
-			{
-				"internalType": "uint256",
-				"name": "l",
-				"type": "uint256"
-			},
-			{
-				"internalType": "uint256",
-				"name": "value",
-				"type": "uint256"
-			},
-			{
-				"internalType": "uint256",
-				"name": "count",
-				"type": "uint256"
 			},
 			{
 				"internalType": "address",
@@ -627,30 +584,7 @@ var abi3 = [
 				"type": "address"
 			}
 		],
-		"name": "addIdeator",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "string",
-				"name": "id",
-				"type": "string"
-			},
-			{
-				"internalType": "string",
-				"name": "investorID",
-				"type": "string"
-			},
-			{
-				"internalType": "uint256",
-				"name": "shareCount",
-				"type": "uint256"
-			}
-		],
-		"name": "disinterest",
+		"name": "addRegistrar",
 		"outputs": [],
 		"stateMutability": "nonpayable",
 		"type": "function"
@@ -676,7 +610,108 @@ var abi3 = [
 				"type": "string"
 			}
 		],
-		"name": "getIdeator",
+		"name": "getOwnedLands",
+		"outputs": [
+			{
+				"components": [
+					{
+						"internalType": "string",
+						"name": "RDN",
+						"type": "string"
+					},
+					{
+						"internalType": "string[]",
+						"name": "userids",
+						"type": "string[]"
+					},
+					{
+						"internalType": "string[]",
+						"name": "names",
+						"type": "string[]"
+					},
+					{
+						"internalType": "string[]",
+						"name": "home",
+						"type": "string[]"
+					},
+					{
+						"internalType": "address[]",
+						"name": "metamaskaddress",
+						"type": "address[]"
+					},
+					{
+						"internalType": "string",
+						"name": "details",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "coordinates",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "saledeed",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "verified",
+						"type": "string"
+					},
+					{
+						"internalType": "bool",
+						"name": "pendingTransfer",
+						"type": "bool"
+					},
+					{
+						"internalType": "string[]",
+						"name": "new_userids",
+						"type": "string[]"
+					},
+					{
+						"internalType": "string[]",
+						"name": "new_names",
+						"type": "string[]"
+					},
+					{
+						"internalType": "string[]",
+						"name": "new_home",
+						"type": "string[]"
+					},
+					{
+						"internalType": "address[]",
+						"name": "new_metamaskaddress",
+						"type": "address[]"
+					},
+					{
+						"internalType": "string",
+						"name": "new_saledeed",
+						"type": "string"
+					},
+					{
+						"internalType": "uint256",
+						"name": "fee",
+						"type": "uint256"
+					}
+				],
+				"internalType": "struct lands.Land[]",
+				"name": "",
+				"type": "tuple[]"
+			}
+		],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "string",
+				"name": "id",
+				"type": "string"
+			}
+		],
+		"name": "getRegistrar",
 		"outputs": [
 			{
 				"components": [
@@ -691,59 +726,24 @@ var abi3 = [
 						"type": "string"
 					},
 					{
+						"internalType": "uint256",
+						"name": "sd",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "td",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "rf",
+						"type": "uint256"
+					},
+					{
 						"internalType": "string",
-						"name": "about",
+						"name": "coordinates",
 						"type": "string"
-					},
-					{
-						"internalType": "string[]",
-						"name": "investors",
-						"type": "string[]"
-					},
-					{
-						"internalType": "uint256[][]",
-						"name": "sharesbought",
-						"type": "uint256[][]"
-					},
-					{
-						"internalType": "uint256[][]",
-						"name": "boughtFor",
-						"type": "uint256[][]"
-					},
-					{
-						"internalType": "bytes32[][]",
-						"name": "verifyStrings",
-						"type": "bytes32[][]"
-					},
-					{
-						"internalType": "uint256[]",
-						"name": "assets",
-						"type": "uint256[]"
-					},
-					{
-						"internalType": "uint256[]",
-						"name": "liabilities",
-						"type": "uint256[]"
-					},
-					{
-						"internalType": "uint256",
-						"name": "pv",
-						"type": "uint256"
-					},
-					{
-						"internalType": "uint256",
-						"name": "shares",
-						"type": "uint256"
-					},
-					{
-						"internalType": "uint256",
-						"name": "sharesLeft",
-						"type": "uint256"
-					},
-					{
-						"internalType": "uint256[]",
-						"name": "timestamp",
-						"type": "uint256[]"
 					},
 					{
 						"internalType": "address",
@@ -751,7 +751,7 @@ var abi3 = [
 						"type": "address"
 					}
 				],
-				"internalType": "struct shares.Profile",
+				"internalType": "struct lands.Registrar",
 				"name": "",
 				"type": "tuple"
 			}
@@ -763,66 +763,48 @@ var abi3 = [
 		"inputs": [
 			{
 				"internalType": "string",
-				"name": "id",
+				"name": "rd",
+				"type": "string"
+			},
+			{
+				"internalType": "string[]",
+				"name": "ids",
+				"type": "string[]"
+			},
+			{
+				"internalType": "string[]",
+				"name": "fullnames",
+				"type": "string[]"
+			},
+			{
+				"internalType": "string[]",
+				"name": "addresses",
+				"type": "string[]"
+			},
+			{
+				"internalType": "address[]",
+				"name": "metamask",
+				"type": "address[]"
+			},
+			{
+				"internalType": "string",
+				"name": "det",
 				"type": "string"
 			},
 			{
 				"internalType": "string",
-				"name": "investorID",
+				"name": "coord",
 				"type": "string"
 			},
 			{
-				"internalType": "uint256",
-				"name": "shareCount",
-				"type": "uint256"
+				"internalType": "string",
+				"name": "deed",
+				"type": "string"
 			}
 		],
-		"name": "interest",
+		"name": "registerLand",
 		"outputs": [],
 		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "string",
-				"name": "id",
-				"type": "string"
-			},
-			{
-				"internalType": "string",
-				"name": "investorid",
-				"type": "string"
-			},
-			{
-				"internalType": "uint256",
-				"name": "boughtCount",
-				"type": "uint256"
-			},
-			{
-				"internalType": "uint256",
-				"name": "bVal",
-				"type": "uint256"
-			},
-			{
-				"internalType": "uint256",
-				"name": "dec",
-				"type": "uint256"
-			},
-			{
-				"internalType": "address",
-				"name": "metamask",
-				"type": "address"
-			},
-			{
-				"internalType": "string",
-				"name": "combin",
-				"type": "string"
-			}
-		],
-		"name": "invest",
-		"outputs": [],
-		"stateMutability": "payable",
 		"type": "function"
 	},
 	{
@@ -842,59 +824,24 @@ var abi3 = [
 						"type": "string"
 					},
 					{
+						"internalType": "uint256",
+						"name": "sd",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "td",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "rf",
+						"type": "uint256"
+					},
+					{
 						"internalType": "string",
-						"name": "about",
+						"name": "coordinates",
 						"type": "string"
-					},
-					{
-						"internalType": "string[]",
-						"name": "investors",
-						"type": "string[]"
-					},
-					{
-						"internalType": "uint256[][]",
-						"name": "sharesbought",
-						"type": "uint256[][]"
-					},
-					{
-						"internalType": "uint256[][]",
-						"name": "boughtFor",
-						"type": "uint256[][]"
-					},
-					{
-						"internalType": "bytes32[][]",
-						"name": "verifyStrings",
-						"type": "bytes32[][]"
-					},
-					{
-						"internalType": "uint256[]",
-						"name": "assets",
-						"type": "uint256[]"
-					},
-					{
-						"internalType": "uint256[]",
-						"name": "liabilities",
-						"type": "uint256[]"
-					},
-					{
-						"internalType": "uint256",
-						"name": "pv",
-						"type": "uint256"
-					},
-					{
-						"internalType": "uint256",
-						"name": "shares",
-						"type": "uint256"
-					},
-					{
-						"internalType": "uint256",
-						"name": "sharesLeft",
-						"type": "uint256"
-					},
-					{
-						"internalType": "uint256[]",
-						"name": "timestamp",
-						"type": "uint256[]"
 					},
 					{
 						"internalType": "address",
@@ -902,7 +849,7 @@ var abi3 = [
 						"type": "address"
 					}
 				],
-				"internalType": "struct shares.Profile[]",
+				"internalType": "struct lands.Registrar[]",
 				"name": "",
 				"type": "tuple[]"
 			}
@@ -911,19 +858,13 @@ var abi3 = [
 		"type": "function"
 	},
 	{
-		"inputs": [
-			{
-				"internalType": "string",
-				"name": "id",
-				"type": "string"
-			}
-		],
-		"name": "retrieveInterests",
+		"inputs": [],
+		"name": "retrieveCoordinates",
 		"outputs": [
 			{
-				"internalType": "string[][]",
+				"internalType": "string[]",
 				"name": "",
-				"type": "string[][]"
+				"type": "string[]"
 			}
 		],
 		"stateMutability": "view",
@@ -933,67 +874,138 @@ var abi3 = [
 		"inputs": [
 			{
 				"internalType": "string",
-				"name": "ideatorID",
+				"name": "rd",
 				"type": "string"
 			},
 			{
-				"internalType": "string",
-				"name": "toID",
-				"type": "string"
+				"internalType": "string[]",
+				"name": "ids",
+				"type": "string[]"
 			},
 			{
-				"internalType": "string",
-				"name": "fromID",
-				"type": "string"
+				"internalType": "string[]",
+				"name": "fullnames",
+				"type": "string[]"
 			},
 			{
-				"internalType": "uint256",
-				"name": "shareCount",
-				"type": "uint256"
+				"internalType": "string[]",
+				"name": "addresses",
+				"type": "string[]"
 			},
 			{
-				"internalType": "uint256",
-				"name": "bVal",
-				"type": "uint256"
-			},
-			{
-				"internalType": "uint256",
-				"name": "dec",
-				"type": "uint256"
-			},
-			{
-				"internalType": "address",
+				"internalType": "address[]",
 				"name": "metamask",
-				"type": "address"
+				"type": "address[]"
 			},
 			{
 				"internalType": "string",
-				"name": "combin",
+				"name": "deed",
 				"type": "string"
+			},
+			{
+				"internalType": "uint256",
+				"name": "f",
+				"type": "uint256"
 			}
 		],
-		"name": "transfer",
+		"name": "transferLand",
 		"outputs": [],
 		"stateMutability": "payable",
 		"type": "function"
 	},
 	{
-		"inputs": [
-			{
-				"internalType": "uint256",
-				"name": "value",
-				"type": "uint256"
-			}
-		],
-		"name": "uint256ToString",
+		"inputs": [],
+		"name": "unverifiedLands",
 		"outputs": [
 			{
-				"internalType": "string",
+				"components": [
+					{
+						"internalType": "string",
+						"name": "RDN",
+						"type": "string"
+					},
+					{
+						"internalType": "string[]",
+						"name": "userids",
+						"type": "string[]"
+					},
+					{
+						"internalType": "string[]",
+						"name": "names",
+						"type": "string[]"
+					},
+					{
+						"internalType": "string[]",
+						"name": "home",
+						"type": "string[]"
+					},
+					{
+						"internalType": "address[]",
+						"name": "metamaskaddress",
+						"type": "address[]"
+					},
+					{
+						"internalType": "string",
+						"name": "details",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "coordinates",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "saledeed",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "verified",
+						"type": "string"
+					},
+					{
+						"internalType": "bool",
+						"name": "pendingTransfer",
+						"type": "bool"
+					},
+					{
+						"internalType": "string[]",
+						"name": "new_userids",
+						"type": "string[]"
+					},
+					{
+						"internalType": "string[]",
+						"name": "new_names",
+						"type": "string[]"
+					},
+					{
+						"internalType": "string[]",
+						"name": "new_home",
+						"type": "string[]"
+					},
+					{
+						"internalType": "address[]",
+						"name": "new_metamaskaddress",
+						"type": "address[]"
+					},
+					{
+						"internalType": "string",
+						"name": "new_saledeed",
+						"type": "string"
+					},
+					{
+						"internalType": "uint256",
+						"name": "fee",
+						"type": "uint256"
+					}
+				],
+				"internalType": "struct lands.Land[]",
 				"name": "",
-				"type": "string"
+				"type": "tuple[]"
 			}
 		],
-		"stateMutability": "pure",
+		"stateMutability": "nonpayable",
 		"type": "function"
 	},
 	{
@@ -1004,22 +1016,22 @@ var abi3 = [
 				"type": "string"
 			},
 			{
-				"internalType": "string",
-				"name": "desc",
-				"type": "string"
-			},
-			{
 				"internalType": "uint256",
-				"name": "a",
+				"name": "sd",
 				"type": "uint256"
 			},
 			{
 				"internalType": "uint256",
-				"name": "l",
+				"name": "td",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "rf",
 				"type": "uint256"
 			}
 		],
-		"name": "updateIdeator",
+		"name": "updateRegistrar",
 		"outputs": [],
 		"stateMutability": "nonpayable",
 		"type": "function"
@@ -1027,20 +1039,37 @@ var abi3 = [
 	{
 		"inputs": [
 			{
-				"internalType": "bytes32",
-				"name": "str",
-				"type": "bytes32"
-			}
-		],
-		"name": "verifydocument",
-		"outputs": [
+				"internalType": "string",
+				"name": "rd",
+				"type": "string"
+			},
 			{
-				"internalType": "string[5]",
-				"name": "",
-				"type": "string[5]"
+				"internalType": "string",
+				"name": "status",
+				"type": "string"
 			}
 		],
-		"stateMutability": "view",
+		"name": "verifyRegistration",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "string",
+				"name": "rd",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "status",
+				"type": "string"
+			}
+		],
+		"name": "verifyTransfer",
+		"outputs": [],
+		"stateMutability": "nonpayable",
 		"type": "function"
 	},
 	{
@@ -1048,59 +1077,72 @@ var abi3 = [
 		"type": "receive"
 	}
 ];
-var contractAddress3 = "0x79Ee1017B0e365a48C1bB6a50688d862865542ed";
+var contractAddress5 = "0xDE3Ce946b643AE52CE1B25fD336adf2012681d1D";
 var userids;
+var unverifiedRegistrations;
+var landCount=0;
+var rdnCenter = {};
 var messagesCount=0;
 var othermessageids=[];
-var userid;
-var metamask;
 var retrievedMessages;
-var ideatorInfo;
+var initialized = false;
+var map;
+var poly;
+var path;
+var markers = [];
+var polyPath = [];
 
 /*Header*/
 
 $(".app-header__anchor").click(function()
 {
     $("#messagesPage").css("display", "none");
-    $("#myProfilePage").css("display", "none");
-    $("#homePage").css("display", "block");
-    $("#homePage .nav-section a").removeClass("nav__link--active");
-    $("#homePage .channel-feed__body").css("display","none");
-    $("#blockchainNetwork").css("display","block");
+    $("#profilePage").css("display", "none");
+    $("#verificationPage").css("display", "block");
+    $("#verificationPage .nav-section a").removeClass("nav__link--active");
+	$("#verificationPage .channel-feed__body").css("display","none");
+	if(landCount>0)
+	{
+		$("#property1 a").addClass("nav__link--active");
+		$("#property1verification").css("display","block");
+	}
 });
-$(".homeButton").click(function()
+$(".verificationButton").click(function()
 {
     $("#messagesPage").css("display", "none");
-    $("#myProfilePage").css("display", "none");
-    $("#homePage").css("display", "block");
-    $("#homePage .nav-section a").removeClass("nav__link--active");
-    $("#homePage .channel-feed__body").css("display","none");
-    $("#blockchainNetwork").css("display","block");
+    $("#profilePage").css("display", "none");
+    $("#verificationPage").css("display", "block");
+    $("#verificationPage .nav-section a").removeClass("nav__link--active");
+	$("#verificationPage .channel-feed__body").css("display","none");
+	if(landCount>0)
+	{
+		$("#property1 a").addClass("nav__link--active");
+		$("#property1verification").css("display","block");
+	}
 });
 $(".messagesButton").click(function()
 {
-    $("#homePage").css("display", "none");
-    $("#myProfilePage").css("display", "none");
+    $("#verificationPage").css("display", "none");
+	$("#profilePage").css("display", "none");
     $("#messagesPage").css("display", "block");
 	$("#messagesPage .nav-section a").removeClass("nav__link--active");
+	$("#messagesPage .channel-feed__body").css("display","none");
     if(messagesCount>0)
     {
         $("#message1 a").addClass("nav__link--active");
-        $("#messagesPage .channel-feed__body").css("display","none");
         $("#message1content").css("display","block");
         appendTo = "#message1content";
         towhomid = $("#message1 .conversation-link__element").html();
 		var elem=document.getElementById("message1content");
 		elem.scrollTop = elem.scrollHeight;
-		$(".nav-mobile").html($("#message1 a .conversation-link__element").html());
+		$("#messagesPage .nav-mobile").html($("#message1 a .conversation-link__element").html());
     }
 });
-$(".myProfileButton").click(function()
+$(".profileButton").click(function()
 {
-    $("#homePage").css("display", "none");
+    $("#verificationPage").css("display", "none");
     $("#messagesPage").css("display", "none");
-    $("#myProfilePage").css("display", "block");
-    $("#myProfilePage .nav-section a").removeClass("nav__link--active");
+    $("#profilePage").css("display", "block");
 });
 $(".logout").click(function()
 {
@@ -1109,117 +1151,298 @@ $(".logout").click(function()
 });
 $(".segment-topbar__overline").html("Wallet Address: "+window.sessionStorage.getItem("walletAddress"));
 
-/*Network Inspector*/
+/*Verification*/
 
-async function renderBlockInfo()
+function previousVerification()
 {
-    var currentBlock = await web3.eth.getBlockNumber();
-    const blockNumbers = [currentBlock-9, currentBlock-8, currentBlock-7, currentBlock-6, currentBlock-5, currentBlock-4, currentBlock-3, currentBlock-2, currentBlock-1, currentBlock];
-    blockNumbers.forEach((blockNumber)=>{
-        $("#blocksList").prepend(`
-            <li class="nav__item" id="block`+blockNumber+`">
-                <a class="nav__link" href="#">
-                    <span class="channel-link">
-                        <span class="channel-link__icon">#</span>
-                        <span class="channel-link__element">Block `+blockNumber+`</span>
-                    </span>
-                </a>
-            </li>`);
-        $("#blockchainNetwork").after(`<div class="channel-feed__body" id="block`+blockNumber+`content" style="display:none;"></div>`);
-        $("#block"+blockNumber).click(function()
-        {
-            var id = this.id;
-            $("#homePage .nav-section a").removeClass("nav__link--active");
-            $("#"+id+" a").addClass("nav__link--active");
-            $("#homePage .channel-feed__body").css("display","none");
-            $("#"+id+"content").css("display","block");
-        });
-    });
-    blockNumbers.forEach((blockNumber) => {
-        web3.eth.getBlock(blockNumber).then((data)=>{
-            transactionHTML="";
-            data.transactions.forEach((itr, indx)=>{
-                transactionHTML+=  `<div style="display:flex;color:#E6455C;">Transaction `+indx+`:<span style="margin-left:auto;color:#fed33f;overflow-wrap: anywhere;">`+itr+`</span></div>`
-            });
-            $("#block"+blockNumber+"content").html(`
-                <div class="message">
-                    <div class="message__body">
-                        <div>
-							<div style="display:flex;color:#E6455C;">Block Number:<span style="margin-left:auto;color:#fed33f;overflow-wrap: anywhere;">`+data.number+`</span></div>
-                            <div style="display:flex;color:#E6455C;">Block Hash:<span style="margin-left:auto;color:#fed33f;overflow-wrap: anywhere;">`+data.hash+`</span></div>
-                            <div style="display:flex;color:#E6455C;">Parent Hash:<span style="margin-left:auto;color:#fed33f;overflow-wrap: anywhere;">`+data.parentHash+`</span></div>
-                            <div style="display:flex;color:#E6455C;">Block Size:<span style="margin-left:auto;color:#fed33f;overflow-wrap: anywhere;">`+data.size+`</span></div>
-                            <div style="display:flex;color:#E6455C;">Gas Limit:<span style="margin-left:auto;color:#fed33f;overflow-wrap: anywhere;">`+data.gasLimit+`</span></div>
-							<div style="display:flex;color:#E6455C;margin-bottom:32px;">Gas Used:<span style="margin-left:auto;color:#fed33f;overflow-wrap: anywhere;">`+data.gasUsed+`</span></div>
-                            <div style="display:flex;color:#E6455C;margin-bottom:16px;">Transactions:</div>
-                            `+transactionHTML+`
-						</div>
-                    </div>
-                    <div class="message__footer">
-                        <span class="message__authoring">Mined on</span> - `+(new Date(data.timestamp*1000)).toDateString()+`
-                    </div>
-                </div>`);
-        });
-    });
-	web3.eth.getChainId().then((data)=>{
-		$("#chainID").html(data);
-	});
-	web3.eth.getHashrate().then((data)=>{
-		$("#hashrate").html(data);
-	});
-	web3.eth.getNodeInfo().then((data)=>{
-		$("#node").html(data);
-	});
-	var subscription = web3.eth.subscribe('logs', function(error, result){
-		if (!error)
-		{
-			console.log(result);
-		}
-	})
-	.on("connected", function(subscriptionId){
-		$("#logs").append("<p>Logs Activated...</p>");
-	})
-	.on("data", function(log){
-		$("#logs").append("<p style='width:100%;overflow-wrap:anywhere;'>Included "+log.transactionHash+"</p>");
-	});
-}
-renderBlockInfo();
-function previousBlock()
-{
-	if($('#homePage .app-a .nav__link--active').length==0)
-	{
-		return;
-	}
-	var nextID = "block"+(parseInt($('#homePage .app-a .nav__link--active').parent()[0].id.substring(5))+1);
-	if($("#"+nextID).length==0)
-	{
-		return;
-	}
-	$("#homePage .nav-section a").removeClass("nav__link--active");
-	$("#"+nextID+" a").addClass("nav__link--active");
-	$("#homePage .channel-feed__body").css("display","none");
-	$("#"+nextID+"content").css("display","block");
-}
-function nextBlock()
-{
-	var previousid;
-	if($('#homePage .app-a .nav__link--active').length==0)
-	{
-		previousid = document.getElementById("blocksList").children[0].id;
-	}
-	else
-	{
-		previousid = "block"+(parseInt($('#homePage .app-a .nav__link--active').parent()[0].id.substring(5))-1);
-	}
+	var previousid = "property"+(parseInt($('#verificationPage .app-a .nav__link--active').parent()[0].id.substring(8))-1);
 	if($("#"+previousid).length==0)
 	{
 		return;
 	}
-	$("#homePage .nav-section a").removeClass("nav__link--active");
+	$("#verificationPage .nav-section a").removeClass("nav__link--active");
 	$("#"+previousid+" a").addClass("nav__link--active");
-	$("#homePage .channel-feed__body").css("display","none");
-	$("#"+previousid+"content").css("display","block");
+	$("#verificationPage .channel-feed__body").css("display","none");
+	$("#"+previousid+"verification").css("display","block");
 }
+function nextVerification()
+{
+	var nextID = "property"+(parseInt($('#verificationPage .app-a .nav__link--active').parent()[0].id.substring(8))+1);
+	if($("#"+nextID).length==0)
+	{
+		return;
+	}
+	$("#verificationPage .nav-section a").removeClass("nav__link--active");
+	$("#"+nextID+" a").addClass("nav__link--active");
+	$("#verificationPage .channel-feed__body").css("display","none");
+	$("#"+nextID+"verification").css("display","block");
+}
+function renderMap(id)
+{
+	var c = rdnCenter[$("#"+id).attr("data-rdn")];
+	var myLatLng = {lat: c[0], lng: c[1]};
+	var map2 = new google.maps.Map(document.getElementById(id),
+	{
+		zoom: 10,
+		center: myLatLng,
+		mapTypeId: "hybrid",
+	});
+	var poly2 = new google.maps.Polygon({paths: JSON.parse($("#"+id).attr("data-coordinates")), strokeColor: "#FF0000", strokeOpacity: 0.8, strokeWeight: 2, fillColor: "#FF0000", fillOpacity: 0.35});
+	poly2.setMap(map2);
+}
+function downloadPdf(ele)
+{
+	$.get("https://ipfs.io/ipfs/"+ele.getAttribute("data-path"), function(data)
+	{
+		download(data, "SaleDeed.pdf", "application/pdf");
+	});
+}
+async function getunverifiedregistrations()
+{
+	if(!initialized)
+	{
+		return;
+	}
+    try
+    {
+        window.contract = await new web3.eth.Contract(abi5, contractAddress5);
+    }
+    catch(err)
+    {
+        alert(err.message);
+        return;
+    }
+    unverifiedRegistrations = await window.contract.methods.unverifiedLands().call();
+	for(itr=0;itr<unverifiedRegistrations.length;itr++)
+	{
+		ele = unverifiedRegistrations[itr];
+		var coords = JSON.parse(ele.coordinates);
+		var bounds = new google.maps.LatLngBounds();
+		var polygonCoords = [];
+		for(itc=0;itc<coords.length;itc++)
+		{
+			polygonCoords.push(new google.maps.LatLng(coords[itc].lat, coords[itc].lng));
+		}
+		for(itc=0;itc<polygonCoords.length;itc++)
+		{
+			bounds.extend(polygonCoords[itc]);
+		}
+		rdnCenter[ele.RDN] = [bounds.getCenter().lat(), bounds.getCenter().lng()];
+		var point = turf.point(rdnCenter[ele.RDN]);
+		var coord = JSON.parse($("#registrarLatLng").val());
+		var polygonArr = [];
+		for(var j=0;j<coord.length;j++)
+		{
+			polygonArr.push([coord[j].lat, coord[j].lng]);
+		}
+		var polygon = turf.lineToPolygon(turf.lineString(polygonArr));
+		if(!turf.booleanPointInPolygon(point, polygon))
+		{
+			continue;
+		}
+		if(!ele.pendingTransfer)
+		{
+			$("#pendingRegistrationsList").append(
+				`<li class="nav__item" id="property`+(landCount+1)+`">
+					<a class="nav__link" href="#">
+						<span class="channel-link">
+							<span class="channel-link__icon">#</span>
+							<span class="channel-link__element">`+ele.RDN+`</span>
+						</span>
+					</a>
+				</li>`);
+		}
+		else
+		{
+			$("#pendingTransfersList").append(
+				`<li class="nav__item" id="property`+(landCount+1)+`">
+					<a class="nav__link" href="#">
+						<span class="channel-link">
+							<span class="channel-link__icon">#</span>
+							<span class="channel-link__element">`+ele.RDN+`</span>
+						</span>
+					</a>
+				</li>`);
+		}
+		$("#property"+(landCount+1)).click(function()
+		{
+			var id = this.id;
+			$("#verificationPage .nav-section a").removeClass("nav__link--active");
+			$("#"+id+" a").addClass("nav__link--active");
+			$("#verificationPage .channel-feed__body").css("display","none");
+			$("#"+id+"verification").css("display","block");
+			renderMap("ownedMap"+id.slice(8));
+		});
+		var toAdd="";
+		var ownerContent = "<div>";
+		if(landCount>=1)
+		{
+			toAdd=`style="display:none;"`;
+		}
+		for(var itr2=0;itr2<ele.userids.length;itr2++)
+		{
+			ownerContent += `
+			<div style="display:flex;color:#E6455C;">User ID:<span style="margin-left:auto;color:#fed33f;text-transform:uppercase;">`+ele.userids[itr2]+`</span></div>
+			<div style="display:flex;color:#E6455C;">Full Name:<span style="margin-left:auto;color:#fed33f;">`+ele.names[itr2]+`</span></div>
+			<div style="display:flex;color:#E6455C;">Wallet Address:<span style="margin-left:auto;color:#fed33f;">`+ele.home[itr2]+`</span></div>
+			<div style="display:flex;color:#E6455C;margin-bottom:15px;">Current Residence:<span style="margin-left:auto;color:#fed33f;">`+ele.metamaskaddress[itr2]+`</span></div>`;
+		}
+		if(ele.pendingTransfer)
+		{
+			for(var itr3=0;itr3<ele.new_userids.length;itr3++)
+			{
+				ownerContent += `
+				<div style="display:flex;color:#E6455C;">Claimant User ID:<span style="margin-left:auto;color:#fed33f;text-transform:uppercase;">`+ele.new_userids[itr3]+`</span></div>
+				<div style="display:flex;color:#E6455C;">Claimant Full Name:<span style="margin-left:auto;color:#fed33f;">`+ele.new_names[itr3]+`</span></div>
+				<div style="display:flex;color:#E6455C;">Claimant Wallet Address:<span style="margin-left:auto;color:#fed33f;">`+ele.new_home[itr3]+`</span></div>
+				<div style="display:flex;color:#E6455C;margin-bottom:15px;">Claimant Current Residence:<span style="margin-left:auto;color:#fed33f;">`+ele.new_metamaskaddress[itr3]+`</span></div>`;
+			}
+		}
+		ownerContent+=
+		`<div style="display:flex;color:#E6455C;">Regular Document Number (RDN):<span style="margin-left:auto;color:#fed33f;overflow-wrap: anywhere;">`+ele.RDN+`</span></div>
+		<div style="display:flex;color:#E6455C;">Property Details:<span style="margin-left:auto;color:#fed33f;overflow-wrap: anywhere;">`+ele.details+`</span></div>
+		<div style="display:flex;color:#E6455C;">Location:<div class="owned-map-canvas" id="ownedMap`+(landCount+1)+`" style="width:60%;min-width:200px;margin-left: auto;position: relative;overflow: hidden;height: 200px;" data-coordinates='`+ele.coordinates+`' data-rdn="`+ele.RDN+`"></div></div>
+		<div style="display:flex;color:#E6455C;margin-bottom:20px;">Sale Deed Document Link:<span style="margin-left:auto;color:#fed33f;overflow-wrap: anywhere;"><a onclick="downloadPdf(this);" data-path="`+ele.saledeed+`" href="#" style="text-decoration:underline;cursor:pointer;">Download the Sale Deed</a></span></div>`;
+		if(ele.pendingTransfer)
+		{
+			ownerContent+=
+				`<div style="display:flex;color:#E6455C;margin-bottom:20px;">New Sale Deed Document Link:<span style="margin-left:auto;color:#fed33f;overflow-wrap: anywhere;"><a onclick="downloadPdf(this);" data-path="`+ele.new_saledeed+`" href="#" style="text-decoration:underline;cursor:pointer;">Download the New Sale Deed</a></span></div>
+			</div>
+			<div style="display:flex;justify-content:center;margin-right:32px;">
+				<button onclick="acceptTransfer('`+ele.RDN+`');" class="AcceptRejectButton" style="margin-right:30px;" type="button">Accept</button>
+				<button onclick="rejectTransfer('`+ele.RDN+`');" class="AcceptRejectButton" type="button">Reject</button>
+			</div>`;
+		}
+		else
+		{
+			ownerContent+=
+			`</div>
+			<div style="display:flex;justify-content:center;margin-right:32px;">
+				<button onclick="acceptRegistration('`+ele.RDN+`');" class="AcceptRejectButton" style="margin-right:30px;" type="button">Accept</button>
+				<button onclick="rejectRegistration('`+ele.RDN+`');" class="AcceptRejectButton" type="button">Reject</button>
+			</div>`;
+		}
+		$("#registrationMarker").before(
+			`
+			<div class="channel-feed__body" id="property`+(landCount+1)+`verification" `+toAdd+`>
+				<div class="message">
+					<div class="message__body">
+						`+ownerContent+`
+					</div>
+					<div class="message__footer">
+						<span class="message__authoring">Registration Verification</span>
+					</div>
+				</div>
+			</div>`
+		);
+		landCount++;
+	}
+	$("#verificationPage .nav-section a").removeClass("nav__link--active");
+	$("#verificationPage .channel-feed__body").css("display","none");
+	if(landCount>0)
+	{
+		$("#property1 a").addClass("nav__link--active");
+		$("#property1verification").css("display","block");
+		renderMap("ownedMap1");
+	}
+}
+async function acceptRegistration(rd)
+{
+	try
+	{
+		window.contract = await new web3.eth.Contract(abi5, contractAddress5);
+	}
+	catch(err)
+	{
+		alert(err.message);
+		return;
+	}
+	web3.eth.getAccounts().then(function(acc){
+		accounts = acc;
+		window.contract.methods.verifyRegistration(rd,"YES").send({from: accounts[0], gas: 4000000}, function(err, result) {
+				if(err)
+				{
+					alert(err);
+				}
+			}).on("receipt",function(res){
+				alert("Verification Successful!");
+				window.location.reload();
+		});
+	});
+}
+async function rejectRegistration(rd)
+{
+	try
+	{
+		window.contract = await new web3.eth.Contract(abi5, contractAddress5);
+	}
+	catch(err)
+	{
+		alert(err.message);
+		return;
+	}
+	web3.eth.getAccounts().then(function(acc){
+		accounts = acc;
+		window.contract.methods.verifyRegistration(rd,"NOPE").send({from: accounts[0], gas: 4000000}, function(err, result) {
+				if(err)
+				{
+					alert(err);
+				}
+			}).on("receipt",function(res){
+				alert("Rejection Successful!");
+				window.location.reload();
+		});
+	});
+}
+async function acceptTransfer(rd)
+{
+	try
+	{
+		window.contract = await new web3.eth.Contract(abi5, contractAddress5);
+	}
+	catch(err)
+	{
+		alert(err.message);
+		return;
+	}
+	web3.eth.getAccounts().then(function(acc){
+		accounts = acc;
+		window.contract.methods.verifyTransfer(rd,"YES").send({from: accounts[0], gas: 4000000}, function(err, result) {
+				if(err)
+				{
+					alert(err);
+				}
+			}).on("receipt",function(res){
+				alert("Verification Successful!");
+				window.location.reload();
+		});
+	});
+}
+async function rejectTransfer(rd)
+{
+	try
+	{
+		window.contract = await new web3.eth.Contract(abi5, contractAddress5);
+	}
+	catch(err)
+	{
+		alert(err.message);
+		return;
+	}
+	web3.eth.getAccounts().then(function(acc){
+		accounts = acc;
+		window.contract.methods.verifyTransfer(rd,"NOPE").send({from: accounts[0], gas: 4000000}, function(err, result) {
+				if(err)
+				{
+					alert(err);
+				}
+			}).on("receipt",function(res){
+				alert("Rejection Successful!");
+				window.location.reload();
+		});
+	});
+}
+
 
 /*Messages*/
 
@@ -1266,7 +1489,7 @@ try
         {
             userid = window.sessionStorage.getItem("username");
         }
-		getIdeatorInfo();
+		getRegistrarInfo();
         $(".username").html(userid);
         if(window.sessionStorage.getItem("loginMode")!=1)
         {
@@ -1300,7 +1523,7 @@ try
                         alert(err.message);
                         return;
                     }
-                    retrievedMessages = await window.contract.methods.retrieve(userid,"ideator").call();
+                    retrievedMessages = await window.contract.methods.retrieve(userid,"registrar").call();
                     for(i=1;i<=messagesCount;i++)
                     {
                         $("#message"+i+"content").html("");
@@ -1358,7 +1581,7 @@ try
                                 towhomid = $("#"+id+" .conversation-link__element").html();
 								var elem=document.getElementById(id+"content");
 								elem.scrollTop = elem.scrollHeight;
-								$(".nav-mobile").html($("#"+id+" a .conversation-link__element").html());
+								$("#messagesPage .nav-mobile").html($("#"+id+" a .conversation-link__element").html());
                             });
                             if(messagesCount==0)
                             {
@@ -1371,7 +1594,7 @@ try
                                 towhomid = $("#"+id+" .conversation-link__element").html();
 								var elem=document.getElementById(id+"content");
 								elem.scrollTop = elem.scrollHeight;
-								$(".nav-mobile").html($("#"+id+" a .conversation-link__element").html());
+								$("#messagesPage .nav-mobile").html($("#"+id+" a .conversation-link__element").html());
                             }
                             othermessageids.push("ADMIN");
                             messagesCount++;
@@ -1440,7 +1663,7 @@ try
                                 towhomid = $("#"+id+" .conversation-link__element").html();
 								var elem=document.getElementById(id+"content");
 								elem.scrollTop = elem.scrollHeight;
-								$(".nav-mobile").html($("#"+id+" a .conversation-link__element").html());
+								$("#messagesPage .nav-mobile").html($("#"+id+" a .conversation-link__element").html());
                             });
                             if(messagesCount==0)
                             {
@@ -1453,7 +1676,7 @@ try
                                 towhomid = $("#"+id+" .conversation-link__element").html();
 								var elem=document.getElementById(id+"content");
 								elem.scrollTop = elem.scrollHeight;
-								$(".nav-mobile").html($("#"+id+" a .conversation-link__element").html());
+								$("#messagesPage .nav-mobile").html($("#"+id+" a .conversation-link__element").html());
                             }
                             othermessageids.push(ele.receiverID);
                             messagesCount++;
@@ -1494,7 +1717,7 @@ try
                                 towhomid = $("#"+id+" .conversation-link__element").html();
 								var elem=document.getElementById(id+"content");
 								elem.scrollTop = elem.scrollHeight;
-								$(".nav-mobile").html($("#"+id+" a .conversation-link__element").html());
+								$("#messagesPage .nav-mobile").html($("#"+id+" a .conversation-link__element").html());
                             });
                             if(messagesCount==0)
                             {
@@ -1507,7 +1730,7 @@ try
                                 towhomid = $("#"+id+" .conversation-link__element").html();
 								var elem=document.getElementById(id+"content");
 								elem.scrollTop = elem.scrollHeight;
-								$(".nav-mobile").html($("#"+id+" a .conversation-link__element").html());
+								$("#messagesPage .nav-mobile").html($("#"+id+" a .conversation-link__element").html());
                             }
                             othermessageids.push(ele.senderID);
                             messagesCount++;
@@ -1556,6 +1779,13 @@ $("#messagesPage .form-search input").on("input",function(e)
         $("#messagesPage .useridslist").css("display","none");
     }
 });
+$("#messagesPage .form-search input").blur(function()
+{
+	if(!suggestionhovered)
+	{
+		$("#messageMarker .useridslist").css("display","none");
+	}
+});
 $(document).on('mouseenter','.searchSuggestions',function()
 {
 	suggestionhovered = true;
@@ -1595,7 +1825,7 @@ function searchSuggestionClicked(ele)
 			towhomid = $("#"+id+" .conversation-link__element").html();
 			var elem=document.getElementById(id+"content");
 			elem.scrollTop = elem.scrollHeight;
-			$(".nav-mobile").html($("#"+id+" a .conversation-link__element").html());
+			$("#messagesPage .nav-mobile").html($("#"+id+" a .conversation-link__element").html());
 		});
 		$("#messagesPage .nav-section a").removeClass("nav__link--active");
 		$("#message"+(messagesCount+1)+" a").addClass("nav__link--active");
@@ -1605,7 +1835,7 @@ function searchSuggestionClicked(ele)
 		towhomid = ele.innerHTML;
 		var elem=document.getElementById("message"+(messagesCount+1)+"content");
 		elem.scrollTop = elem.scrollHeight;
-		$(".nav-mobile").html($("#message"+(messagesCount+1)+" a .conversation-link__element").html());
+		$("#messagesPage .nav-mobile").html($("#message"+(messagesCount+1)+" a .conversation-link__element").html());
 		messagesCount++;
 	}
 	else
@@ -1620,16 +1850,9 @@ function searchSuggestionClicked(ele)
 		towhomid = $("#message"+id+" .conversation-link__element").html();
 		var elem=document.getElementById("message"+id+"content");
 		elem.scrollTop = elem.scrollHeight;
-		$(".nav-mobile").html($("#message"+id+" a .conversation-link__element").html());
+		$("#messagesPage .nav-mobile").html($("#message"+id+" a .conversation-link__element").html());
 	}
 }
-$(".form-search input").blur(function()
-{
-	if(!suggestionhovered)
-	{
-		$("#messageMarker .useridslist").css("display","none");
-	}
-});
 $(".channel-message-form").submit(function()
 {
     var msg = $("#message").val();
@@ -1684,162 +1907,97 @@ $(".channel-message-form").submit(function()
 
 /*Profile*/
 
-async function getIdeatorInfo()
+async function getRegistrarInfo()
 {
     try
     {
-        window.contract = await new web3.eth.Contract(abi3, contractAddress3);
+        window.contract = await new web3.eth.Contract(abi5, contractAddress5);
     }
     catch(err)
     {
         alert(err.message);
         return;
     }
-    ideatorInfo = await window.contract.methods.getIdeator(window.sessionStorage.getItem("username")).call();
-    if(ideatorInfo.name=="")
+    registrarInfo = await window.contract.methods.getRegistrar(window.sessionStorage.getItem("username")).call();
+    if(registrarInfo.name=="")
     {
-        $("#profileInfo").html(`
-        <div class="message">
-            <div class="message__body">
-                <div>
-                    <div style="display:flex;color:#E6455C;">Name:<span id="ideatorName" contenteditable="false" maxlength="70" style="max-width:50%;margin-left:auto;color:#fed33f;">Not Named Yet</span></div>
-                    <div style="display:flex;color:#E6455C;margin-bottom:32px;">About:<span id="ideatorAbout" contenteditable="false" maxlength="250" style="max-width:50%;margin-left:auto;color:#fed33f;">Add a small description about your start-up</span></div>
-                    <div style="display:flex;color:#E6455C;">Assets Value:<span id="ideatorAssets" contenteditable="false" maxlength="50" style="max-width:50%;margin-left:auto;color:#fed33f;">Mention the asset value based on the valuation</span></div>
-                    <div style="display:flex;color:#E6455C;">Liabilities Value:<span id="ideatorLiabilities" contenteditable="false" maxlength="50" style="max-width:50%;margin-left:auto;color:#fed33f;">Mention the liability value based on the valuation</span></div>
-                    <div style="display:flex;color:#E6455C;">Face value of the Equity Shares:<span id="ideatorPV" contenteditable="false" maxlength="50" style="max-width:50%;margin-left:auto;color:#fed33f;">Mention the face value of each share</span></div>
-                    <div style="display:flex;color:#E6455C;">Current Market Value:<span class="ideatorMV" style="max-width:50%;margin-left:auto;color:#fed33f;">Current Market Value will be displayed here</span></div>
-                    <div style="display:flex;color:#E6455C;">No of Shares:<span id="ideatorShares" contenteditable="false" maxlength="50" style="max-width:50%;margin-left:auto;color:#fed33f;">How many shares?</span></div>
-                </div>
-            </div>
-            <div class="message__footer">
-                <span class="message__authoring">Edit the Details using the Pencil Icon</span>
-            </div>
-        </div>`);
+        initialized = false;
     }
     else
     {
-        var pointsString = "";
-        $("#profileInfo").html(`
-        <div class="message">
-            <div class="message__body">
-                <div>
-                    <div style="display:flex;color:#E6455C;">Name:<span id="ideatorName" maxlength="70" contenteditable="false" style="max-width:50%;margin-left:auto;color:#fed33f;">`+ideatorInfo.name+`</span></div>
-                    <div style="display:flex;color:#E6455C;margin-bottom:32px;">About:<span maxlength="250" id="ideatorAbout" contenteditable="false" style="max-width:50%;margin-left:auto;color:#fed33f;">`+ideatorInfo.about+`</span></div>
-                    <div style="display:flex;color:#E6455C;">Assets Value:<span id="ideatorAssets" maxlength="50" contenteditable="false" style="max-width:50%;margin-left:auto;color:#fed33f;">₹`+ideatorInfo.assets[ideatorInfo.assets.length-1]+`</span></div>
-                    <div style="display:flex;color:#E6455C;">Liabilities Value:<span id="ideatorLiabilities" maxlength="50" contenteditable="false" style="max-width:50%;margin-left:auto;color:#fed33f;">₹`+ideatorInfo.liabilities[ideatorInfo.liabilities.length-1]+`</span></div>
-                    <div style="display:flex;color:#E6455C;">Face value of the Equity Shares:<span id="ideatorPV" maxlength="50" contenteditable="false" style="max-width:50%;margin-left:auto;color:#fed33f;">₹`+ideatorInfo.pv+`</span></div>
-                    <div style="display:flex;color:#E6455C;">Current Market Value:<span class="ideatorMV" style="max-width:50%;margin-left:auto;color:#fed33f;">₹`+((ideatorInfo.assets[ideatorInfo.assets.length-1]-ideatorInfo.liabilities[ideatorInfo.liabilities.length-1])/ideatorInfo.shares)+`</span></div>
-                    <div style="display:flex;color:#E6455C;">No of Shares:<span id="ideatorShares" maxlength="50" style="max-width:50%;margin-left:auto;color:#fed33f;">`+ideatorInfo.shares+`</span></div>
-                </div>
-            </div>
-            <div class="message__footer">
-                <span class="message__authoring">Last updated on - </span>`+(new Date(ideatorInfo.timestamp[ideatorInfo.timestamp.length-1]*1000)).toDateString()+`
-            </div>
-        </div>`);
-        for(i=1;i<=ideatorInfo.investors.length;i++)
-        {
-            var sharesBought = 0;
-            for(itr=0;itr<ideatorInfo.sharesbought[i-1].length;itr++)
-            {
-                sharesBought+=parseInt(ideatorInfo.sharesbought[i-1][itr]);
-            }
-            $("#investorsList").append(`
-            <li class="nav__item" id="investor`+i+`">
-                <a class="nav__link" href="#">
-                    <span class="channel-link conversation-link--unread">
-                        <span class="channel-link__icon">#</span>
-                        <span class="channel-link__element">`+ideatorInfo.investors[i-1]+`</span>
-                        <span class="channel-link__element">
-                            <span class="badge">`+sharesBought+`</span>
-                        </span>
-                    </span>
-                </a>
-            </li>`);
-        }
-    }
-    $("span[maxlength]").on('keyup paste', function (event)
-    {
-        var cntMaxLength = parseInt($(this).attr('maxlength'));
-        if ($(this).text().length >= cntMaxLength && event.keyCode != 8 && event.keyCode != 37 && event.keyCode != 38 && event.keyCode != 39 && event.keyCode != 40)
-        {
-            event.preventDefault();
-            $(this).html(function(i, currentHtml) {return currentHtml.substring(0, cntMaxLength-1);});
-        }
-    });
-    var maxValue=10;
-    for(i=0;i<ideatorInfo.timestamp.length;i++)
-    {
-        if(i>0)
-        {
-            pointsString+=",";
-        }
-        k = ((ideatorInfo.assets[i]-ideatorInfo.liabilities[i])*(1/ideatorInfo.shares));
-        if(maxValue<k)
-        {
-            maxValue = k;
-        }
-        pointsString+=`(`+(i+1)+`,`+k+`)`;
-    }
-    var elt = document.getElementById('calculator');
-    var calculator = Desmos.GraphingCalculator(elt,{expressionsTopbar:false, expressions: false, keypad:false, settingsMenu: false, invertedColors:true});
-    calculator.setMathBounds({left: 0,right: 5,bottom: 0,top: maxValue});
-    calculator.setExpression({id: 'graph1',latex: pointsString, lineWidth:1, points: true, lines: true, pointStyle: Desmos.Styles.POINT, lineStyle: Desmos.Styles.SOLID,color: "#012cc0"});
-}
-var editClickedCount=0;
-function editClicked()
-{
-    editClickedCount++;
-    if(editClickedCount%2!=0 && ideatorInfo.timestamp.length==0)
-    {
-        $("#ideatorName").attr("contenteditable", "true");
-        $("#ideatorAbout").attr("contenteditable", "true");
-        $("#ideatorAssets").attr("contenteditable", "true");
-        $("#ideatorLiabilities").attr("contenteditable", "true");
-        $("#ideatorPV").attr("contenteditable", "true");
-    }
-    else if(editClickedCount%2!=0 && ideatorInfo.timestamp.length!=0)
-    {
-        $("#ideatorAbout").attr("contenteditable", "true");
-        $("#ideatorAssets").attr("contenteditable", "true");
-        $("#ideatorLiabilities").attr("contenteditable", "true");
-    }
-    else if(editClickedCount%2==0 && ideatorInfo.timestamp.length==0)
-    {
-		if(window.sessionStorage.getItem("loginMode")!=1)
-        {
-			alert("Login through your metamask wallet to perform this operation!");
-			return;
+        initialized = true;
+        $("#registrarFullName").val(registrarInfo.name);
+        $("#registrarSD").val(registrarInfo.sd);
+        $("#registrarTD").val(registrarInfo.td);
+        $("#registrarRF").val(registrarInfo.rf);
+		$("#registrarLatLng").val(registrarInfo.coordinates);
+		var coords = JSON.parse($("#registrarLatLng").val());
+		for(var i=0;i<coords.length;i++)
+		{
+			var e =
+			{
+				latLng: new google.maps.LatLng(coords[i].lat, coords[i].lng)
+			};
+			google.maps.event.trigger(map, 'click', e);
 		}
-        $("#ideatorName").attr("contenteditable", "false");
-        $("#ideatorAbout").attr("contenteditable", "false");
-        $("#ideatorAssets").attr("contenteditable", "false");
-        $("#ideatorLiabilities").attr("contenteditable", "false");
-        $("#ideatorPV").attr("contenteditable", "false");
-        if(/^-?\d+$/.test($("#ideatorAssets").html()) && /^-?\d+$/.test($("#ideatorLiabilities").html()) && /^-?\d+$/.test($("#ideatorPV").html()) && (parseInt($("#ideatorAssets").html().trim())-parseInt($("#ideatorLiabilities").html().trim()))>0)
+    }
+	getunverifiedregistrations();
+}
+function updateRegistrar()
+{
+    if($("#registrarFullName").val().length>0 && $("#registrarSD").val().length>0 && $("#registrarTD").val().length>0 && $("#registrarRF").val().length>0 && ($("#registrarLatLng").val().match(/lat/g) || []).length>2)
+    {
+        try
         {
-            $("#ideatorShares").html(((parseInt($("#ideatorAssets").html().trim())-parseInt($("#ideatorLiabilities").html().trim()))/parseInt($("#ideatorPV").html().trim())).toString());
-            try
+            async function updateRegistrarInfo()
             {
-                async function addIdeatorInfo()
+                try
                 {
-                    try
-                    {
-                        window.contract = await new web3.eth.Contract(abi3, contractAddress3);
-                    }
-                    catch(err)
-                    {
-                        alert(err.message);
-                        return;
-                    }
+                    window.contract = await new web3.eth.Contract(abi5, contractAddress5);
+                }
+                catch(err)
+                {
+                    alert(err.message);
+                    return;
+                }
+                if(initialized)
+                {
                     web3.eth.getAccounts().then(function(acc){
                         accounts = acc;
-                        window.contract.methods.addIdeator($("#ideatorName").html().trim(),window.sessionStorage.getItem("username"), $("#ideatorAbout").html().trim(),parseInt($("#ideatorAssets").html().trim()), parseInt($("#ideatorLiabilities").html().trim()), parseInt($("#ideatorPV").html().trim()),parseInt($("#ideatorShares").html().trim()),metamask).send({from: accounts[0], gas: 4000000}, function(err, result) {
+                        window.contract.methods.updateRegistrar(window.sessionStorage.getItem("username"), $("#registrarSD").val(), $("#registrarTD").val(), $("#registrarRF").val()).send({from: accounts[0], gas: 4000000}, function(err, result) {
                             if(err)
                             {
                                 alert(err);
                             }
                         }).on("receipt",function(res){
-                            if(res.events.infoupdated.returnValues.success=="YES")
+                            if(res.events.registrarUpdated.returnValues.success=="YES")
+                            {
+                                alert("Successfully Updated Details");
+                                window.location.reload();
+                            }
+                            else if(res.events.registrarUpdated.returnValues.success=="NO")
+                            {
+                                alert("Failed to update the details!");
+                            }
+                        });
+                    });
+                }
+                else
+                {
+                    if(window.sessionStorage.getItem("loginMode")!=1)
+                    {
+                        alert("Login through your metamask wallet to perform this operation!");
+                        return;
+                    }
+                    web3.eth.getAccounts().then(function(acc){
+                        accounts = acc;
+                        window.contract.methods.addRegistrar($("#registrarFullName").val(), window.sessionStorage.getItem("username"), $("#registrarSD").val(), $("#registrarTD").val(), $("#registrarRF").val(), $("#registrarLatLng").val(), metamask).send({from: accounts[0], gas: 4000000}, function(err, result) {
+                            if(err)
+                            {
+                                alert(err);
+                            }
+                        }).on("receipt",function(res){
+                            if(res.events.registrarUpdated.returnValues.success=="YES")
                             {
                                 alert("Successfully Updated Details");
                                 window.location.reload();
@@ -1851,78 +2009,131 @@ function editClicked()
                         });
                     });
                 }
-                addIdeatorInfo();
             }
-            catch(err)
-            {
-                alert(err.message);
-                return;
-            }
+            updateRegistrarInfo();
         }
-        else
+        catch(err)
         {
-            alert("Enter the details appropriately!");
+            alert(err.message);
+            return;
         }
     }
-    else if(editClickedCount%2==0 && ideatorInfo.timestamp.length!=0)
+    else
     {
-		if(!$("#ideatorAssets").html().startsWith("₹"))
-		{
-			$("#ideatorAssets").html("₹"+$("#ideatorAssets").html());
-		}
-		if(!$("#ideatorLiabilities").html().startsWith("₹"))
-		{
-			$("#ideatorLiabilities").html("₹"+$("#ideatorLiabilities").html());
-		}
-        $("#ideatorAbout").attr("contenteditable", "false");
-        $("#ideatorAssets").attr("contenteditable", "false");
-        $("#ideatorLiabilities").attr("contenteditable", "false");
-        if(/^-?\d+$/.test($("#ideatorAssets").html().substring(1)) && /^-?\d+$/.test($("#ideatorLiabilities").html().substring(1)))
-        {
-            try
-            {
-                async function updateIdeatorInfo()
-                {
-                    try
-                    {
-                        window.contract = await new web3.eth.Contract(abi3, contractAddress3);
-                    }
-                    catch(err)
-                    {
-                        alert(err.message);
-                        return;
-                    }
-                    web3.eth.getAccounts().then(function(acc){
-                        accounts = acc;
-                        window.contract.methods.updateIdeator(window.sessionStorage.getItem("username"), $("#ideatorAbout").html().trim(),parseInt($("#ideatorAssets").html().trim().substring(1)), parseInt($("#ideatorLiabilities").html().trim().substring(1))).send({from: accounts[0], gas: 4000000}, function(err, result) {
-                            if(err)
-                            {
-                                alert(err);
-                            }
-                        }).on("receipt",function(res){
-                            if(res.events.infoupdated.returnValues.success=="YES")
-                            {
-                                alert("Successfully Updated Details");
-                                window.location.reload();
-                            }
-                            else if(res.events.infoupdated.returnValues.success=="NO")
-                            {
-                                alert("Failed to update the details!");
-                            }
-                        });
-                    });
-                }
-                updateIdeatorInfo();
-            }
-            catch(err)
-            {
-                alert(err.message);
-                return;
-            }
-        }
-        else
-        {
-            alert("Enter the details appropriately!");
-        }
+        alert("Enter the details properly!");
     }
+}
+function searchCity()
+{
+	var city_name = $("#registrarCity").val().trim();
+	fetchJSONData("https://maps.googleapis.com/maps/api/geocode/json?address="+city_name+"&key=AIzaSyDh1Zoc7hX7m6iaTii9if3ANmt_7JqzY9Y")
+	.then(function(json){
+		var lat = json.results[0].geometry.location.lat;
+		var lng = json.results[0].geometry.location.lng;
+		initMap(lat,lng);
+	});
+}
+async function fetchJSONData(url)
+{
+	var response =await fetch(url)
+	if (response.status == 200)
+	{
+		let data = await  response.json();
+		return data;
+	}
+	else
+	{
+		throw new HttpError(response);
+	}
+}
+function initMap(lat=17.385044,lng=78.486671)
+{
+	var myLatLng = {lat: lat, lng: lng};
+	map = new google.maps.Map(document.getElementById('map-canvas'),
+	{
+		zoom: 10,
+		center: myLatLng,
+		mapTypeId: "hybrid",
+	});
+	poly = new google.maps.Polygon({strokeColor: "#FF0000", strokeOpacity: 0.8, strokeWeight: 2, fillColor: "#FF0000", fillOpacity: 0.35});
+	poly.setMap(map);
+	map.addListener("click", addLatLng);
+}
+function addLatLng(event)
+{
+	path = poly.getPath();
+	path.push(event.latLng);
+	polyPath.push({lat: event.latLng.lat(), lng: event.latLng.lng()});
+	$("#registrarLatLng").val(JSON.stringify(polyPath));
+	var marker = new google.maps.Marker({
+	  position: event.latLng,
+	  title: "#" + path.getLength(),
+	  draggable: true,
+	  map: map,
+	  id: Math.random()
+	});
+	markers.push(marker);
+	marker.addListener("drag", onDragMarker);
+	marker.addListener("dblclick", deleteMarker);
+}
+function deleteMarker()
+{
+	this.setMap(null);
+	for(var i = 0; i < markers.length; i++)
+	{
+		if(markers[i].id === this.id)
+		{
+			markers.splice(i, 1);
+			break;
+		}
+	}
+	renderPoly();
+}
+function clearAllMarkers()
+{
+	for (var i = 0; i < markers.length; i++)
+	{
+		markers[i].setMap(null);
+	}
+	markers = [];
+}   
+function resetMap()
+{
+	polyPath = [];
+	$("#registrarLatLng").val("");
+	poly.setPath([]);
+	clearAllMarkers();
+}
+function renderPoly()
+{
+	poly.setPath([]);
+	path = poly.getPath();
+	polyPath = [];
+	for (var i = 0; i < markers.length; i++)
+	{
+		path.push(markers[i].position);
+		polyPath.push({lat: markers[i].position.lat(), lng: markers[i].position.lng()});
+	}
+	$("#registrarLatLng").val(JSON.stringify(polyPath));
+}
+var onDragMarker = debounce(function(event)
+{
+	renderPoly();
+}, 250);
+function debounce(func, wait, immediate)
+{
+	var timeout;
+	return function()
+	{
+		var context = this, args = arguments;
+		var later = function()
+		{
+		  timeout = null;
+		  if (!immediate) func.apply(context, args);
+		};
+		var callNow = immediate && !timeout;
+		clearTimeout(timeout);
+		timeout = setTimeout(later, wait);
+		if (callNow) func.apply(context, args);
+	};
 }

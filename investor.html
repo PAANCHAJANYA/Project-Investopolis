@@ -37,19 +37,29 @@
                                 <span class="nav__link__element">Home</span>
                             </a>
                         </li>
+                        <li class="nav__item sharesButton">
+                            <a class="nav__link" href="#">
+                                <span class="nav__link__element">Ideators</span>
+                            </a>
+                        </li>
+                        <li class="nav__item landsButton">
+                            <a class="nav__link" href="#">
+                                <span class="nav__link__element">Real-Estate</span>
+                            </a>
+                        </li>
+                        <li class="nav__item NFTsButton">
+                            <a class="nav__link" href="#">
+                                <span class="nav__link__element">NFT</span>
+                            </a>
+                        </li>
                         <li class="nav__item messagesButton">
                             <a class="nav__link " href="#">
                                 <span class="nav__link__element">Messages</span>
                             </a>
                         </li>
-                        <li class="nav__item myProfileButton">
+                        <li class="nav__item tokensButton">
                             <a class="nav__link " href="#">
-                                <span class="nav__link__element">My Profile</span>
-                            </a>
-                        </li>
-                        <li class="nav__item developersButton">
-                            <a class="nav__link" href="#">
-                                <span class="nav__link__element">Creators</span>
+                                <span class="nav__link__element">Tokens</span>
                             </a>
                         </li>
                     </ul>
@@ -70,7 +80,7 @@
                             <h3 class="text-heading3 segment-topbar__title">Home</h3>
                         </div>
                     </div>
-                    <div class="nav-section">
+                    <div class="nav-section" style="max-height:90%;">
                         <div class="nav-section__header">
                             <h2 class="nav-section__title">Latest Blocks</h2>
                         </div>
@@ -92,11 +102,21 @@
                                     </span>
                                 </h4>
                             </div>
+                            <div class="segment-topbar__aside" style="display:none;">
+                                <div class="button-toolbar">
+                                    <a class="button button--default" onclick="previousBlock();">
+                                        <svg class="button__icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" data-name="Flat Color"><path d="M17.45,2.11a1,1,0,0,0-1.05.09l-12,9a1,1,0,0,0,0,1.6l12,9a1,1,0,0,0,1.05.09A1,1,0,0,0,18,21V3A1,1,0,0,0,17.45,2.11Z"/></svg>
+                                    </a>
+                                    <a class="button button--default" onclick="nextBlock();">
+                                        <svg class="button__icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" data-name="Flat Color"><path d="M18.6,11.2l-12-9A1,1,0,0,0,5,3V21a1,1,0,0,0,.55.89,1,1,0,0,0,1-.09l12-9a1,1,0,0,0,0-1.6Z"/></svg>
+                                    </a>
+                                </div>
+                            </div>
                         </div>
-                        <div class="channel-feed__body" id="blockchainNetwork" style="max-height: 75vh;">
+                        <div class="channel-feed__body" id="blockchainNetwork" style="max-height: 75vh;padding-right:0;padding-bottom: 10px;">
                             <div class="container">
                                 <p style="font-size: 22px;font-weight: 700;text-align: center;white-space: nowrap;color: #fed33f;">The Investopolis Network</p>
-                                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" height="60vh" viewBox="0 0 2000 1200" enable-background="new 0 0 2000 1200" xml:space="preserve">
+                                <svg style="width:100%;max-height:60vh;height:fit-content;" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 2000 1200" enable-background="new 0 0 2000 1200" xml:space="preserve">
                                     <g>
                                         <line fill="none" stroke="#FF4D6B" stroke-width="3.4927" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="355" y1="952" x2="1430.3" y2="315.4" />
                                     </g>
@@ -1936,13 +1956,598 @@
                     </div>
                 </div>
                 <div class="app-b">
+                    <div class="pad" style="margin-bottom:20px;">
+                        <div class="pad__body">
+                            <h4 class="text-heading3 undefined">The Network Inspector</h4>
+                            <p class="text-paragraph1 undefined">Investopolis is a one-stop investment solution for investment shares in budding start-ups, real-estate and NFTs.</p>
+                            <p class="text-paragraph1 undefined">The Network Inspector feature shall aid you in obtaining information on the recently mined blocks and their constituent transactions.</p>
+                        </div>
+                    </div>
+                    <div class="pad" id="chainInfo" style="max-height: 45%;overflow-x:hidden;overflow-y:auto;clip-path: none;">
+                        <div class="pad__body">
+                            <div style="display:flex;">
+                                <div style="width:40%;color: #E6455C;">
+                                    <div>Chain ID:</div>
+                                    <div>Hashrate:</div>
+                                    <div>Node:</div>
+                                </div>
+                                <div style="width:60%;color: #fed33f;">
+                                    <div id="chainID"></div>
+                                    <div id="hashrate"></div>
+                                    <div id="node"></div>
+                                </div>
+                            </div>
+                            <div style="color: #E6455C;">Logs:</div>
+                            <div style="color: #fed33f;" id="logs"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="app-skeleton" id="sharesPage" style="display: none;">
+            <header class="app-header">
+                <div class="app-header__anchor">
+                    <img src="assets/tabIcon.png" style="height:35px;"/>
+                    <span class="app-header__anchor__text">Investopolis</span>
+                </div>
+                <nav>
+                    <ul class="nav">
+                        <li class="nav__item homeButton">
+                            <a class="nav__link" href="#">
+                                <span class="nav__link__element">Home</span>
+                            </a>
+                        </li>
+                        <li class="nav__item sharesButton">
+                            <a class="nav__link nav__link--active" href="#">
+                                <span class="nav__link__element">Ideators</span>
+                            </a>
+                        </li>
+                        <li class="nav__item landsButton">
+                            <a class="nav__link" href="#">
+                                <span class="nav__link__element">Real-Estate</span>
+                            </a>
+                        </li>
+                        <li class="nav__item NFTsButton">
+                            <a class="nav__link" href="#">
+                                <span class="nav__link__element">NFT</span>
+                            </a>
+                        </li>
+                        <li class="nav__item messagesButton">
+                            <a class="nav__link " href="#">
+                                <span class="nav__link__element">Messages</span>
+                            </a>
+                        </li>
+                        <li class="nav__item tokensButton">
+                            <a class="nav__link " href="#">
+                                <span class="nav__link__element">Tokens</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+                <div class="logout">
+                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="30" height="30" viewBox="0 0 490.3 490.3" style="enable-background:new 0 0 490.3 490.3;" xml:space="preserve">
+                        <g>
+                            <path d="M0,121.05v248.2c0,34.2,27.9,62.1,62.1,62.1h200.6c34.2,0,62.1-27.9,62.1-62.1v-40.2c0-6.8-5.5-12.3-12.3-12.3    s-12.3,5.5-12.3,12.3v40.2c0,20.7-16.9,37.6-37.6,37.6H62.1c-20.7,0-37.6-16.9-37.6-37.6v-248.2c0-20.7,16.9-37.6,37.6-37.6h200.6    c20.7,0,37.6,16.9,37.6,37.6v40.2c0,6.8,5.5,12.3,12.3,12.3s12.3-5.5,12.3-12.3v-40.2c0-34.2-27.9-62.1-62.1-62.1H62.1    C27.9,58.95,0,86.75,0,121.05z"/>
+                            <path d="M385.4,337.65c2.4,2.4,5.5,3.6,8.7,3.6s6.3-1.2,8.7-3.6l83.9-83.9c4.8-4.8,4.8-12.5,0-17.3l-83.9-83.9    c-4.8-4.8-12.5-4.8-17.3,0s-4.8,12.5,0,17.3l63,63H218.6c-6.8,0-12.3,5.5-12.3,12.3c0,6.8,5.5,12.3,12.3,12.3h229.8l-63,63    C380.6,325.15,380.6,332.95,385.4,337.65z"/>
+                        </g>
+                    </svg>
+                </div>
+            </header>
+            <div class="app-container">
+                <div class="app-a">
+                    <div class="segment-topbar">
+                        <div class="segment-topbar__header">
+                            <h3 class="text-heading3 segment-topbar__title">Ideators</h3>
+                        </div>
+                    </div>
+                    <form class="form-search">
+                        <div class="form-group">
+                            <div class="form-control form-control--with-addon">
+                                <input name="query" placeholder="Search..." type="text" autocomplete="off" style="text-transform:uppercase;">
+                                <div class="form-control__addon form-control__addon--prefix">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                        <path d="M21.172 24l-7.387-7.387c-1.388.874-3.024 1.387-4.785 1.387-4.971 0-9-4.029-9-9s4.029-9 9-9 9 4.029 9 9c0 1.761-.514 3.398-1.387 4.785l7.387 7.387-2.828 2.828zm-12.172-8c3.859 0 7-3.14 7-7s-3.141-7-7-7-7 3.14-7 7 3.141 7 7 7z"></path>
+                                    </svg>
+                                </div>
+                            </div>
+                            <ul style="display:none;list-style-type: none;" class="ideatoridslist"></ul>
+                        </div>
+                    </form>
+                    <div class="nav-section">
+                        <div class="nav-section__header">
+                            <h2 class="nav-section__title">Your Investments</h2>
+                        </div>
+                        <div class="nav-section__body">
+                            <ul class="nav" id="investedIdeatorsList">
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="nav-section">
+                        <div class="nav-section__header">
+                            <h2 class="nav-section__title">Ideators</h2>
+                        </div>
+                        <div class="nav-section__body">
+                            <ul class="nav" id="ideatorsList">
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="app-main">
+                    <div class="channel-feed">
+                        <div class="segment-topbar">
+                            <div class="segment-topbar__header">
+                                <span class="segment-topbar__overline">Wallet Address:</span>
+                                <h4 class="text-heading4 segment-topbar__title">
+                                    <span class="channel-link ">
+                                        <span class="channel-link__icon">#</span>
+                                        <span class="channel-link__element username">Username</span>
+                                    </span>
+                                </h4>
+                                <span class="nav-mobile" style="display:none;"></span>
+                            </div>
+                            <div style="display:flex;">
+                                <div class="segment-topbar__aside">
+                                    <div class="button-toolbar">
+                                        <a class="button button--default" onclick="verifyDoc();">
+                                            <svg style="height:1.4rem;" class="button__icon" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 60 60" style="enable-background:new 0 0 60 60;" xml:space="preserve">
+                                                <g>
+                                                    <path d="M60,2.542H0v46h38v7.856c0,0.584,0.476,1.06,1.06,1.06l0.456-0.018L45,51.956l5.196,5.196l0.334,0.306h0.41l1.06-0.06   v-8.856h8V2.542z M46.851,6.542h2.042c0.552,0,1,0.447,1,1s-0.448,1-1,1h-2.042c-0.552,0-1-0.447-1-1S46.299,6.542,46.851,6.542z    M39.702,6.542h2.042c0.552,0,1,0.447,1,1s-0.448,1-1,1h-2.042c-0.552,0-1-0.447-1-1S39.15,6.542,39.702,6.542z M32.553,6.542   h2.042c0.552,0,1,0.447,1,1s-0.448,1-1,1h-2.042c-0.552,0-1-0.447-1-1S32.001,6.542,32.553,6.542z M25.404,6.542h2.042   c0.552,0,1,0.447,1,1s-0.448,1-1,1h-2.042c-0.552,0-1-0.447-1-1S24.852,6.542,25.404,6.542z M25,15.542h23c0.552,0,1,0.447,1,1   s-0.448,1-1,1H25c-0.552,0-1-0.447-1-1S24.448,15.542,25,15.542z M25,21.542h11c0.552,0,1,0.447,1,1s-0.448,1-1,1H25   c-0.552,0-1-0.447-1-1S24.448,21.542,25,21.542z M18.255,6.542h2.042c0.552,0,1,0.447,1,1s-0.448,1-1,1h-2.042   c-0.552,0-1-0.447-1-1S17.703,6.542,18.255,6.542z M15,12.542c0-0.553,0.448-1,1-1s1,0.447,1,1v1.101c2.279,0.465,4,2.484,4,4.899   c0,0.553-0.448,1-1,1s-1-0.447-1-1c0-1.302-0.839-2.402-2-2.816v5.438l2.229,1.734c0.777,0.604,1.281,1.511,1.383,2.488   c0.1,0.957-0.182,1.882-0.793,2.605C19.085,28.86,18.091,29.438,17,29.66v0.882c0,0.553-0.448,1-1,1s-1-0.447-1-1v-0.878   c-2.279-0.465-4-2.484-4-4.899c0-0.553,0.448-1,1-1s1,0.447,1,1c0,1.302,0.839,2.402,2,2.816v-5.438l-2.229-1.734   c-0.777-0.604-1.282-1.513-1.383-2.491c-0.1-0.956,0.183-1.881,0.794-2.603c0.733-0.867,1.728-1.446,2.818-1.668V12.542z    M11.106,6.542h2.042c0.552,0,1,0.447,1,1s-0.448,1-1,1h-2.042c-0.552,0-1-0.447-1-1S10.554,6.542,11.106,6.542z M11,34.542h21   c0.552,0,1,0.447,1,1s-0.448,1-1,1H11c-0.552,0-1-0.447-1-1S10.448,34.542,11,34.542z M4,13.693c0-0.553,0.448-1,1-1s1,0.447,1,1   v2.061c0,0.553-0.448,1-1,1s-1-0.447-1-1V13.693z M4,20.905c0-0.553,0.448-1,1-1s1,0.447,1,1v2.061c0,0.553-0.448,1-1,1   s-1-0.447-1-1V20.905z M4,28.117c0-0.553,0.448-1,1-1s1,0.447,1,1v2.061c0,0.553-0.448,1-1,1s-1-0.447-1-1V28.117z M4,35.33   c0-0.553,0.448-1,1-1s1,0.447,1,1v2.061c0,0.553-0.448,1-1,1s-1-0.447-1-1V35.33z M6,44.542H4v-2c0-0.553,0.448-1,1-1s1,0.447,1,1   c0.552,0,1,0.447,1,1S6.552,44.542,6,44.542z M6,8.542c0,0.553-0.448,1-1,1s-1-0.447-1-1v-2h2c0.552,0,1,0.447,1,1   S6.552,8.542,6,8.542z M13,44.542h-2c-0.552,0-1-0.447-1-1s0.448-1,1-1h2c0.552,0,1,0.447,1,1S13.552,44.542,13,44.542z M20,44.542   h-2c-0.552,0-1-0.447-1-1s0.448-1,1-1h2c0.552,0,1,0.447,1,1S20.552,44.542,20,44.542z M27,44.542h-2c-0.552,0-1-0.447-1-1   s0.448-1,1-1h2c0.552,0,1,0.447,1,1S27.552,44.542,27,44.542z M33,44.542h-1c-0.552,0-1-0.447-1-1s0.448-1,1-1h1   c0.552,0,1,0.447,1,1S33.552,44.542,33,44.542z M33,29.542h-8c-0.552,0-1-0.447-1-1s0.448-1,1-1h8c0.552,0,1,0.447,1,1   S33.552,29.542,33,29.542z M50,54.128l-5-5l-5,5v-5.586v-3.896c3.535,2.549,6.464,2.549,10,0v3.896V54.128z M50.125,42.104   c-0.154,0.055-0.298,0.137-0.426,0.243c-1.772,1.478-3.309,2.195-4.699,2.195s-2.927-0.718-4.698-2.194   c-0.128-0.107-0.273-0.188-0.426-0.244C36.963,40.354,35,37.179,35,33.542c0-5.514,4.486-10,10-10s10,4.486,10,10   C55,37.179,53.037,40.354,50.125,42.104z M56,23.542c0,0.553-0.448,1-1,1s-1-0.447-1-1v-1c0-0.553,0.448-1,1-1s1,0.447,1,1V23.542z    M56,16.709c0,0.553-0.448,1-1,1s-1-0.447-1-1v-2.333c0-0.553,0.448-1,1-1s1,0.447,1,1V16.709z M56,8.542c0,0.553-0.448,1-1,1   s-1-0.447-1-1c-0.552,0-1-0.447-1-1s0.448-1,1-1h2V8.542z"/>
+                                                    <path d="M45,25.542c-4.411,0-8,3.589-8,8s3.589,8,8,8s8-3.589,8-8S49.411,25.542,45,25.542z"/>
+                                                    <path d="M13.999,18.83L15,19.609v-3.877c-0.494,0.176-0.944,0.464-1.292,0.875c-0.256,0.303-0.374,0.694-0.331,1.104   C13.423,18.149,13.649,18.558,13.999,18.83z"/>
+                                                    <path d="M18.623,25.595c-0.046-0.438-0.272-0.847-0.622-1.118L17,23.698v3.878c0.494-0.176,0.944-0.464,1.292-0.875   C18.548,26.397,18.666,26.005,18.623,25.595z"/>
+                                                </g>
+                                            </svg>
+                                        </a>
+                                        <a class="button button--default" onclick="investClicked();">
+                                            <svg style="height:1.4rem;" class="button__icon" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" x="0px" y="0px" width="447.185px" height="447.185px" viewBox="0 0 447.185 447.185" style="enable-background:new 0 0 447.185 447.185;" xml:space="preserve">
+                                                <g>
+                                                    <path d="M358.204,96.283h-33.437c-2.211-19.379-8.961-37.519-19.672-51.56h53.108c12.721,0,23.022-9.499,23.022-22.216   c0-12.723-10.302-22.484-23.022-22.484H178.118c-0.659,0-1.294-0.023-1.971-0.023c-0.438,0-0.877,0.023-1.315,0.023H88.981   c-12.72,0-23.022,9.768-23.022,22.484s10.302,22.216,23.022,22.216h102.097c32.243,2.347,66.017,14.821,74.913,51.56H88.981   c-12.72,0-23.022,10.309-23.022,23.031c0,12.717,10.302,23.031,23.022,23.031h174.716c-10.87,29.034-40.728,46.742-82.225,46.742   h-45.788h-0.133h-26.699c-12.401,0-22.455,10.054-22.455,22.455c0,12.404,10.054,22.458,22.455,22.458h26.382   c0.109,0.012,0.207,0.065,0.316,0.065h41.665c45.268,1.72,65.402,21.35,76.946,75.055c9.032,39.892,15.682,65.875,20.912,81.438   c3.919,14.398,11.674,36.091,25.127,49.048c5.261,5.059,12.046,7.577,18.808,7.577c7.117,0,14.233-2.784,19.559-8.322   c9.76-10.144,9.937-25.842,0.993-36.334c-0.041-0.124-0.023-0.26-0.088-0.384c-8.258-15.32-18.247-56.412-30.435-108.533   c-9.688-42.381-27.787-68.778-55.213-80.499c34.437-13.22,58.127-38.506,67.412-70.772h36.966   c12.721,0,23.022-10.314,23.022-23.031S370.925,96.283,358.204,96.283z"/>
+                                                </g>                                            
+                                            </svg>
+                                        </a>
+                                        <a class="button button--default" onclick="interestClicked();">
+                                            <svg style="height:1.4rem;" class="button__icon" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" fill="#000000" version="1.1" id="Layer_1" viewBox="0 0 72 72" enable-background="new 0 0 72 72" xml:space="preserve">
+                                                <g>
+                                                    <path d="M66.318,7.585c-0.045-0.905-0.705-1.675-1.601-1.856c-0.077-0.015-0.153-0.026-0.229-0.033L38.635,3.139   c-0.601-0.06-1.187,0.152-1.611,0.576L6.55,34.191c-4.571,4.571-4.571,7.359,0,11.929l19.338,19.34   c2.049,2.05,3.847,3.412,5.965,3.412s3.916-1.366,5.961-3.413l30.479-30.478c0.424-0.423,0.635-1.014,0.576-1.611L66.318,7.585z    M34.987,62.631c-0.961,0.961-2.332,2.24-3.134,2.24c-0.803,0-2.175-1.279-3.137-2.24L9.378,43.291   c-2.989-2.988-2.989-3.283,0-6.271L39.186,7.212l23.303,2.306l2.308,23.304L34.987,62.631z"/>
+                                                    <path d="M24.043,27.496l-9.09,9.089c-2.295,2.295-2.925,3.851-0.297,6.479c0.195,0.195,0.451,0.293,0.707,0.293   c0.256,0,0.512-0.098,0.707-0.293c0.391-0.391,0.391-1.022,0-1.414c-1.567-1.567-1.548-1.805,0.297-3.651l9.09-9.089   c0.391-0.391,0.391-1.023,0-1.414S24.434,27.105,24.043,27.496z"/>
+                                                    <path d="M26.888,24.649l-0.813,0.814c-0.39,0.391-0.39,1.024,0.002,1.414c0.195,0.194,0.45,0.292,0.706,0.292   c0.256,0,0.512-0.097,0.708-0.294l0.813-0.814c0.39-0.391,0.39-1.024-0.002-1.414C27.911,24.258,27.279,24.256,26.888,24.649z"/>
+                                                    <path d="M50.604,12.862c-4.571,0-8.293,3.72-8.293,8.292c0,4.572,3.722,8.292,8.293,8.292c4.573,0,8.291-3.72,8.291-8.292   C58.895,16.582,55.176,12.862,50.604,12.862z M50.604,25.446c-2.367,0-4.293-1.926-4.293-4.292c0-2.366,1.926-4.292,4.293-4.292   c2.369,0,4.291,1.926,4.291,4.292C54.895,23.52,52.971,25.446,50.604,25.446z"/>
+                                                </g>
+                                            </svg>
+                                        </a>
+                                        <a class="button button--default" onclick="disinterestClicked();">
+                                            <svg style="height:1.4rem;" class="button__icon" xmlns="http://www.w3.org/2000/svg" version="1.0" viewBox="0 0 200.000000 200.000000" preserveAspectRatio="xMidYMid meet">
+                                                <g transform="translate(0.000000,200.000000) scale(0.100000,-0.100000)" stroke="none">
+                                                    <path d="M700 1295 l-505 -505 293 -292 292 -293 510 510 510 510 0 287 0 288 -298 0 -297 0 -505 -505z m1014 429 c25 -25 20 -71 -10 -91 -24 -15 -29 -15 -53 -2 -32 18 -40 68 -16 93 21 20 59 21 79 0z m-604 -444 l0 -160 168 -2 167 -3 3 -77 3 -78 -170 0 -171 0 -2 -172 -3 -173 -75 0 -75 0 -3 173 -2 172 -165 0 -165 0 0 80 0 80 165 0 165 0 0 160 0 160 80 0 80 0 0 -160z"/>
+                                                </g>
+                                            </svg>
+                                        </a>
+                                    </div>
+                                </div>
+                                <form class="form-search" style="display:none;width: 140px;">
+                                    <div class="form-group">
+                                        <div class="form-control form-control--with-addon">
+                                            <input name="query" placeholder="Search..." type="text" autocomplete="off" style="text-transform:uppercase;">
+                                            <div class="form-control__addon form-control__addon--prefix">
+                                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                                    <path d="M21.172 24l-7.387-7.387c-1.388.874-3.024 1.387-4.785 1.387-4.971 0-9-4.029-9-9s4.029-9 9-9 9 4.029 9 9c0 1.761-.514 3.398-1.387 4.785l7.387 7.387-2.828 2.828zm-12.172-8c3.859 0 7-3.14 7-7s-3.141-7-7-7-7 3.14-7 7 3.141 7 7 7z"></path>
+                                                </svg>
+                                            </div>
+                                        </div>
+                                        <ul style="display:none;list-style-type: none;position: absolute;backdrop-filter: blur(10px);background: rgba(30, 24, 30,0.5);margin-top: 0;z-index: 5;padding-left: 0;" class="ideatoridslist"></ul>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        <div id="ideatorMarker" style="display:none;"></div>
+                    </div>
+                </div>
+                <div class="app-b">
                     <div class="pad">
                         <div class="pad__body">
-                            <h4 class="text-heading3 undefined">About Investopolis</h4>
-                            <p class="text-paragraph1 undefined">Investopolis is an investment platform encompassing customer loyalty through blockchain wherein investors can invest upon ideators' companies which are unlisted in the stock market but would have high market value when deployed.</p>
-                            <p class="text-paragraph1 undefined">The investors on the platform are rewarded for various actions with tokens. As the utility of a token increases, the value of the token shall rise.</p>
-                            <p class="text-paragraph1 undefined">Every transaction an investor performs shall have a 1% transaction fee. He/she can pay by cryptocurrency or use a token he/she was rewarded prior.</p>
-                            <p class="text-paragraph1 undefined">In addition to transactions from investors to ideators, investors can transfer tokens/cryptocurrency to other investors as well.</p>
+                            <h4 class="text-heading3 undefined">Growth</h4>
+                            <div id="calculator" style="width:100%; height: 300px;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="app-skeleton" id="landsPage" style="display: none;">
+            <header class="app-header">
+                <div class="app-header__anchor">
+                    <img src="assets/tabIcon.png" style="height:35px;"/>
+                    <span class="app-header__anchor__text">Investopolis</span>
+                </div>
+                <nav>
+                    <ul class="nav">
+                        <li class="nav__item homeButton">
+                            <a class="nav__link" href="#">
+                                <span class="nav__link__element">Home</span>
+                            </a>
+                        </li>
+                        <li class="nav__item sharesButton">
+                            <a class="nav__link" href="#">
+                                <span class="nav__link__element">Ideators</span>
+                            </a>
+                        </li>
+                        <li class="nav__item landsButton">
+                            <a class="nav__link nav__link--active" href="#">
+                                <span class="nav__link__element">Real-Estate</span>
+                            </a>
+                        </li>
+                        <li class="nav__item NFTsButton">
+                            <a class="nav__link" href="#">
+                                <span class="nav__link__element">NFT</span>
+                            </a>
+                        </li>
+                        <li class="nav__item messagesButton">
+                            <a class="nav__link " href="#">
+                                <span class="nav__link__element">Messages</span>
+                            </a>
+                        </li>
+                        <li class="nav__item tokensButton">
+                            <a class="nav__link " href="#">
+                                <span class="nav__link__element">Tokens</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+                <div class="logout">
+                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="30" height="30" viewBox="0 0 490.3 490.3" style="enable-background:new 0 0 490.3 490.3;" xml:space="preserve">
+                        <g>
+                            <path d="M0,121.05v248.2c0,34.2,27.9,62.1,62.1,62.1h200.6c34.2,0,62.1-27.9,62.1-62.1v-40.2c0-6.8-5.5-12.3-12.3-12.3    s-12.3,5.5-12.3,12.3v40.2c0,20.7-16.9,37.6-37.6,37.6H62.1c-20.7,0-37.6-16.9-37.6-37.6v-248.2c0-20.7,16.9-37.6,37.6-37.6h200.6    c20.7,0,37.6,16.9,37.6,37.6v40.2c0,6.8,5.5,12.3,12.3,12.3s12.3-5.5,12.3-12.3v-40.2c0-34.2-27.9-62.1-62.1-62.1H62.1    C27.9,58.95,0,86.75,0,121.05z"/>
+                            <path d="M385.4,337.65c2.4,2.4,5.5,3.6,8.7,3.6s6.3-1.2,8.7-3.6l83.9-83.9c4.8-4.8,4.8-12.5,0-17.3l-83.9-83.9    c-4.8-4.8-12.5-4.8-17.3,0s-4.8,12.5,0,17.3l63,63H218.6c-6.8,0-12.3,5.5-12.3,12.3c0,6.8,5.5,12.3,12.3,12.3h229.8l-63,63    C380.6,325.15,380.6,332.95,385.4,337.65z"/>
+                        </g>
+                    </svg>
+                </div>
+            </header>
+            <div class="app-container">
+                <div class="app-a">
+                    <div class="segment-topbar">
+                        <div class="segment-topbar__header">
+                            <h3 class="text-heading3 segment-topbar__title">Real-Estate</h3>
+                        </div>
+                    </div>
+                    <div class="nav-section">
+                        <div class="nav-section__header">
+                            <h2 class="nav-section__title">Registration</h2>
+                        </div>
+                        <div class="nav-section__body">
+                            <ul class="nav">
+                                <li class="nav__item" id="registerLand" onclick="registerLandClicked();">
+                                    <a class="nav__link nav__link--active" href="#">
+                                        <span class="channel-link conversation-link--unread">
+                                            <span class="channel-link__icon">#</span>
+                                            <span class="channel-link__element">Register on the Platform</span>
+                                        </span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="nav-section">
+                        <div class="nav-section__header">
+                            <h2 class="nav-section__title">Transfer</h2>
+                        </div>
+                        <div class="nav-section__body">
+                            <ul class="nav">
+                                <li class="nav__item" id="transferLand" onclick="transferLandClicked();">
+                                    <a class="nav__link" href="#">
+                                        <span class="channel-link conversation-link--unread">
+                                            <span class="channel-link__icon">#</span>
+                                            <span class="channel-link__element">Transfer Ownership</span>
+                                        </span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="nav-section" style="max-height: 50%;">
+                        <div class="nav-section__header">
+                            <h2 class="nav-section__title">Lands Owned</h2>
+                        </div>
+                        <div class="nav-section__body">
+                            <ul class="nav" id="ownedLands">
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="app-main">
+                    <div class="channel-feed">
+                        <div class="segment-topbar">
+                            <div class="segment-topbar__header">
+                                <span class="segment-topbar__overline">Wallet Address:</span>
+                                <h4 class="text-heading4 segment-topbar__title">
+                                    <span class="channel-link ">
+                                        <span class="channel-link__icon">#</span>
+                                        <span class="channel-link__element username">Username</span>
+                                    </span>
+                                </h4>
+                            </div>
+                            <div style="display:flex;">
+                                <div class="segment-topbar__aside" style="display:none;">
+                                    <div class="button-toolbar">
+                                        <a id="registerLandButton" class="button button--default" onclick="registerLandClicked();">
+                                            <svg style="height:1.4rem;" class="button__icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
+                                                <path d="M57.5,41a.5.5,0,0,0-.5.5V43H47V31h2v.5a.5.5,0,0,0,.5.5h5a.5.5,0,0,0,.5-.5V31h2v.5a.5.5,0,0,0,1,0v-1a.5.5,0,0,0-.5-.5H55v-.5A1.5,1.5,0,0,0,53.5,28h-3A1.5,1.5,0,0,0,49,29.5V30H46.5a.5.5,0,0,0-.5.5v13a.5.5,0,0,0,.5.5h11a.5.5,0,0,0,.5-.5v-2A.5.5,0,0,0,57.5,41ZM50,29.5a.5.5,0,0,1,.5-.5h3a.5.5,0,0,1,.5.5V31H50Zm11.854,4.646-2-2a.5.5,0,0,0-.708,0l-6,6A.5.5,0,0,0,53,38.5v2a.5.5,0,0,0,.5.5h2a.5.5,0,0,0,.354-.146l6-6A.5.5,0,0,0,61.854,34.146ZM54,40V38.707l5.5-5.5L60.793,34.5l-5.5,5.5Zm-2,.5a.5.5,0,0,1-.5.5h-2a.5.5,0,0,1,0-1h2A.5.5,0,0,1,52,40.5Zm0-3a.5.5,0,0,1-.5.5h-2a.5.5,0,0,1,0-1h2A.5.5,0,0,1,52,37.5ZM54.5,35h-5a.5.5,0,0,1,0-1h5a.5.5,0,0,1,0,1Z" transform="translate(-46 -28)"/>
+                                            </svg>
+                                        </a>
+                                        <a id="transferLandButton" class="button button--default" onclick="transferLandClicked();">
+                                            <svg style="height:1.4rem;" class="button__icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                                <path fill-rule="evenodd" clip-rule="evenodd" d="M4 15.2433C4.41421 15.2433 4.75 15.5791 4.75 15.9933V19C4.75 19.1381 4.86193 19.25 5 19.25H19C19.1381 19.25 19.25 19.1381 19.25 19V15.9933C19.25 15.5791 19.5858 15.2433 20 15.2433C20.4142 15.2433 20.75 15.5791 20.75 15.9933V19C20.75 19.9665 19.9665 20.75 19 20.75H5C4.0335 20.75 3.25 19.9665 3.25 19V15.9933C3.25 15.5791 3.58579 15.2433 4 15.2433Z"/>
+                                                <path fill-rule="evenodd" clip-rule="evenodd" d="M19.8697 10.8932C20.1696 11.1789 20.1811 11.6536 19.8953 11.9535L16.8477 15.1517C16.7061 15.3003 16.5099 15.3843 16.3047 15.3843C16.0995 15.3843 15.9033 15.3003 15.7618 15.1517L12.7142 11.9535C12.4284 11.6536 12.4399 11.1789 12.7397 10.8932C13.0396 10.6074 13.5143 10.6189 13.8001 10.9187L16.3047 13.5471L18.8094 10.9187C19.0951 10.6189 19.5699 10.6074 19.8697 10.8932Z"/>
+                                                <path fill-rule="evenodd" clip-rule="evenodd" d="M11.3524 4.75C9.03146 4.75 7.14999 6.63147 7.14999 8.95238V13.9582C7.14999 14.3724 6.81421 14.7082 6.39999 14.7082C5.98578 14.7082 5.64999 14.3724 5.64999 13.9582V8.95238C5.64999 5.80305 8.20304 3.25 11.3524 3.25C14.5017 3.25 17.0548 5.80304 17.0548 8.95238V13.9582C17.0548 14.3724 16.719 14.7082 16.3048 14.7082C15.8905 14.7082 15.5548 14.3724 15.5548 13.9582V8.95238C15.5548 6.63147 13.6733 4.75 11.3524 4.75Z"/>
+                                            </svg>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="channel-feed__body" id="registerLandcontent">
+                            <div class="message">
+                                <div class="message__body">
+                                    <div>
+                                        <div style="display:flex;color:#E6455C;">User ID:<span id="registerUserID1" style="margin-left:auto;color:#fed33f;"></span></div>
+                                        <div style="display:flex;color:#E6455C;">Full Name:<input size="15" type="text" id="registerFullname1" style="margin-left:auto;color:#fed33f;text-transform:uppercase;text-align:right;border: 1px solid white;border-radius:3px;background:transparent;"></div>
+                                        <div style="display:flex;color:#E6455C;">Wallet Address:<span id="registerMetamask1" style="margin-left:auto;color:#fed33f;"></span></div>
+                                        <div style="display:flex;color:#E6455C;">Current Residence:<input size="20" type="text" id="registerAddress1" style="margin-left:auto;color:#fed33f;text-transform:uppercase;text-align:right;border: 1px solid white;border-radius:3px;background:transparent;"></div>
+                                        <div style="display:none;" id="registerOwnersMarker"></div>
+                                        <button onclick="addRegisterOwner();" class="AddDeleteButton" type="button">Add Owner</button>
+                                    </div>
+                                    <div style="display: flex;justify-content:space-between;margin-top:32px;">
+                                        <div style="width:45%;">
+                                            <form id="registerLandForm" action="#">
+                                                <div class="user-box">
+                                                    <input type="text" required maxlength="100" id="registerDocumentNumber">
+                                                    <label>Regular Document Number (RDN): </label>
+                                                </div>
+                                                <div class="user-box">
+                                                    <input type="text" required id="registerPropertyDetails">
+                                                    <label>Property Details: </label>
+                                                </div>
+                                                <div style="display:flex;justify-content:center;margin-right:32px;">
+                                                    <button onclick="register();" class="AcceptRejectButton" style="margin-right:30px;" type="button" id="registerButton">Register</button>
+                                                    <button onclick="clearRegForm();" class="AcceptRejectButton" type="button" id="clearButton">Clear</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                        <div style="width:40%">
+                                            <div class="user-box" style="display:flex;margin-bottom:30px;">
+                                                <input type="text" required id="registerCity" style="margin-bottom:0px;">
+                                                <label>Search City/Town: </label>
+                                                <button onclick="searchCity();" class="AddDeleteButton" style="margin-left:10px;margin-top:0px;height:80%;align-self: center;" type="button">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="white" viewBox="0 0 24 24">
+                                                        <path d="M21.172 24l-7.387-7.387c-1.388.874-3.024 1.387-4.785 1.387-4.971 0-9-4.029-9-9s4.029-9 9-9 9 4.029 9 9c0 1.761-.514 3.398-1.387 4.785l7.387 7.387-2.828 2.828zm-12.172-8c3.859 0 7-3.14 7-7s-3.141-7-7-7-7 3.14-7 7 3.141 7 7 7z"></path>
+                                                    </svg>
+                                                </button>
+                                            </div>
+                                            <div id="map-canvas" style="height:200px;margin-bottom:30px;"></div>
+                                            <div class="user-box" style="display:flex;">
+                                                <input type="text" required id="registerLatLng" style="margin-bottom:0px;">
+                                                <label>Coordinates: </label>
+                                                <button onclick="resetMap();" class="AddDeleteButton" style="margin-left:10px;margin-top:0px;height:80%;align-self: center;" type="button">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="17" height="17" fill="white" viewBox="0 0 1024 1024" t="1569683368540" version="1.1"><path d="M899.1 869.6l-53-305.6H864c14.4 0 26-11.6 26-26V346c0-14.4-11.6-26-26-26H618V138c0-14.4-11.6-26-26-26H432c-14.4 0-26 11.6-26 26v182H160c-14.4 0-26 11.6-26 26v192c0 14.4 11.6 26 26 26h17.9l-53 305.6c-0.3 1.5-0.4 3-0.4 4.4 0 14.4 11.6 26 26 26h723c1.5 0 3-0.1 4.4-0.4 14.2-2.4 23.7-15.9 21.2-30zM204 390h272V182h72v208h272v104H204V390z m468 440V674c0-4.4-3.6-8-8-8h-48c-4.4 0-8 3.6-8 8v156H416V674c0-4.4-3.6-8-8-8h-48c-4.4 0-8 3.6-8 8v156H202.8l45.1-260H776l45.1 260H672z"/></svg>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="message__footer">
+                                    <span class="message__authoring">Register your property on Investopolis</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="channel-feed__body" id="transferLandcontent">
+                            <div class="message">
+                                <div class="message__body">
+                                    <div>
+                                        <div style="display:flex;color:#E6455C;margin-bottom: 3px;">User ID:<input size="8" type="text" id="transferUserID1" style="margin-left:auto;color:#fed33f;text-transform:uppercase;text-align:right;border-radius:3px;border: 1px solid white;background:transparent;" onblur="transferUserIDBlur(this.value, this.id);"></div>
+                                        <div style="display:flex;color:#E6455C;margin-bottom: 3px;">Full Name:<input size="15" type="text" id="transferFullname1" style="margin-left:auto;color:#fed33f;text-transform:uppercase;text-align:right;border-radius:3px;border: 1px solid white;background:transparent;"></div>
+                                        <div style="display:flex;color:#E6455C;margin-bottom: 3px;">Wallet Address:<span id="transferMetamask1" style="margin-left:auto;color:#fed33f;"></span></div>
+                                        <div style="display:flex;color:#E6455C;">Current Residence:<input size="20" type="text" id="transferAddress1" style="margin-left:auto;color:#fed33f;text-transform:uppercase;text-align:right;border-radius:3px;border: 1px solid white;background:transparent;"></div>
+                                        <div style="display:none;" id="transferOwnersMarker"></div>
+                                        <button onclick="addTransferOwner();" class="AddDeleteButton" type="button">Add Owner</button>
+                                    </div>
+                                    <div style="display: flex;justify-content:space-between;margin-top:32px;">
+                                        <div style="width:100%;">
+                                            <form id="transferLandForm" action="#">
+                                                <div class="user-box">
+                                                    <input type="text" required maxlength="100" id="transferDocumentNumber">
+                                                    <label>Regular Document Number (RDN): </label>
+                                                </div>
+                                                <div style="display:flex;justify-content:center;margin-right:32px;">
+                                                    <button onclick="transfer();" class="AcceptRejectButton" style="margin-right:30px;" type="button">Transfer</button>
+                                                    <button onclick="clearTransForm();" class="AcceptRejectButton" type="button">Clear</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="message__footer">
+                                    <span class="message__authoring">Transfer the ownership of your property on Investopolis</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="ownedMarker" style="display:none;"></div>
+                     </div>
+                </div>
+                <div class="app-b">
+                    <div class="pad">
+                        <div class="pad__body" id="supportDocumentUpload">
+                            <h4 class="text-heading3 undefined">Supporting Documents</h4>
+                            <div>
+                                <button type="button" id="uploadSaleDeedButton">
+                                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="20" height="20" viewBox="0 0 487.451 487.451" style="enable-background:new 0 0 487.451 487.451;fill:white;" xml:space="preserve">
+                                        <g>
+                                            <path d="M371.694,63.921h-87.83V88.06c0,4.046-3.281,7.326-7.326,7.326h-59.521c-3.164,0-5.851-2.01-6.876-4.819   c0.353,0.054,0.71,0.089,1.077,0.089h59.521c4.045,0,7.325-3.28,7.325-7.326V7.326c0-4.045-3.28-7.326-7.325-7.326h-59.521   c-4.047,0-7.326,3.281-7.326,7.326v56.596h-88.136c-4.046,0-7.326,3.281-7.326,7.326v408.879c0,4.045,3.28,7.324,7.326,7.324   h255.938c4.046,0,7.326-3.279,7.326-7.324V71.247C379.021,67.203,375.74,63.921,371.694,63.921z M226.48,26.247h28.994   c5.271,0,9.541,4.271,9.541,9.54s-4.271,9.54-9.541,9.54H226.48c-5.268,0-9.54-4.271-9.54-9.54S221.212,26.247,226.48,26.247z    M205.566,169.084l0.293-0.337c1.13-0.82,1.68-2.11,1.464-3.43c-2.823-17.042-0.974-24.141-0.336-25.921   c4.931-15.135,20.479-22.223,23.53-23.474c0.638-0.248,1.827-0.615,3.082-0.811l0.32-0.075l2.575-0.143l0.014,0.158l0.55-0.045   l2.183-0.386c0.479,0.003,6.479,0.752,15.52,3.53l6.237,2.14c11.382,3.365,16.676,9.663,17.656,10.922   c9.139,10.367,6.701,26.012,4.424,34.415c-0.248,0.966-0.098,1.975,0.449,2.796l0.516,0.659c0.834,1.11,1.146,4.843-0.719,11.769   c-0.383,2.26-1.213,4.094-2.457,5.315c-0.429,0.473-0.75,1.117-0.871,1.807c-3.096,18.125-19.323,38.402-36.438,38.402   c-14.546,0-31.129-18.662-34.11-38.384c-0.11-0.72-0.417-1.361-0.918-1.912c-1.238-1.285-2.035-3.145-2.518-5.899   C204.573,174.992,204.429,170.824,205.566,169.084z M172.086,248.342c0.121-0.156,3.497-4.445,11.511-7.504   c0,0,17.322-6.747,17.646-6.855c9.015-3.272,18.066-10.093,18.066-10.093l0.621,0.539c7.484,6.446,15.589,9.857,23.432,9.857   c0.045,0,0.091-0.004,0.136-0.006c0,0,0.546,0.006,0.591,0.006c7.843,0,15.947-3.411,23.432-9.857l0.622-0.539   c0,0,9.051,6.82,18.064,10.093c0.324,0.108,17.646,6.855,17.646,6.855c8.014,3.059,11.391,7.348,11.511,7.504   c12.41,18.43,14.507,58.693,14.718,63.191c-0.097,6.309-1.885,7.915-2.361,8.238c-26.687,11.939-62.956,16.791-84.223,16.791   s-57.082-4.852-83.768-16.791c-0.477-0.323-2.265-1.932-2.36-8.238C157.58,307.036,159.677,266.771,172.086,248.342z    M285.438,433.861H150.569v-21.553h134.868V433.861L285.438,433.861z M336.882,391.455H150.569v-21.553h186.312V391.455z"/>
+                                        </g>
+                                    </svg>
+                                    <span>Upload Sale Deed</span>
+                                </button>
+                                <input style="display:none;" type="file" name="saleDeedToUpload" id="saleDeedToUpload" accept="application/pdf"/>
+                            </div>
+                        </div>
+                        <div class="pad__body" id="supportDocumentDownload" style="display:none;">
+                            <h4 class="text-heading3 undefined">Supporting Documents</h4>
+                            <div id="saledeedcontainer">
+                                <button type="button" id="downloadSaleDeedButton">
+                                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="20" height="20" viewBox="0 0 487.451 487.451" style="enable-background:new 0 0 487.451 487.451;fill:white;" xml:space="preserve">
+                                        <g>
+                                            <path d="M371.694,63.921h-87.83V88.06c0,4.046-3.281,7.326-7.326,7.326h-59.521c-3.164,0-5.851-2.01-6.876-4.819   c0.353,0.054,0.71,0.089,1.077,0.089h59.521c4.045,0,7.325-3.28,7.325-7.326V7.326c0-4.045-3.28-7.326-7.325-7.326h-59.521   c-4.047,0-7.326,3.281-7.326,7.326v56.596h-88.136c-4.046,0-7.326,3.281-7.326,7.326v408.879c0,4.045,3.28,7.324,7.326,7.324   h255.938c4.046,0,7.326-3.279,7.326-7.324V71.247C379.021,67.203,375.74,63.921,371.694,63.921z M226.48,26.247h28.994   c5.271,0,9.541,4.271,9.541,9.54s-4.271,9.54-9.541,9.54H226.48c-5.268,0-9.54-4.271-9.54-9.54S221.212,26.247,226.48,26.247z    M205.566,169.084l0.293-0.337c1.13-0.82,1.68-2.11,1.464-3.43c-2.823-17.042-0.974-24.141-0.336-25.921   c4.931-15.135,20.479-22.223,23.53-23.474c0.638-0.248,1.827-0.615,3.082-0.811l0.32-0.075l2.575-0.143l0.014,0.158l0.55-0.045   l2.183-0.386c0.479,0.003,6.479,0.752,15.52,3.53l6.237,2.14c11.382,3.365,16.676,9.663,17.656,10.922   c9.139,10.367,6.701,26.012,4.424,34.415c-0.248,0.966-0.098,1.975,0.449,2.796l0.516,0.659c0.834,1.11,1.146,4.843-0.719,11.769   c-0.383,2.26-1.213,4.094-2.457,5.315c-0.429,0.473-0.75,1.117-0.871,1.807c-3.096,18.125-19.323,38.402-36.438,38.402   c-14.546,0-31.129-18.662-34.11-38.384c-0.11-0.72-0.417-1.361-0.918-1.912c-1.238-1.285-2.035-3.145-2.518-5.899   C204.573,174.992,204.429,170.824,205.566,169.084z M172.086,248.342c0.121-0.156,3.497-4.445,11.511-7.504   c0,0,17.322-6.747,17.646-6.855c9.015-3.272,18.066-10.093,18.066-10.093l0.621,0.539c7.484,6.446,15.589,9.857,23.432,9.857   c0.045,0,0.091-0.004,0.136-0.006c0,0,0.546,0.006,0.591,0.006c7.843,0,15.947-3.411,23.432-9.857l0.622-0.539   c0,0,9.051,6.82,18.064,10.093c0.324,0.108,17.646,6.855,17.646,6.855c8.014,3.059,11.391,7.348,11.511,7.504   c12.41,18.43,14.507,58.693,14.718,63.191c-0.097,6.309-1.885,7.915-2.361,8.238c-26.687,11.939-62.956,16.791-84.223,16.791   s-57.082-4.852-83.768-16.791c-0.477-0.323-2.265-1.932-2.36-8.238C157.58,307.036,159.677,266.771,172.086,248.342z    M285.438,433.861H150.569v-21.553h134.868V433.861L285.438,433.861z M336.882,391.455H150.569v-21.553h186.312V391.455z"/>
+                                        </g>
+                                    </svg>
+                                    <a onclick="downloadPdf(this);" href="#">Download Current Sale Deed</a>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="app-skeleton" id="NFTsPage" style="display: none;">
+            <header class="app-header">
+                <div class="app-header__anchor">
+                    <img src="assets/tabIcon.png" style="height:35px;"/>
+                    <span class="app-header__anchor__text">Investopolis</span>
+                </div>
+                <nav>
+                    <ul class="nav">
+                        <li class="nav__item homeButton">
+                            <a class="nav__link" href="#">
+                                <span class="nav__link__element">Home</span>
+                            </a>
+                        </li>
+                        <li class="nav__item sharesButton">
+                            <a class="nav__link" href="#">
+                                <span class="nav__link__element">Ideators</span>
+                            </a>
+                        </li>
+                        <li class="nav__item landsButton">
+                            <a class="nav__link" href="#">
+                                <span class="nav__link__element">Real-Estate</span>
+                            </a>
+                        </li>
+                        <li class="nav__item NFTsButton">
+                            <a class="nav__link nav__link--active" href="#">
+                                <span class="nav__link__element">NFT</span>
+                            </a>
+                        </li>
+                        <li class="nav__item messagesButton">
+                            <a class="nav__link " href="#">
+                                <span class="nav__link__element">Messages</span>
+                            </a>
+                        </li>
+                        <li class="nav__item tokensButton">
+                            <a class="nav__link " href="#">
+                                <span class="nav__link__element">Tokens</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+                <div class="logout">
+                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="30" height="30" viewBox="0 0 490.3 490.3" style="enable-background:new 0 0 490.3 490.3;" xml:space="preserve">
+                        <g>
+                            <path d="M0,121.05v248.2c0,34.2,27.9,62.1,62.1,62.1h200.6c34.2,0,62.1-27.9,62.1-62.1v-40.2c0-6.8-5.5-12.3-12.3-12.3    s-12.3,5.5-12.3,12.3v40.2c0,20.7-16.9,37.6-37.6,37.6H62.1c-20.7,0-37.6-16.9-37.6-37.6v-248.2c0-20.7,16.9-37.6,37.6-37.6h200.6    c20.7,0,37.6,16.9,37.6,37.6v40.2c0,6.8,5.5,12.3,12.3,12.3s12.3-5.5,12.3-12.3v-40.2c0-34.2-27.9-62.1-62.1-62.1H62.1    C27.9,58.95,0,86.75,0,121.05z"/>
+                            <path d="M385.4,337.65c2.4,2.4,5.5,3.6,8.7,3.6s6.3-1.2,8.7-3.6l83.9-83.9c4.8-4.8,4.8-12.5,0-17.3l-83.9-83.9    c-4.8-4.8-12.5-4.8-17.3,0s-4.8,12.5,0,17.3l63,63H218.6c-6.8,0-12.3,5.5-12.3,12.3c0,6.8,5.5,12.3,12.3,12.3h229.8l-63,63    C380.6,325.15,380.6,332.95,385.4,337.65z"/>
+                        </g>
+                    </svg>
+                </div>
+            </header>
+            <canvas id="canvas" style="position: absolute;top: 0;left: 0;z-index: 0;object-fit: cover;opacity: 0.1;"></canvas>
+            <div class="app-container">
+                <div class="app-a">
+                    <div class="segment-topbar">
+                        <div class="segment-topbar__header">
+                            <h3 class="text-heading3 segment-topbar__title">NFT</h3>
+                        </div>
+                    </div>
+                    <div class="nav-section" style="max-height:80%;">
+                        <div class="nav-section__header">
+                            <h2 class="nav-section__title">Control Panel</h2>
+                        </div>
+                        <div class="nav-section__body">
+                            <ul class="nav">
+                                <li class="nav__item" id="newNFT">
+                                    <a class="nav__link nav__link--active" href="#">
+                                        <span class="conversation-link conversation-link--online">
+                                            <span class="conversation-link__icon"></span>
+                                            <span class="conversation-link__element">NFTs for Sale</span>
+                                        </span>
+                                    </a>
+                                </li>
+                                <li class="nav__item" id="viewNFT">
+                                    <a class="nav__link" href="#">
+                                        <span class="conversation-link conversation-link--online">
+                                            <span class="conversation-link__icon"></span>
+                                            <span class="conversation-link__element">View your NFTs</span>
+                                        </span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="app-main">
+                    <div class="channel-feed">
+                        <div class="segment-topbar">
+                            <div class="segment-topbar__header">
+                                <span class="segment-topbar__overline">Wallet Address:</span>
+                                <h4 class="text-heading4 segment-topbar__title">
+                                    <span class="channel-link ">
+                                        <span class="channel-link__icon">#</span>
+                                        <span class="channel-link__element username">Username</span>
+                                    </span>
+                                </h4>
+                            </div>
+                            <div class="segment-topbar__aside" style="display:none;">
+                                <div class="button-toolbar">
+                                    <a class="button button--default" id="newButton" onclick="newNFTClicked();">
+                                        <svg style="height:1.4rem;" class="button__icon" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Uploaded to svgrepo.com" viewBox="0 0 32 32" xml:space="preserve">
+                                            <path class="stone_een" d="M17,15h3v2h-3v3h-2v-3h-3v-2h3v-3h2V15z M27,10.243V27c0,1.657-1.343,3-3,3H8c-1.657,0-3-1.343-3-3V5  c0-1.657,1.343-3,3-3h10.757C19.192,2,19.612,2.102,20,2.279V7c0,1.103,0.897,2,2,2h4.721C26.898,9.388,27,9.808,27,10.243z M21,15  c0-0.552-0.448-1-1-1h-2v-2c0-0.552-0.448-1-1-1h-2c-0.552,0-1,0.448-1,1v2h-2c-0.552,0-1,0.448-1,1v2c0,0.552,0.448,1,1,1h2v2  c0,0.552,0.448,1,1,1h2c0.552,0,1-0.448,1-1v-2h2c0.552,0,1-0.448,1-1V15z M22,8h4l-5-5v4C21,7.552,21.448,8,22,8z"/>
+                                        </svg>
+                                    </a>
+                                    <a class="button button--default" id="viewButton" onclick="viewNFTClicked();">
+                                        <svg style="height:1.4rem;" class="button__icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                            <path fill-rule="evenodd" clip-rule="evenodd" d="M20.7703 12C20.7703 11.6412 20.5762 11.4056 20.188 10.9343C18.768 9.21014 15.6357 6 12 6C8.36428 6 5.23207 9.21014 3.81198 10.9343C3.42382 11.4056 3.22974 11.6412 3.22974 12C3.22974 12.3588 3.42382 12.5944 3.81198 13.0657C5.23207 14.7899 8.36428 18 12 18C15.6357 18 18.768 14.7899 20.188 13.0657C20.5762 12.5944 20.7703 12.3588 20.7703 12ZM12 15C13.6569 15 15 13.6569 15 12C15 10.3431 13.6569 9 12 9C10.3432 9 9.00002 10.3431 9.00002 12C9.00002 13.6569 10.3432 15 12 15Z"/>
+                                        </svg>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="channel-feed__body" id="newNFTcontent">
+                            <div class="message">
+                                <div class="message__body">
+                                    <div style="display:flex;align-items:center;justify-content: space-between;">
+                                        <div class="carousel" style="width:55%;">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="message__footer">
+                                    <span class="message__authoring">Buy new NFTs</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="channel-feed__body" id="viewNFTcontent">
+                            <div class="message">
+                                <div class="message__body">
+                                    <div style="display:flex;align-items:center;justify-content: space-between;">
+                                        <div class="carousel" style="width:55%;">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="message__footer">
+                                    <span class="message__authoring">View the NFTs you still have ownership of</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="app-b">
+                    <div class="pad"style="margin-bottom:20px;">
+                        <div class="pad__body">
+                            <h4 class="text-heading3 undefined">NFTs</h4>
+                            <p class="text-paragraph1 undefined"><em>NFTs</em> have been used to exchange digital tokens that link to a digital file asset.</p>
+                            <p class="text-paragraph1 undefined">Digital art is a common use case for NFTs. This feature of Investopolis enables vendors to mint image NFTs i.e., digital arts, paintings or photography and list them for selling.</p>
                         </div>
                     </div>
                 </div>
@@ -1961,19 +2566,29 @@
                                 <span class="nav__link__element">Home</span>
                             </a>
                         </li>
+                        <li class="nav__item sharesButton">
+                            <a class="nav__link" href="#">
+                                <span class="nav__link__element">Ideators</span>
+                            </a>
+                        </li>
+                        <li class="nav__item landsButton">
+                            <a class="nav__link" href="#">
+                                <span class="nav__link__element">Real-Estate</span>
+                            </a>
+                        </li>
+                        <li class="nav__item NFTsButton">
+                            <a class="nav__link" href="#">
+                                <span class="nav__link__element">NFT</span>
+                            </a>
+                        </li>
                         <li class="nav__item messagesButton">
                             <a class="nav__link nav__link--active" href="#">
                                 <span class="nav__link__element">Messages</span>
                             </a>
                         </li>
-                        <li class="nav__item myProfileButton">
+                        <li class="nav__item tokensButton">
                             <a class="nav__link " href="#">
-                                <span class="nav__link__element">My Profile</span>
-                            </a>
-                        </li>
-                        <li class="nav__item developersButton">
-                            <a class="nav__link" href="#">
-                                <span class="nav__link__element">Creators</span>
+                                <span class="nav__link__element">Tokens</span>
                             </a>
                         </li>
                     </ul>
@@ -2028,32 +2643,38 @@
                                         <span class="channel-link__element username">Username</span>
                                     </span>
                                 </h4>
+                                <span class="nav-mobile" style="display:none;"></span>
                             </div>
-                            <div class="segment-topbar__aside">
-                                <div class="button-toolbar">
-                                    <a class="button button--default" onclick="shareStock();">
-                                        <svg class="button__icon" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 60 60" style="enable-background:new 0 0 60 60;" xml:space="preserve">
-                                            <g>
-                                                <path d="M60,2.542H0v46h38v7.856c0,0.584,0.476,1.06,1.06,1.06l0.456-0.018L45,51.956l5.196,5.196l0.334,0.306h0.41l1.06-0.06   v-8.856h8V2.542z M46.851,6.542h2.042c0.552,0,1,0.447,1,1s-0.448,1-1,1h-2.042c-0.552,0-1-0.447-1-1S46.299,6.542,46.851,6.542z    M39.702,6.542h2.042c0.552,0,1,0.447,1,1s-0.448,1-1,1h-2.042c-0.552,0-1-0.447-1-1S39.15,6.542,39.702,6.542z M32.553,6.542   h2.042c0.552,0,1,0.447,1,1s-0.448,1-1,1h-2.042c-0.552,0-1-0.447-1-1S32.001,6.542,32.553,6.542z M25.404,6.542h2.042   c0.552,0,1,0.447,1,1s-0.448,1-1,1h-2.042c-0.552,0-1-0.447-1-1S24.852,6.542,25.404,6.542z M25,15.542h23c0.552,0,1,0.447,1,1   s-0.448,1-1,1H25c-0.552,0-1-0.447-1-1S24.448,15.542,25,15.542z M25,21.542h11c0.552,0,1,0.447,1,1s-0.448,1-1,1H25   c-0.552,0-1-0.447-1-1S24.448,21.542,25,21.542z M18.255,6.542h2.042c0.552,0,1,0.447,1,1s-0.448,1-1,1h-2.042   c-0.552,0-1-0.447-1-1S17.703,6.542,18.255,6.542z M15,12.542c0-0.553,0.448-1,1-1s1,0.447,1,1v1.101c2.279,0.465,4,2.484,4,4.899   c0,0.553-0.448,1-1,1s-1-0.447-1-1c0-1.302-0.839-2.402-2-2.816v5.438l2.229,1.734c0.777,0.604,1.281,1.511,1.383,2.488   c0.1,0.957-0.182,1.882-0.793,2.605C19.085,28.86,18.091,29.438,17,29.66v0.882c0,0.553-0.448,1-1,1s-1-0.447-1-1v-0.878   c-2.279-0.465-4-2.484-4-4.899c0-0.553,0.448-1,1-1s1,0.447,1,1c0,1.302,0.839,2.402,2,2.816v-5.438l-2.229-1.734   c-0.777-0.604-1.282-1.513-1.383-2.491c-0.1-0.956,0.183-1.881,0.794-2.603c0.733-0.867,1.728-1.446,2.818-1.668V12.542z    M11.106,6.542h2.042c0.552,0,1,0.447,1,1s-0.448,1-1,1h-2.042c-0.552,0-1-0.447-1-1S10.554,6.542,11.106,6.542z M11,34.542h21   c0.552,0,1,0.447,1,1s-0.448,1-1,1H11c-0.552,0-1-0.447-1-1S10.448,34.542,11,34.542z M4,13.693c0-0.553,0.448-1,1-1s1,0.447,1,1   v2.061c0,0.553-0.448,1-1,1s-1-0.447-1-1V13.693z M4,20.905c0-0.553,0.448-1,1-1s1,0.447,1,1v2.061c0,0.553-0.448,1-1,1   s-1-0.447-1-1V20.905z M4,28.117c0-0.553,0.448-1,1-1s1,0.447,1,1v2.061c0,0.553-0.448,1-1,1s-1-0.447-1-1V28.117z M4,35.33   c0-0.553,0.448-1,1-1s1,0.447,1,1v2.061c0,0.553-0.448,1-1,1s-1-0.447-1-1V35.33z M6,44.542H4v-2c0-0.553,0.448-1,1-1s1,0.447,1,1   c0.552,0,1,0.447,1,1S6.552,44.542,6,44.542z M6,8.542c0,0.553-0.448,1-1,1s-1-0.447-1-1v-2h2c0.552,0,1,0.447,1,1   S6.552,8.542,6,8.542z M13,44.542h-2c-0.552,0-1-0.447-1-1s0.448-1,1-1h2c0.552,0,1,0.447,1,1S13.552,44.542,13,44.542z M20,44.542   h-2c-0.552,0-1-0.447-1-1s0.448-1,1-1h2c0.552,0,1,0.447,1,1S20.552,44.542,20,44.542z M27,44.542h-2c-0.552,0-1-0.447-1-1   s0.448-1,1-1h2c0.552,0,1,0.447,1,1S27.552,44.542,27,44.542z M33,44.542h-1c-0.552,0-1-0.447-1-1s0.448-1,1-1h1   c0.552,0,1,0.447,1,1S33.552,44.542,33,44.542z M33,29.542h-8c-0.552,0-1-0.447-1-1s0.448-1,1-1h8c0.552,0,1,0.447,1,1   S33.552,29.542,33,29.542z M50,54.128l-5-5l-5,5v-5.586v-3.896c3.535,2.549,6.464,2.549,10,0v3.896V54.128z M50.125,42.104   c-0.154,0.055-0.298,0.137-0.426,0.243c-1.772,1.478-3.309,2.195-4.699,2.195s-2.927-0.718-4.698-2.194   c-0.128-0.107-0.273-0.188-0.426-0.244C36.963,40.354,35,37.179,35,33.542c0-5.514,4.486-10,10-10s10,4.486,10,10   C55,37.179,53.037,40.354,50.125,42.104z M56,23.542c0,0.553-0.448,1-1,1s-1-0.447-1-1v-1c0-0.553,0.448-1,1-1s1,0.447,1,1V23.542z    M56,16.709c0,0.553-0.448,1-1,1s-1-0.447-1-1v-2.333c0-0.553,0.448-1,1-1s1,0.447,1,1V16.709z M56,8.542c0,0.553-0.448,1-1,1   s-1-0.447-1-1c-0.552,0-1-0.447-1-1s0.448-1,1-1h2V8.542z"/>
-                                                <path d="M45,25.542c-4.411,0-8,3.589-8,8s3.589,8,8,8s8-3.589,8-8S49.411,25.542,45,25.542z"/>
-                                                <path d="M13.999,18.83L15,19.609v-3.877c-0.494,0.176-0.944,0.464-1.292,0.875c-0.256,0.303-0.374,0.694-0.331,1.104   C13.423,18.149,13.649,18.558,13.999,18.83z"/>
-                                                <path d="M18.623,25.595c-0.046-0.438-0.272-0.847-0.622-1.118L17,23.698v3.878c0.494-0.176,0.944-0.464,1.292-0.875   C18.548,26.397,18.666,26.005,18.623,25.595z"/>
-                                            </g>
-                                        </svg>
-                                    </a>
-                                    <a class="button button--default" onclick="transferToken();">
-                                        <svg class="button__icon" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="60" height="60" viewBox="0 0 226.777 226.777" enable-background="new 0 0 226.777 226.777" xml:space="preserve">
-                                            <g>
-                                                <polygon points="112.553,157 112.553,86.977 44.158,116.937  "/>
-                                                <polygon points="112.553,82.163 112.553,-0.056 46.362,111.156  "/>
-                                                <polygon points="116.962,-0.09 116.962,82.163 184.083,111.566  "/>
-                                                <polygon points="116.962,86.977 116.962,157.002 185.405,116.957  "/>
-                                                <polygon points="112.553,227.406 112.553,171.085 44.618,131.31  "/>
-                                                <polygon points="116.962,227.406 184.897,131.31 116.962,171.085  "/>
-                                            </g>
-                                        </svg>
-                                    </a>
+                            <div style="display:flex;">
+                                <div class="segment-topbar__aside">
+                                    <div class="button-toolbar">
+                                        <a class="button button--default" onclick="transferToken();">
+                                            <svg style="height:1.4rem;" class="button__icon" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="60" height="60" viewBox="0 0 226.777 226.777" enable-background="new 0 0 226.777 226.777" xml:space="preserve">
+                                                <g>
+                                                    <polygon points="112.553,157 112.553,86.977 44.158,116.937  "/>
+                                                    <polygon points="112.553,82.163 112.553,-0.056 46.362,111.156  "/>
+                                                    <polygon points="116.962,-0.09 116.962,82.163 184.083,111.566  "/>
+                                                    <polygon points="116.962,86.977 116.962,157.002 185.405,116.957  "/>
+                                                    <polygon points="112.553,227.406 112.553,171.085 44.618,131.31  "/>
+                                                    <polygon points="116.962,227.406 184.897,131.31 116.962,171.085  "/>
+                                                </g>
+                                            </svg>
+                                        </a>
+                                    </div>
                                 </div>
+                                <form class="form-search" style="display:none;width: 140px;">
+                                    <div class="form-group">
+                                        <div class="form-control form-control--with-addon">
+                                            <input name="query" placeholder="Search..." type="text" autocomplete="off" style="text-transform:uppercase;">
+                                            <div class="form-control__addon form-control__addon--prefix">
+                                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                                    <path d="M21.172 24l-7.387-7.387c-1.388.874-3.024 1.387-4.785 1.387-4.971 0-9-4.029-9-9s4.029-9 9-9 9 4.029 9 9c0 1.761-.514 3.398-1.387 4.785l7.387 7.387-2.828 2.828zm-12.172-8c3.859 0 7-3.14 7-7s-3.141-7-7-7-7 3.14-7 7 3.141 7 7 7z"></path>
+                                                </svg>
+                                            </div>
+                                        </div>
+                                        <ul style="display:none;list-style-type: none;position: absolute;backdrop-filter: blur(10px);background: rgba(30, 24, 30,0.5);margin-top: 0;z-index: 5;padding-left: 0;" class="useridslist"></ul>
+                                    </div>
+                                </form>
                             </div>
                         </div>
                         <div style="display:none;" id="messageMarker"></div>
@@ -2079,13 +2700,13 @@
                         <div class="pad__body">
                             <h4 class="text-heading3 undefined">Messages</h4>
                             <p class="text-paragraph1 undefined"><em>You</em> can send messages to anyone on the platform including the Admin</p>
-                            <p class="text-paragraph1 undefined">The goal of this feature is offer 2-way communication for investors to interact with ideators to get a clear idea of what the future prospects of the ideator's company is.</p>
+                            <p class="text-paragraph1 undefined">The goal of this feature is to offer 2-way communication for investors to interact with ideators/vendors or other investors to get a clear perspective on their investments.</p>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="app-skeleton" id="myProfilePage" style="display: none;">
+        <div class="app-skeleton" id="tokensPage" style="display: none;">
             <header class="app-header">
                 <div class="app-header__anchor">
                     <img src="assets/tabIcon.png" style="height:35px;"/>
@@ -2098,19 +2719,29 @@
                                 <span class="nav__link__element">Home</span>
                             </a>
                         </li>
-                        <li class="nav__item messagesButton">
+                        <li class="nav__item sharesButton">
                             <a class="nav__link" href="#">
+                                <span class="nav__link__element">Ideators</span>
+                            </a>
+                        </li>
+                        <li class="nav__item landsButton">
+                            <a class="nav__link" href="#">
+                                <span class="nav__link__element">Real-Estate</span>
+                            </a>
+                        </li>
+                        <li class="nav__item NFTsButton">
+                            <a class="nav__link" href="#">
+                                <span class="nav__link__element">NFT</span>
+                            </a>
+                        </li>
+                        <li class="nav__item messagesButton">
+                            <a class="nav__link " href="#">
                                 <span class="nav__link__element">Messages</span>
                             </a>
                         </li>
-                        <li class="nav__item myProfileButton">
+                        <li class="nav__item tokensButton">
                             <a class="nav__link nav__link--active" href="#">
-                                <span class="nav__link__element">My Profile</span>
-                            </a>
-                        </li>
-                        <li class="nav__item developersButton">
-                            <a class="nav__link" href="#">
-                                <span class="nav__link__element">Creators</span>
+                                <span class="nav__link__element">Tokens</span>
                             </a>
                         </li>
                     </ul>
@@ -2128,41 +2759,10 @@
                 <div class="app-a">
                     <div class="segment-topbar">
                         <div class="segment-topbar__header">
-                            <h3 class="text-heading3 segment-topbar__title">My Profile</h3>
+                            <h3 class="text-heading3 segment-topbar__title">Tokens</h3>
                         </div>
                     </div>
-                    <form class="form-search">
-                        <div class="form-group">
-                            <div class="form-control form-control--with-addon">
-                                <input name="query" placeholder="Search..." type="text" autocomplete="off" style="text-transform:uppercase;">
-                                <div class="form-control__addon form-control__addon--prefix">
-                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                                        <path d="M21.172 24l-7.387-7.387c-1.388.874-3.024 1.387-4.785 1.387-4.971 0-9-4.029-9-9s4.029-9 9-9 9 4.029 9 9c0 1.761-.514 3.398-1.387 4.785l7.387 7.387-2.828 2.828zm-12.172-8c3.859 0 7-3.14 7-7s-3.141-7-7-7-7 3.14-7 7 3.141 7 7 7z"></path>
-                                    </svg>
-                                </div>
-                            </div>
-                            <ul style="display:none;list-style-type: none;" class="ideatoridslist"></ul>
-                        </div>
-                    </form>
-                    <div class="nav-section">
-                        <div class="nav-section__header">
-                            <h2 class="nav-section__title">Your Investments</h2>
-                        </div>
-                        <div class="nav-section__body">
-                            <ul class="nav" id="investedIdeatorsList">
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="nav-section">
-                        <div class="nav-section__header">
-                            <h2 class="nav-section__title">Ideators</h2>
-                        </div>
-                        <div class="nav-section__body">
-                            <ul class="nav" id="ideatorsList">
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="nav-section">
+                    <div class="nav-section" style="max-height:80%;">
                         <div class="nav-section__header">
                             <h2 class="nav-section__title" id="tokenCount" style="display: flex;">Tokens</h2>
                         </div>
@@ -2200,6 +2800,38 @@
                                         </span>
                                     </a>
                                 </li>
+                                <li class="nav__item" id="token5">
+                                    <a class="nav__link" href="#">
+                                        <span class="conversation-link conversation-link--online">
+                                            <span class="conversation-link__icon"></span>
+                                            <span class="conversation-link__element">Titan</span>
+                                        </span>
+                                    </a>
+                                </li>
+                                <li class="nav__item" id="token6">
+                                    <a class="nav__link " href="#">
+                                        <span class="conversation-link conversation-link--online">
+                                            <span class="conversation-link__icon"></span>
+                                            <span class="conversation-link__element">Sakaar</span>
+                                        </span>
+                                    </a>
+                                </li>
+                                <li class="nav__item" id="token7">
+                                    <a class="nav__link " href="#">
+                                        <span class="conversation-link conversation-link--online">
+                                            <span class="conversation-link__icon"></span>
+                                            <span class="conversation-link__element">Morag</span>
+                                        </span>
+                                    </a>
+                                </li>
+                                <li class="nav__item" id="token8">
+                                    <a class="nav__link " href="#">
+                                        <span class="conversation-link conversation-link--online">
+                                            <span class="conversation-link__icon"></span>
+                                            <span class="conversation-link__element">Xandar</span>
+                                        </span>
+                                    </a>
+                                </li>
                             </ul>
                         </div>
                     </div>
@@ -2216,53 +2848,100 @@
                                     </span>
                                 </h4>
                             </div>
-                            <div class="segment-topbar__aside">
-                                <div class="button-toolbar">
-                                    <a class="button button--default" onclick="investClicked();">
-                                        <svg class="button__icon" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" x="0px" y="0px" width="447.185px" height="447.185px" viewBox="0 0 447.185 447.185" style="enable-background:new 0 0 447.185 447.185;" xml:space="preserve">
-                                            <g>
-                                                <path d="M358.204,96.283h-33.437c-2.211-19.379-8.961-37.519-19.672-51.56h53.108c12.721,0,23.022-9.499,23.022-22.216   c0-12.723-10.302-22.484-23.022-22.484H178.118c-0.659,0-1.294-0.023-1.971-0.023c-0.438,0-0.877,0.023-1.315,0.023H88.981   c-12.72,0-23.022,9.768-23.022,22.484s10.302,22.216,23.022,22.216h102.097c32.243,2.347,66.017,14.821,74.913,51.56H88.981   c-12.72,0-23.022,10.309-23.022,23.031c0,12.717,10.302,23.031,23.022,23.031h174.716c-10.87,29.034-40.728,46.742-82.225,46.742   h-45.788h-0.133h-26.699c-12.401,0-22.455,10.054-22.455,22.455c0,12.404,10.054,22.458,22.455,22.458h26.382   c0.109,0.012,0.207,0.065,0.316,0.065h41.665c45.268,1.72,65.402,21.35,76.946,75.055c9.032,39.892,15.682,65.875,20.912,81.438   c3.919,14.398,11.674,36.091,25.127,49.048c5.261,5.059,12.046,7.577,18.808,7.577c7.117,0,14.233-2.784,19.559-8.322   c9.76-10.144,9.937-25.842,0.993-36.334c-0.041-0.124-0.023-0.26-0.088-0.384c-8.258-15.32-18.247-56.412-30.435-108.533   c-9.688-42.381-27.787-68.778-55.213-80.499c34.437-13.22,58.127-38.506,67.412-70.772h36.966   c12.721,0,23.022-10.314,23.022-23.031S370.925,96.283,358.204,96.283z"/>
-                                            </g>                                            
-                                        </svg>
-                                    </a>
-                                    <a class="button button--default" onclick="tokenClicked(1);" id="uruToken">
-                                        <svg class="button__icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 512 512">
-                                            <path d="M256 16c-52.5 252.632-210 277.845 0 454.688C466 293.845 308.5 268.63 256 16zM124.75 167.407C98.5 243.197 46 294.117 46 369.907S151 496 229.75 496c-157.5-126.317-105-202.278-105-328.593zm262.5 0c0 126.317 52.5 202.278-105 328.593C361 496 466 445.696 466 369.907c0-75.79-52.5-126.71-78.75-202.5z"/>
-                                        </svg>
-                                    </a>
-                                    <a class="button button--default" onclick="tokenClicked(2);" id="vibranToken">
-                                        <svg class="button__icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 55.867 55.867" style="enable-background:new 0 0 55.867 55.867;" xml:space="preserve">
-                                            <path d="M55.818,21.578c-0.118-0.362-0.431-0.626-0.808-0.681L36.92,18.268L28.83,1.876c-0.168-0.342-0.516-0.558-0.896-0.558  s-0.729,0.216-0.896,0.558l-8.091,16.393l-18.09,2.629c-0.377,0.055-0.689,0.318-0.808,0.681c-0.117,0.361-0.02,0.759,0.253,1.024  l13.091,12.76l-3.091,18.018c-0.064,0.375,0.09,0.754,0.397,0.978c0.309,0.226,0.718,0.255,1.053,0.076l16.182-8.506l16.18,8.506  c0.146,0.077,0.307,0.115,0.466,0.115c0.207,0,0.413-0.064,0.588-0.191c0.308-0.224,0.462-0.603,0.397-0.978l-3.09-18.017  l13.091-12.761C55.838,22.336,55.936,21.939,55.818,21.578z"/>
-                                        </svg>
-                                    </a>
-                                    <a class="button button--default" onclick="tokenClicked(3);" id="kryptonToken">
-                                        <svg class="button__icon" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 511.983 511.983" style="enable-background:new 0 0 511.983 511.983;" xml:space="preserve">
-                                            <g>
-                                                <path d="M125.491,267.021c-3.337-3.337-8.73-3.337-12.066,0c-25.301,25.293-25.813,53.094-1.707,78.507l-53.896,53.888     l-8.866-8.798c-6.647-6.656-17.468-6.673-24.098-0.043L4.992,410.449c-6.656,6.647-6.656,17.476,0,24.132l72.397,72.405     c3.328,3.328,7.706,4.992,12.075,4.992c4.369,0,8.747-1.664,12.066-4.992l19.866-19.857c3.482-3.482,5.163-8.346,4.625-13.346     c-0.495-4.582-2.756-8.994-6.536-12.774l-6.912-6.878l53.837-53.828c25.762,24.525,52.873,23.927,78.549-1.749     c3.337-3.337,3.337-8.73,0-12.066L125.491,267.021z M176.649,386.445l-4.301-4.241c-3.336-3.285-8.695-3.268-12.023,0.043     l-59.836,59.844L87.04,428.702c-3.336-3.328-8.73-3.311-12.075,0.026c-3.328,3.337-3.311,8.738,0.026,12.066l32.435,32.299     c1.263,1.254,1.587,2.236,1.86,2.014l-19.831,19.814l-72.397-72.405l19.857-19.806l14.925,14.814     c3.328,3.302,8.721,3.294,12.041-0.026l59.827-59.836l15.317,15.352c3.337,3.337,8.73,3.337,12.066,0.017     c3.345-3.328,3.345-8.738,0.017-12.075l-25.617-25.668c-9.591-9.6-14.473-19.021-14.498-28.023     c-0.017-7.049,2.935-14.362,8.798-21.803l106.752,106.743C209.604,405.679,193.971,403.785,176.649,386.445z"/>
-                                                <path d="M287.625,176.687L430.933,33.378l45.773-10.172L305.425,194.487c-3.337,3.337-3.337,8.73,0,12.066     c1.664,1.664,3.849,2.5,6.033,2.5c2.185,0,4.369-0.836,6.033-2.5L488.764,35.281l-10.163,45.764L335.292,224.354     c-3.337,3.337-3.337,8.73,0,12.066c1.664,1.664,3.849,2.5,6.033,2.5c2.185,0,4.369-0.836,6.033-2.5L492.425,91.354     c1.152-1.143,1.946-2.594,2.304-4.181l17.067-76.8c0.111-0.521,0.12-1.05,0.137-1.57c0.009-0.128,0.043-0.256,0.043-0.384     c-0.017-0.973-0.213-1.911-0.546-2.816c-0.077-0.205-0.171-0.393-0.265-0.589c-0.418-0.922-0.939-1.792-1.673-2.526     c-0.734-0.734-1.604-1.254-2.517-1.673c-0.205-0.094-0.393-0.188-0.597-0.265c-0.904-0.324-1.843-0.529-2.807-0.546     c-0.145,0-0.273,0.034-0.418,0.043c-0.521,0.017-1.033,0.034-1.544,0.145l-76.8,17.067c-1.579,0.35-3.029,1.143-4.181,2.295     L275.558,164.621c-3.337,3.337-3.337,8.73,0,12.066S284.288,180.023,287.625,176.687z"/>
-                                                <path d="M506.991,410.449l-19.857-19.866c-6.007-6.016-16.922-7.296-26.129,1.92l-6.861,6.895l-53.837-53.828     c24.516-25.754,23.936-52.864-1.749-78.549c-3.337-3.337-8.73-3.337-12.066,0L267.025,386.487c-3.337,3.337-3.337,8.73,0,12.066     c25.301,25.301,53.111,25.813,78.507,1.707l53.897,53.897l-8.806,8.866c-6.656,6.656-6.673,17.468-0.034,24.098l19.866,19.866     c3.319,3.328,7.697,4.992,12.066,4.992s8.747-1.664,12.075-4.992l72.397-72.397C513.647,427.934,513.647,417.097,506.991,410.449     z M422.519,494.921l-19.806-19.857l14.814-14.925c3.302-3.337,3.294-8.721-0.026-12.041l-59.836-59.836l15.352-15.309     c3.345-3.328,3.345-8.73,0.017-12.075c-3.336-3.328-8.738-3.337-12.066-0.009l-25.677,25.617     c-9.6,9.591-19.029,14.473-28.023,14.498h-0.077c-7.023,0-14.31-2.953-21.726-8.806l106.743-106.735     c13.483,16.922,11.563,32.555-5.769,49.886l-4.233,4.301c-3.285,3.345-3.268,8.713,0.051,12.023l59.836,59.836l-13.397,13.449     c-3.319,3.336-3.302,8.747,0.026,12.066c3.354,3.337,8.747,3.319,12.075-0.026l32.29-32.427c1.263-1.254,2.219-1.587,2.022-1.86     l19.814,19.831L422.519,494.921z"/>
-                                                <path d="M281.591,349.854c2.185,0,4.369-0.836,6.033-2.5c3.336-3.337,3.336-8.73,0-12.066L33.382,81.045L23.219,35.281     l282.206,282.206c1.664,1.664,3.849,2.5,6.033,2.5c2.185,0,4.369-0.836,6.033-2.5c3.337-3.337,3.337-8.73,0-12.066L35.277,23.206     L81.05,33.378L335.292,287.62c3.337,3.337,8.73,3.337,12.066,0c3.336-3.337,3.336-8.73,0-12.066l-256-256     c-1.152-1.152-2.603-1.946-4.181-2.295l-76.8-17.067C9.865,0.081,9.353,0.064,8.832,0.047C8.687,0.038,8.559,0.004,8.414,0.004     C7.441,0.021,6.511,0.226,5.606,0.55C5.402,0.627,5.214,0.721,5.018,0.815c-0.922,0.41-1.792,0.939-2.526,1.673     C1.758,3.221,1.229,4.092,0.819,5.013C0.725,5.21,0.631,5.397,0.555,5.602C0.222,6.507,0.026,7.445,0.009,8.418     c0,0.128,0.034,0.256,0.043,0.384c0.017,0.521,0.026,1.05,0.137,1.57l17.067,76.8c0.358,1.587,1.152,3.038,2.304,4.181     l164.634,164.634l-19.567,19.567c-3.337,3.337-3.337,8.73,0,12.066c1.664,1.664,3.849,2.5,6.033,2.5s4.369-0.836,6.033-2.5     l19.567-19.567l17.8,17.801l-19.567,19.567c-3.337,3.336-3.337,8.73,0,12.066c1.664,1.664,3.849,2.5,6.033,2.5     c2.185,0,4.369-0.836,6.033-2.5l19.567-19.567l17.801,17.801l-19.567,19.567c-3.337,3.337-3.337,8.73,0,12.066     c1.664,1.664,3.849,2.5,6.033,2.5s4.369-0.836,6.033-2.5l19.567-19.567l19.567,19.567     C277.222,349.018,279.407,349.854,281.591,349.854z"/>
-                                            </g>
-                                        </svg>
-                                    </a>
-                                    <a class="button button--default" onclick="tokenClicked(4);" id="adamantToken">
-                                        <svg class="button__icon" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 47.167 47.167" style="enable-background:new 0 0 47.167 47.167;" xml:space="preserve">
-                                            <path d="M46.369,28.793c-11.852,5.935-26.271,1.138-32.206-10.714c-2.748-5.488-3.191-11.524-1.702-17.016  C1.197,7.236-3.255,21.263,2.544,32.844C8.479,44.696,22.898,49.493,34.75,43.558c6.364-3.187,10.69-8.821,12.417-15.19  C46.903,28.513,46.64,28.658,46.369,28.793z"/>
-                                        </svg>
-                                    </a>
+                            <div style="display:flex;">
+                                <div class="segment-topbar__aside">
+                                    <div class="button-toolbar">
+                                        <a class="button button--default" onclick="tokenClicked(1);" id="uruToken">
+                                            <svg style="height:1.4rem;" class="button__icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 512 512">
+                                                <path d="M256 16c-52.5 252.632-210 277.845 0 454.688C466 293.845 308.5 268.63 256 16zM124.75 167.407C98.5 243.197 46 294.117 46 369.907S151 496 229.75 496c-157.5-126.317-105-202.278-105-328.593zm262.5 0c0 126.317 52.5 202.278-105 328.593C361 496 466 445.696 466 369.907c0-75.79-52.5-126.71-78.75-202.5z"/>
+                                            </svg>
+                                        </a>
+                                        <a class="button button--default" onclick="tokenClicked(2);" id="vibranToken">
+                                            <svg style="height:1.4rem;" class="button__icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 55.867 55.867" style="enable-background:new 0 0 55.867 55.867;" xml:space="preserve">
+                                                <path d="M55.818,21.578c-0.118-0.362-0.431-0.626-0.808-0.681L36.92,18.268L28.83,1.876c-0.168-0.342-0.516-0.558-0.896-0.558  s-0.729,0.216-0.896,0.558l-8.091,16.393l-18.09,2.629c-0.377,0.055-0.689,0.318-0.808,0.681c-0.117,0.361-0.02,0.759,0.253,1.024  l13.091,12.76l-3.091,18.018c-0.064,0.375,0.09,0.754,0.397,0.978c0.309,0.226,0.718,0.255,1.053,0.076l16.182-8.506l16.18,8.506  c0.146,0.077,0.307,0.115,0.466,0.115c0.207,0,0.413-0.064,0.588-0.191c0.308-0.224,0.462-0.603,0.397-0.978l-3.09-18.017  l13.091-12.761C55.838,22.336,55.936,21.939,55.818,21.578z"/>
+                                            </svg>
+                                        </a>
+                                        <a class="button button--default" onclick="tokenClicked(3);" id="kryptonToken">
+                                            <svg style="height:1.4rem;" class="button__icon" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 511.983 511.983" style="enable-background:new 0 0 511.983 511.983;" xml:space="preserve">
+                                                <g>
+                                                    <path d="M125.491,267.021c-3.337-3.337-8.73-3.337-12.066,0c-25.301,25.293-25.813,53.094-1.707,78.507l-53.896,53.888     l-8.866-8.798c-6.647-6.656-17.468-6.673-24.098-0.043L4.992,410.449c-6.656,6.647-6.656,17.476,0,24.132l72.397,72.405     c3.328,3.328,7.706,4.992,12.075,4.992c4.369,0,8.747-1.664,12.066-4.992l19.866-19.857c3.482-3.482,5.163-8.346,4.625-13.346     c-0.495-4.582-2.756-8.994-6.536-12.774l-6.912-6.878l53.837-53.828c25.762,24.525,52.873,23.927,78.549-1.749     c3.337-3.337,3.337-8.73,0-12.066L125.491,267.021z M176.649,386.445l-4.301-4.241c-3.336-3.285-8.695-3.268-12.023,0.043     l-59.836,59.844L87.04,428.702c-3.336-3.328-8.73-3.311-12.075,0.026c-3.328,3.337-3.311,8.738,0.026,12.066l32.435,32.299     c1.263,1.254,1.587,2.236,1.86,2.014l-19.831,19.814l-72.397-72.405l19.857-19.806l14.925,14.814     c3.328,3.302,8.721,3.294,12.041-0.026l59.827-59.836l15.317,15.352c3.337,3.337,8.73,3.337,12.066,0.017     c3.345-3.328,3.345-8.738,0.017-12.075l-25.617-25.668c-9.591-9.6-14.473-19.021-14.498-28.023     c-0.017-7.049,2.935-14.362,8.798-21.803l106.752,106.743C209.604,405.679,193.971,403.785,176.649,386.445z"/>
+                                                    <path d="M287.625,176.687L430.933,33.378l45.773-10.172L305.425,194.487c-3.337,3.337-3.337,8.73,0,12.066     c1.664,1.664,3.849,2.5,6.033,2.5c2.185,0,4.369-0.836,6.033-2.5L488.764,35.281l-10.163,45.764L335.292,224.354     c-3.337,3.337-3.337,8.73,0,12.066c1.664,1.664,3.849,2.5,6.033,2.5c2.185,0,4.369-0.836,6.033-2.5L492.425,91.354     c1.152-1.143,1.946-2.594,2.304-4.181l17.067-76.8c0.111-0.521,0.12-1.05,0.137-1.57c0.009-0.128,0.043-0.256,0.043-0.384     c-0.017-0.973-0.213-1.911-0.546-2.816c-0.077-0.205-0.171-0.393-0.265-0.589c-0.418-0.922-0.939-1.792-1.673-2.526     c-0.734-0.734-1.604-1.254-2.517-1.673c-0.205-0.094-0.393-0.188-0.597-0.265c-0.904-0.324-1.843-0.529-2.807-0.546     c-0.145,0-0.273,0.034-0.418,0.043c-0.521,0.017-1.033,0.034-1.544,0.145l-76.8,17.067c-1.579,0.35-3.029,1.143-4.181,2.295     L275.558,164.621c-3.337,3.337-3.337,8.73,0,12.066S284.288,180.023,287.625,176.687z"/>
+                                                    <path d="M506.991,410.449l-19.857-19.866c-6.007-6.016-16.922-7.296-26.129,1.92l-6.861,6.895l-53.837-53.828     c24.516-25.754,23.936-52.864-1.749-78.549c-3.337-3.337-8.73-3.337-12.066,0L267.025,386.487c-3.337,3.337-3.337,8.73,0,12.066     c25.301,25.301,53.111,25.813,78.507,1.707l53.897,53.897l-8.806,8.866c-6.656,6.656-6.673,17.468-0.034,24.098l19.866,19.866     c3.319,3.328,7.697,4.992,12.066,4.992s8.747-1.664,12.075-4.992l72.397-72.397C513.647,427.934,513.647,417.097,506.991,410.449     z M422.519,494.921l-19.806-19.857l14.814-14.925c3.302-3.337,3.294-8.721-0.026-12.041l-59.836-59.836l15.352-15.309     c3.345-3.328,3.345-8.73,0.017-12.075c-3.336-3.328-8.738-3.337-12.066-0.009l-25.677,25.617     c-9.6,9.591-19.029,14.473-28.023,14.498h-0.077c-7.023,0-14.31-2.953-21.726-8.806l106.743-106.735     c13.483,16.922,11.563,32.555-5.769,49.886l-4.233,4.301c-3.285,3.345-3.268,8.713,0.051,12.023l59.836,59.836l-13.397,13.449     c-3.319,3.336-3.302,8.747,0.026,12.066c3.354,3.337,8.747,3.319,12.075-0.026l32.29-32.427c1.263-1.254,2.219-1.587,2.022-1.86     l19.814,19.831L422.519,494.921z"/>
+                                                    <path d="M281.591,349.854c2.185,0,4.369-0.836,6.033-2.5c3.336-3.337,3.336-8.73,0-12.066L33.382,81.045L23.219,35.281     l282.206,282.206c1.664,1.664,3.849,2.5,6.033,2.5c2.185,0,4.369-0.836,6.033-2.5c3.337-3.337,3.337-8.73,0-12.066L35.277,23.206     L81.05,33.378L335.292,287.62c3.337,3.337,8.73,3.337,12.066,0c3.336-3.337,3.336-8.73,0-12.066l-256-256     c-1.152-1.152-2.603-1.946-4.181-2.295l-76.8-17.067C9.865,0.081,9.353,0.064,8.832,0.047C8.687,0.038,8.559,0.004,8.414,0.004     C7.441,0.021,6.511,0.226,5.606,0.55C5.402,0.627,5.214,0.721,5.018,0.815c-0.922,0.41-1.792,0.939-2.526,1.673     C1.758,3.221,1.229,4.092,0.819,5.013C0.725,5.21,0.631,5.397,0.555,5.602C0.222,6.507,0.026,7.445,0.009,8.418     c0,0.128,0.034,0.256,0.043,0.384c0.017,0.521,0.026,1.05,0.137,1.57l17.067,76.8c0.358,1.587,1.152,3.038,2.304,4.181     l164.634,164.634l-19.567,19.567c-3.337,3.337-3.337,8.73,0,12.066c1.664,1.664,3.849,2.5,6.033,2.5s4.369-0.836,6.033-2.5     l19.567-19.567l17.8,17.801l-19.567,19.567c-3.337,3.336-3.337,8.73,0,12.066c1.664,1.664,3.849,2.5,6.033,2.5     c2.185,0,4.369-0.836,6.033-2.5l19.567-19.567l17.801,17.801l-19.567,19.567c-3.337,3.337-3.337,8.73,0,12.066     c1.664,1.664,3.849,2.5,6.033,2.5s4.369-0.836,6.033-2.5l19.567-19.567l19.567,19.567     C277.222,349.018,279.407,349.854,281.591,349.854z"/>
+                                                </g>
+                                            </svg>
+                                        </a>
+                                        <a class="button button--default" onclick="tokenClicked(4);" id="adamantToken">
+                                            <svg style="height:1.4rem;" class="button__icon" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 47.167 47.167" style="enable-background:new 0 0 47.167 47.167;" xml:space="preserve">
+                                                <path d="M46.369,28.793c-11.852,5.935-26.271,1.138-32.206-10.714c-2.748-5.488-3.191-11.524-1.702-17.016  C1.197,7.236-3.255,21.263,2.544,32.844C8.479,44.696,22.898,49.493,34.75,43.558c6.364-3.187,10.69-8.821,12.417-15.19  C46.903,28.513,46.64,28.658,46.369,28.793z"/>
+                                            </svg>
+                                        </a>
+                                        <a class="button button--default" onclick="tokenClicked(5);" id="titanToken">
+                                            <svg style="height:1.4rem;" class="button__icon" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 512 512" xml:space="preserve">
+                                                <g>
+                                                    <path d="M491.878,156.348C472.437,110.39,439.989,71.33,399.14,43.731C358.307,16.131,308.964-0.008,256,0   c-35.304,0-69.011,7.167-99.652,20.122C110.39,39.564,71.33,72.011,43.731,112.86C16.131,153.693-0.008,203.036,0,256   c0,35.304,7.167,69.02,20.122,99.653c19.442,45.957,51.889,85.016,92.738,112.616c40.832,27.6,90.176,43.74,143.14,43.731   c35.305,0,69.02-7.166,99.653-20.122c45.957-19.442,85.017-51.889,112.617-92.738c27.6-40.832,43.74-90.176,43.731-143.14   C512,220.697,504.842,186.98,491.878,156.348z M427.814,110.348c0.774,0.915,1.53,1.856,2.294,2.789   c-1.496-0.454-2.991-0.908-4.486-1.37C426.353,111.297,427.084,110.819,427.814,110.348z M382.832,101.182   C387.142,100.754,380.446,101.434,382.832,101.182c-1.798-0.126-3.159-0.858-4.066-2.177   C384.579,95.217,388.747,100.585,382.832,101.182z M290.917,81.127c1.613,4.142-9.956,0.277-11.216-0.336   c-0.739-0.739-1.294-1.58-1.663-2.52C278.021,79.203,290.388,79.749,290.917,81.127z M258.79,75.406   c2.823,0.958,14.022-1.572,14.383,1.722c0.673,6.049-3.99,0.058-4.956,0.058c-2.622,0,1.21,2.78,1.31,2.923   c-0.656-0.957-8.461-0.857-10.107-0.462C254.656,88.352,241.675,69.592,258.79,75.406z M271.711,87.026   c-3.108,1.142-8.443,0.168-11.754,0.168C253.808,85.58,276.718,85.194,271.711,87.026z M79.236,313.19   C79.06,315.812,79.346,311.544,79.236,313.19c0.042-0.663,1.126-5.755,2.084-6.049c1.513-0.453,4.613,6.999,4.487,8.041   C85.11,321.206,78.892,318.148,79.236,313.19z M136.15,339.169c-3.252-3.983-5.192-8.461-8.284-12.528   c-0.63-0.84-11.031-6.754-9.058-7.796c4.243-2.21,39.505,18.517,37.934,21.676c-0.152,0.303-7.889-6.797-9.847-5.52   c-1.302,0.848,2.689,3.932,2.689,5.419c2.016,1.033,7.149,8.646,2.932,8.872C147.862,349.545,138.872,342.512,136.15,339.169z    M154.894,340.546c0.21,1.37-3.646-1.185-3.873-1.277C151.777,337.884,154.718,339.412,154.894,340.546z M151.92,353.208   c-3.898-2.487,12.569-0.554,13.459-0.487c3.252,0.243,11.418,0.076,13.552,3.974C179.569,357.862,155.574,355.544,151.92,353.208   C154.356,354.77,150.122,352.066,151.92,353.208z M188.686,317.644c4.125-4.201,8.839,3.235,9.174,2.932   c-2.596,2.369-6.486,6.94-1.252,9.671c3.932,2.058-4.672,3.537-4.672,4.268c0,2.966-4.771,10.795-7.814,12.014   c0.177-0.067-11.913-3.419-12.972-3.722c-2.638-0.764-3.445-8.082-5.058-10.426C166.093,328.036,184.51,321.895,188.686,317.644z    M167.53,281.869c1.756-1.328,3.378-1.479,4.848-0.454C173.546,287.801,165.514,282.785,167.53,281.869z M195.718,306.864   c0.009-0.017,0.017-0.025,0.034-0.034c0.067-0.059,0.101-0.084,0.092-0.076c1.05-0.857,3.806-3.302,4.898-3.546   C203.716,302.529,193.676,308.502,195.718,306.864z M201.658,294.278c-0.563-3.353-0.151-3.974,0.093-6.68   c0.428-4.713,5.915-6.772,7.007-1.092c0.193,0.975-5.721,9.88-1.218,9.317c3.612-0.454,6.301-0.622,5.134,3.932   c-1.076-0.714-7.814-4.075-8.637-3.898c-0.798,0.168-3.36,8.746-6.049,7.939C199.162,304.151,201.809,295.95,201.658,294.278z    M200.734,269.073c0.084-1.328,2.042-5.125,4.176-4.688c2.461,0.513-0.731,10.141-2.487,9.032c-1.26-1.193-1.823-2.639-1.689-4.335   C200.7,269.678,200.608,271.199,200.734,269.073z M213.479,300.403c0.016-0.008,0.016-0.016,0.034-0.016   c4.797-2.42,3.452,4.218,3.965,4.452C216.831,304.546,213.101,300.613,213.479,300.403z M218.184,308.04   C217.26,307.889,219.276,308.217,218.184,308.04c1.521,0.244,2.269,3.369,2.42,4.378c0.621,4.243,0.546,2.411-2.26,3.52   c-0.765,0.294,0.084,2.747-1.672,2.865c-0.84,0.05-5.436-0.908-3.948-2.672c3.091-3.663-5.663-0.815-5.663-1.134   c0-1.227,1.386-4.075,3.184-3.697C215.504,312.384,215.58,307.62,218.184,308.04z M223.435,335.086   c-1.311-1.748-0.118-6.075,1.159-7.512c-1.016,1.142,2.706,3.058,2.882,2.26C227.081,331.632,223.661,335.388,223.435,335.086z    M230.03,343.202c-0.076-0.739-6.041-0.588-6.948-0.73C221.51,342.471,229.593,338.766,230.03,343.202z M223.704,262.839   c-3.907,0.89,0.816-2.747,1.664-2.823C226.518,259.907,223.914,262.554,223.704,262.839z M222.393,355.989   c1.529,3.941-8.503,4.672-9.906,5.008c1.076-0.261,7.284-2.588,7.898-4.26C220.494,356.426,221.612,353.964,222.393,355.989z    M200.557,343.369c-2.243,1.227,0.21,5.831-2.16,6.066c-3.503,0.352-1.638-8.755-0.866-11.208   c3.798-11.998,9.352,4.495,12.469-3.47c-0.252,0.647-10.847-2.655-9.091-3.201c0.025-0.008,0.051-0.008,0.076-0.017   c2.89-0.873,12.997-3.184,15.408-2.596c0.571,0.134-6.662,10.132-10.636,9.83c4.798,0.369,2.705,7.419,0.941,9.351   c-0.63,0.689,4.411,2.646,3.722,3.117C207.993,352.914,197.574,345,200.557,343.369z M206.497,356.938   c0.597,0.303-2.731,1.025-3.159,1.109c-1.377,0.47-2.688,0.412-3.932-0.176C198.465,357.115,205.691,356.535,206.497,356.938z    M199.297,358.946c-0.647,0.404-1.336,0.404-2.067,0C195.256,357.744,198.348,357.938,199.297,358.946z M205.548,300.05   c0,0,0,0-0.009,0c-0.025-0.025-0.051-0.042-0.076-0.058c0.017,0.008,0.034,0.025,0.058,0.041c-0.235-0.159-2.68-1.814-0.84-2.008   C207.278,297.757,205.582,300.076,205.548,300.05z M208.783,308.284c-2.798,0-3.016-4.05-3.134-5.621   C207.748,296.421,209.429,308.284,208.783,308.284z M209.975,358.132c0.74-0.387,8.208-2.403,7.704-1.613   c-0.471,0.748-8.838,4.604-9.679,2.924C208.228,358.527,208.883,358.09,209.975,358.132z M218.839,343.202c0.008,0,0.017,0,0.017,0   c-0.026,0-0.009,0-0.026,0c-1.142,0.051-1.622-0.328-1.403-1.143c2.445-1.126,3.344,1.303,1.429,1.143   C219.318,343.244,219.091,343.226,218.839,343.202z M209.707,304.738c-0.093-0.042-0.06-0.025-0.009-0.008   c-1.294-0.512-0.109-3.394,1.084-2.118C211.177,303.041,210.454,305.016,209.707,304.738z M212.244,305.528   c-0.084,0.68-0.605,3.453-1.84,3.453c-0.218-0.74-0.218-1.479,0-2.218C210.539,305.629,211.151,305.218,212.244,305.528z    M202.355,305.184L202.355,305.184c-0.58,1.168-7.78,9.838-8.839,5.184C193.542,310.486,201.884,306.142,202.355,305.184z    M194.903,356.737c-1.512,0.395-2.789,1.294-4.47,0.344C188.719,356.115,194.836,356.737,194.903,356.737z M187.451,356.325   c-0.992,0-0.446-0.656,0.268-0.739C188.442,355.502,188.35,356.325,187.451,356.325z M281.365,457.809   c-5.629,13.039-11.771-7.864-10.998-7.62C277.752,452.726,286.145,446.736,281.365,457.809z M293.849,421.691   c-1.949,5.721-3.814,11.728-7.343,16.845c-4.864,7.049-8.561,3.294-15.064,3.234c-3.723-0.034-2.849,2.866-6.916,1.278   c-2.285-0.899-5.402-1.597-7.444-2.916c2.521,1.63-4.394-9.427-3.764-5.411c-0.344-2.167-2.823-1.084-4.848-1.479   c1.093-1.386,1.042-3.537,2.151-4.915c-2.747-0.067-5.091,1.135-6.814,3.277c-7.738-9.561-14.93-10.452-27.372-7.327   c-2.882,0.723-8.604,5.361-10.208,5.361c-6.537,0-8.041-0.261-12.914,3.596c-3.344,2.646-11.703,0.84-12.678-3.596   c-0.446-2.016,3.218-4.797,3.226-6.89c0.008-1.327-3.84-2.596-4.31-3.94c-0.723-2.108,1-4.596-0.781-6.343   c-0.748-0.731-4.125-3.15-4.243-4.15c-0.151-1.319,2.874-2.731,2.874-4.386c0-2.336,0-4.663,0-6.999   c0-5.284,14.291-6.46,19.962-9.057c6.629-3.025,1.764-4.906,5.881-8.427c1.236-1.05,5.529,1.008,6.822,0   c0.739-0.571-0.218-3.36,0.781-4.478c1.412-1.562,7.796-8.108,8.284-1.874c0.286,3.697-0.067,3.402,3.99,3.402   c3.268,0-0.176-1.604,1.302-2.948c2.244-2.05,5-8.645,7.898-9.511c1.697-0.513,10.183,3.268,12.914,3.277   c-0.95,2.73-1.874,5.478-2.865,8.2c4.267,2.16,12.258,8.788,17.223,5.906c2.318-1.352,3.268-13.014,3.949-15.745   c2.881,4.453,7.83,7.755,9.519,12.09c2.579,6.604,6.864,6.83,10.729,12.233c3.604,5.016,6.906,9.864,9.906,15.199   C297.757,412.423,296.564,413.717,293.849,421.691z M237.466,240.155c1.05,1.444-3.789,8.956-4.907,6.982   c-0.772-1.37-0.982-4.73-1.554-6.428c-0.109-0.319-0.319-0.958,0-0.008C230.064,237.928,236.24,238.475,237.466,240.155z    M267.989,202.381c3.991-0.008,4.168,5.125,8.604,3.772c-0.866,0.26,2.478,3.621-2.16,4.486c-2.916,0.529-6.965,3.73-10.166,1.63   c0.428,0.286,0.218,0.151,0.008,0.016c1.95,1.311-3.47,2.412-3.671,0.89C260.604,213.202,270.182,202.372,267.989,202.381z    M268.569,177.066c0,0.092,1.604-2.21,2.252-3.176c-0.706,2.824,6.435,16.526,4.335,17.173c-1.31,0.404-3.101-2.134-3.596-1.529   c-2.209,2.697,1.74,6.83,0.479,7.973c0.319-0.286-2.958,0.723-3.772,1.193c0.017,0.152,0.042,0.236,0.067,0.236   c-0.335,0-0.302-0.093-0.067-0.236C268.023,196.458,268.712,178.62,268.569,177.066z M291.959,363.442   c-7.687,1.613-17.484-13.88-21.886-7.05c-3.151,4.89-16.854-2.201-17.409-0.083c0.782-2.992,5.84-0.933,2.579-5.294   c-2.805-3.756-6.351-3.546-10.897-4.201c-3.251-0.47-2.352-2.453-3.772-4.268c-0.874-1.117-1.832,1.958-2.689,1.639   c-0.118-0.042-4.848-6.982-4.848-7.209c5.864-7.688,7.494,2.764,10.771,4.1c6.612,2.697,6.704-4.73,13.098-1.806   c3.251,1.487,27.7,10.418,26.877,12.493c-0.428,0.496-0.949,0.874-1.571,1.118C283.382,354.77,291.144,363.618,291.959,363.442z    M239.138,239.726c0-0.009,0-0.009,0-0.017c0.907-2.848,8.679-3.907,7.301-0.756C245.725,240.592,238.088,243.12,239.138,239.726z    M261.218,221.948c0.008-0.176,3.126-11.066,4.722-8.15c1.756,3.218,0.95,19.433-2.874,21.769   c-0.991-0.084-1.352-0.597-1.076-1.538c0,2.05-13.325,5.05-13.14,5.234c-2.075-2.151,1.344-3.428-3.756-2.941   c0.075,0-11.309,1.487-7.746-0.546c3.798-2.168,7.074-2.714,11.527-2.798c3.646-0.067,3.319-5.276,5.94-5.511   c1.227-0.109,0.538,3.369,2.748,1.537C260.478,226.586,260.881,225.46,261.218,221.948z M292.53,351.729   c-2,0.488-7.343-2.218-5.478-2.453c-1.646,0.201-0.588,0.067,0.017-0.009c3.285-0.412,7.612-1.697,10.217-1.966   C299.899,347.041,293.539,351.486,292.53,351.729z M299.706,347.142c-0.513-0.538-0.908-1.134-1.16-1.806   C296.354,341.832,303.705,348.604,299.706,347.142z M376.371,386.555c-0.924-0.143-1.252-0.672-0.991-1.58   c0.984-2.823,3.059,1.033,3.386,1.37C377.968,386.412,377.169,386.488,376.371,386.555z M379.958,381.53   c-0.865,0,1.924-3.042,3.588-1.395C385.26,381.824,380.295,381.446,379.958,381.53z M397.502,128.882   c-4.588-0.865-3.108-4.159-6.713-4.462c-4.226-0.353-1.932,5.016-5.713,4c-13.897-3.73-0.63,5.469-4.882,9.612   c0.428-0.412-7.335-1.093-8.712-0.622c-2.815,0.966-6.738,1.622-9.108,3.352c-3.193,2.336-6.385,4.672-9.578,6.999   c-1.68,1.236-3.822-2.016-6.15-0.932c-2.731,1.269-8.78,0.513-10.595,1.697c-1.941,1.277-3.369,7.192-4.318,9.208   c-3.756,8.007-8.108,25.087-19.727,26.222c-0.572-4.79-5.957-24.718,3.73-25.752c7.747-0.84,18.82-12.014,16.728-19.845   c-7.771,0.311-3.847,4.739-7.183,6.235c-6.084,2.722-6.94-3.168-9.074-2.286c-6.377,2.655-6.974,2.454-8.284,8.755   c-0.487,2.336-8.847,0.774-11.107,0.689c-6.436-0.227-22.358-2.588-27.138,0.605c-7.427,4.957-14.854,9.914-22.282,14.871   c3.982,7.579,14.846,2.512,17.224,10.167c1.571,5.023-5.192,14.938-8.914,18.76c-3.664,3.772-7.335,7.545-11.006,11.318   c-3.512,3.612-3.991-0.488-7.352,1.411c-5.218,2.941-5.201,11.897-12.57,12.14c3.117,4.109,3.681,7.016,4.058,11.847   c0.378,4.89-3.243,4.487-8.007,6.192c-0.143-3.016-0.588-6.04,0-9.023c0.849-4.26-4.074-0.336-3.226-4.588   c1.47-7.385-7.906-3.201-11.846-2.134c0.302-2.134-0.412-4.444,0-6.561c-4.067,2.294-8.132,4.595-12.199,6.889   c3.688,3.185,6.284,7.276,11.838,4.587c0.571,4.075-3.126,4.537-6.814,6.562c5.142,3,5.436,9.83,6.948,14.779   c1.932,6.285-2.252,8.41-6.645,13.561c-4.672,5.478-5.655,6.982-12.746,8.931c-3.932,1.092-7.864,2.176-11.796,3.26   c-2,0.554-0.319,3.428-4.117,3.428c-0.982-6.73-8.847-1.386-11.258,1.512c-3.579,4.284,3.159,7.486,6.756,10.998   c9.653,9.436-3.874,15.123-10.931,19.962c-2.563-6.772-10.234-8.67-12.208-14.106c-2.689,9.838-3.285,10.074,4.033,17.568   c5.335,5.469,6.058,9.796,8.175,16.87c-4.31-1.966-9.377-2.907-11.073-7.142c-2.076-5.167-3.621-8.048-7.47-12.267   c-3.965-4.352-4.134-17.256-6.225-23.231c-1.555,1.168-4.201,1.118-5.747,2.294c-1.16-4.436-4.217-16.913-9.687-18.694   c-4.453-1.453-14.241,4.646-17.82,7.267c-4.721,3.47-15.476,8.226-15.636,14.09c-0.268,10.234-0.538,10.998-8.897,17.677   c-8.007-11.67-12.108-21.239-14.359-34.775c-7.662,3.755-11.872-6.578-16.509-10.821c-2.151-1.957-6.16-2.151-10.461-1.966   c-0.092-2.655-0.15-5.318-0.15-7.99c0-31.145,6.301-60.728,17.694-87.672c16.123-38.135,42.504-70.936,75.649-94.922   c2.142-0.05,4.251,0.286,6.326,1.294c4.025,1.966,9.368-4.974,15.392-2.924c-2.142-8.746,18.668-9.174,13.997,0.328   c4.537-1.336,8.486-3.184,13.208-2.487c7.746,1.126,5.578,2.403,4.529,9.368c-0.042,0.261-24.189,8.838-15.812,10.014   c8.108,1.143,15.132-4.327,23.542-3.713c9.687,0.698,14.005,4.89,24.424,5.184c-4.159-9.99,12.728-2.789,17.946-1.638   c-5.78,4.748,5.738,10.158,9.696,13.452c-0.143-7.301,14.871-5.973,21.6-5.629c3.706,0.194,1.983-6.638,6.57-5.839   c6.226,1.084,12.443,2.167,18.668,3.251c5.252,0.916,8.015-0.344,13.148,2.403c3.512,1.882,1.143,6.394,5.948,5.882   c3.42-0.362,11.595-2.806,14.048-0.362c3.655,3.638,1.597,7.814,7.596,9.805c1.352-6.663,12.871-6.612,18.66-4.924   c2.68,0.79,14.972,10.544,10.41-1.311c10.871,2.21,21.734,4.411,32.606,6.621c4.26,0.866,4.352,4.192,7.956,5.848   c2.344,1.076,8.856,0.748,12.2,1.966C413.851,126.9,403.425,130.008,397.502,128.882z M406.693,134.654   c0.176-0.588,0.362-1.176,0.546-1.764c1.429-1.412,9.62-1.546,10.814,0.428C419.136,135.108,407.441,135.293,406.693,134.654z    M437.107,168.185c4.974-4.864,9.897-9.754,15.081-14.425c-10.149,0.513-12.468,2.932-14.358-6.562   c-2.151,1.31-4.31,2.621-6.461,3.932c-2.638-3.923-8.838-9.552-2.874-13.778c1.782-1.252,6.008,0.487,7.898-0.656   c1.832-1.1,3.293-6.008,4.31-7.873c-5.176-1.84-5.31,2.723-9.334,2.63c-3.881-0.092-9.258-3.293-12.922-4.596   c3.377-6.99,11.485-5.906,17.013-6.939c2.521,3.318,4.982,6.687,7.326,10.158c6.41,9.494,12.09,19.508,17.022,29.943   C453.406,164.791,445.156,170.715,437.107,168.185z M453.18,278.096c-1.051,0.194-1.673-1.747-0.236-1.747   C454.381,276.349,454.381,277.878,453.18,278.096z M457.011,283.785c-0.47-0.58-0.227-0.278-0.008-0.017   c-2.243-2.739-1.663-6.209,2.403-4.352C461.498,280.356,458.43,285.499,457.011,283.785z"/>
+                                                    <path d="M231.005,240.701v0.008C231.055,240.86,231.089,240.945,231.005,240.701z"/>
+                                                    <path d="M287.07,349.268c-0.008,0-0.008,0.009-0.017,0.009C287.608,349.2,287.414,349.226,287.07,349.268z"/>
+                                                </g>
+                                            </svg>
+                                        </a>
+                                        <a class="button button--default" onclick="tokenClicked(6);" id="sakaarToken">
+                                            <svg style="height:1.4rem;" class="button__icon" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" fill="#000000" height="800px" width="800px" version="1.1" id="Layer_1" viewBox="0 0 512 512" xml:space="preserve">
+                                                <g>
+                                                    <g>
+                                                        <path d="M356.174,189.217c-36.824,0-66.783,29.959-66.783,66.783s29.959,66.783,66.783,66.783s66.783-29.959,66.783-66.783    S392.998,189.217,356.174,189.217z M356.174,300.522c-24.549,0-44.522-19.972-44.522-44.522c0-24.549,19.972-44.522,44.522-44.522    c24.549,0,44.522,19.972,44.522,44.522C400.696,280.549,380.723,300.522,356.174,300.522z"/>
+                                                    </g>
+                                                </g>
+                                                <g>
+                                                    <g>
+                                                        <path d="M478.609,222.609c-18.412,0-33.391,14.979-33.391,33.391c0,18.412,14.979,33.391,33.391,33.391    C497.021,289.391,512,274.412,512,256C512,237.588,497.021,222.609,478.609,222.609z M478.609,267.13    c-6.137,0-11.13-4.993-11.13-11.13c0-6.137,4.993-11.13,11.13-11.13s11.13,4.993,11.13,11.13    C489.739,262.137,484.746,267.13,478.609,267.13z"/>
+                                                    </g>
+                                                </g>
+                                                <g>
+                                                    <g>
+                                                        <path d="M166.734,142.525c-0.134-0.712-0.356-1.415-0.634-2.081c-0.278-0.679-0.612-1.323-1.013-1.924    c-0.412-0.613-0.879-1.181-1.391-1.693c-0.512-0.512-1.08-0.979-1.692-1.38c-0.601-0.4-1.247-0.746-1.914-1.024    c-0.679-0.278-1.38-0.489-2.093-0.633c-1.436-0.29-2.905-0.29-4.341,0c-0.712,0.145-1.414,0.355-2.081,0.633    c-0.679,0.278-1.325,0.624-1.926,1.024c-0.612,0.401-1.18,0.868-1.692,1.38c-2.07,2.07-3.261,4.942-3.261,7.869    s1.191,5.799,3.261,7.868c2.07,2.071,4.942,3.262,7.869,3.262s5.799-1.191,7.869-3.262c2.07-2.069,3.261-4.941,3.261-7.868    C166.957,143.972,166.879,143.236,166.734,142.525z"/>
+                                                    </g>
+                                                </g>
+                                                <g>
+                                                    <g>
+                                                        <path d="M178.087,311.652c-18.412,0-33.391,14.979-33.391,33.391c0,18.412,14.979,33.391,33.391,33.391    c18.412,0,33.391-14.979,33.391-33.391C211.478,326.632,196.499,311.652,178.087,311.652z M178.087,356.174    c-6.137,0-11.13-4.993-11.13-11.13s4.993-11.13,11.13-11.13s11.13,4.993,11.13,11.13S184.224,356.174,178.087,356.174z"/>
+                                                    </g>
+                                                </g>
+                                                <g>
+                                                    <g>
+                                                        <path d="M267.064,250.126c-0.047-2.09-0.124-4.179-0.221-6.268c-0.543-11.591-1.858-23.116-3.935-34.391    c-4.469-24.327-12.443-47.824-23.7-69.84c-1.06-2.071-2.148-4.129-3.263-6.171c-2.73-4.995-5.646-9.888-8.701-14.69    c-5.688-8.94-11.904-17.536-18.638-25.683c-0.003-0.004-0.008-0.009-0.012-0.013C159.738,33.922,87.768,0,11.13,0    C4.983,0,0,4.984,0,11.13v311.652v44.522V500.87C0,507.016,4.983,512,11.13,512c68.379,0,132.666-26.63,181.019-74.981    C240.502,388.665,267.13,324.379,267.13,256C267.13,254.041,267.108,252.083,267.064,250.126z M22.261,333.913h77.913    c6.137,0,11.13,4.993,11.13,11.13s-4.993,11.13-11.13,11.13H22.261V333.913z M22.261,489.478V378.435h77.913    c18.412,0,33.391-14.979,33.391-33.391c0-18.412-14.979-33.391-33.391-33.391H22.261V22.522    c57.548,2.714,111.563,26.39,152.462,66.521h-74.549c-8.916,0-17.3,3.474-23.61,9.784c-6.308,6.309-9.781,14.692-9.781,23.608    c0,18.412,14.979,33.391,33.391,33.391h22.261c6.147,0,11.13-4.984,11.13-11.13s-4.983-11.13-11.13-11.13h-22.261    c-6.137,0-11.13-4.993-11.13-11.13c0-2.97,1.159-5.764,3.262-7.867c2.104-2.105,4.898-3.263,7.868-3.263h94.518    c0.118,0.149,0.239,0.295,0.356,0.443c0.837,1.066,1.655,2.148,2.473,3.228c0.506,0.67,1.023,1.33,1.523,2.005    c0.923,1.245,1.822,2.509,2.719,3.772c0.375,0.529,0.761,1.046,1.131,1.577c1.258,1.801,2.491,3.619,3.698,5.455    c0.206,0.313,0.401,0.634,0.605,0.949c0.994,1.529,1.979,3.065,2.937,4.617c0.043,0.07,0.085,0.144,0.129,0.214h-21.047    c-6.147,0-11.13,4.984-11.13,11.13c0,6.146,4.983,11.13,11.13,11.13h33.15c6.782,14.273,12.084,29.18,15.831,44.522h-48.981    c-8.915,0-17.3,3.474-23.61,9.784c-6.308,6.31-9.781,14.693-9.781,23.609c0,18.412,14.979,33.391,33.391,33.391h55.385    C238.946,387.179,142.312,483.827,22.261,489.478z M189.217,244.87c-6.137,0-11.13-4.993-11.13-11.13    c0-2.97,1.159-5.764,3.262-7.867c2.104-2.105,4.897-3.263,7.868-3.263h53.275c0.031,0.218,0.067,0.436,0.097,0.654    c0.141,1.011,0.269,2.025,0.397,3.039c0.1,0.791,0.205,1.582,0.297,2.375c0.12,1.038,0.226,2.078,0.333,3.119    c0.079,0.775,0.166,1.548,0.237,2.324c0.099,1.074,0.181,2.151,0.267,3.227c0.059,0.746,0.126,1.49,0.177,2.236    c0.08,1.16,0.141,2.323,0.205,3.485c0.032,0.601,0.073,1.201,0.102,1.802H189.217z"/>
+                                                    </g>
+                                                </g>
+                                            </svg>
+                                        </a>
+                                        <a class="button button--default" onclick="tokenClicked(7);" id="moragToken">
+                                            <svg style="height:1.4rem;" class="button__icon" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 20 20" version="1.1">
+                                                <g fill-rule="evenodd">
+                                                    <g id="Dribbble-Light-Preview" transform="translate(-220.000000, -2519.000000)">
+                                                        <g id="icons" transform="translate(56.000000, 160.000000)">
+                                                            <path d="M166.929,2363.343 C166.538,2362.952 166.538,2362.319 166.929,2361.929 C167.32,2361.538 167.953,2361.538 168.343,2361.929 C168.734,2362.319 168.734,2362.952 168.343,2363.343 C167.953,2363.734 167.32,2363.734 166.929,2363.343 M181.071,2374.657 C181.462,2375.047 181.462,2375.68 181.071,2376.071 C180.681,2376.461 180.047,2376.461 179.657,2376.071 C179.266,2375.68 179.266,2375.047 179.657,2374.657 C180.047,2374.266 180.681,2374.266 181.071,2374.657 M168.343,2374.657 C168.734,2375.047 168.734,2375.68 168.343,2376.071 C167.953,2376.461 167.32,2376.461 166.929,2376.071 C166.538,2375.68 166.538,2375.047 166.929,2374.657 C167.32,2374.266 167.953,2374.266 168.343,2374.657 M181.071,2361.929 C181.462,2362.319 181.462,2362.952 181.071,2363.343 C180.681,2363.734 180.047,2363.734 179.657,2363.343 C179.266,2362.952 179.266,2362.319 179.657,2361.929 C180.047,2361.538 180.681,2361.538 181.071,2361.929 M166,2369 C166,2369.552 165.552,2370 165,2370 C164.448,2370 164,2369.552 164,2369 C164,2368.448 164.448,2368 165,2368 C165.552,2368 166,2368.448 166,2369 M184,2369 C184,2369.552 183.552,2370 183,2370 C182.448,2370 182,2369.552 182,2369 C182,2368.448 182.448,2368 183,2368 C183.552,2368 184,2368.448 184,2369 M175,2378 C175,2378.552 174.552,2379 174,2379 C173.448,2379 173,2378.552 173,2378 C173,2377.448 173.448,2377 174,2377 C174.552,2377 175,2377.448 175,2378 M173,2360 C173,2359.448 173.448,2359 174,2359 C174.552,2359 175,2359.448 175,2360 C175,2360.552 174.552,2361 174,2361 C173.448,2361 173,2360.552 173,2360 M174,2374 C171.243,2374 169,2371.757 169,2369 C169,2366.243 171.243,2364 174,2364 C176.757,2364 179,2366.243 179,2369 C179,2371.757 176.757,2374 174,2374 M174,2362 C170.134,2362 167,2365.134 167,2369 C167,2372.866 170.134,2376 174,2376 C177.866,2376 181,2372.866 181,2369 C181,2365.134 177.866,2362 174,2362" id="sun_star-[#1268]"></path>
+                                                        </g>
+                                                    </g>
+                                                </g>
+                                            </svg>
+                                        </a>
+                                        <a class="button button--default" onclick="tokenClicked(8);" id="xandarToken">
+                                            <svg xmlns="http://www.w3.org/2000/svg" style="height:1.4rem;" class="button__icon" viewBox="0 0 24 24" data-name="025_SCIENCE" id="_025_SCIENCE"><path class="cls-1" d="M12,22A10,10,0,0,1,5,4.87,1,1,0,1,1,6.39,6.3a8,8,0,1,0,3-1.86,1,1,0,0,1-.65-1.89A9.81,9.81,0,0,1,12,2a10,10,0,0,1,0,20Z"/><path class="cls-1" d="M12,18a6,6,0,0,1-6-6,5.77,5.77,0,0,1,.09-1,1,1,0,1,1,2,.34A3.82,3.82,0,0,0,8,12,4,4,0,1,0,9.74,8.7,1,1,0,0,1,8.61,7.05,5.93,5.93,0,0,1,12,6a6,6,0,0,1,0,12Z"/><path class="cls-1" d="M12,10a2,2,0,1,0,2,2A2,2,0,0,0,12,10Z"/><path class="cls-1" d="M18,3a2,2,0,1,0,2,2A2,2,0,0,0,18,3Z"/><path class="cls-1" d="M15,14a2,2,0,1,0,2,2A2,2,0,0,0,15,14Z"/>
+                                            </svg>
+                                        </a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                        <div id="ideatorMarker" style="display:none;"></div>
-                        <div class="channel-feed__body" id="token1content" style="display: none;">
+                        <div class="channel-feed__body" id="token1content">
                             <div class="message">
                                 <div class="message__body">
                                     <div style="display:flex;justify-content: space-between;align-items: center;">
                                         <div style="display:flex;flex-direction: column;">
                                             <div class="card-subtitle">About URU</div>
                                             <div style="width:65%;">
-                                                Investors who invested on over 100 ideators are eligible for this reward.
-                                                Redeeming the 100 tokens obtained provides immunity towards the transaction fee overhead for the next 20 investments.
+                                                Investors who have invested over 100 times are eligible for this reward.
+                                                Redeeming the 100 tokens obtained provides immunity towards the transaction fee overhead for the next 20 stock-exchange investments.
                                                 <p>It is important to note that the investor must not have claimed any reward over the 100 investments made.</p>
                                             </div>
                                         </div>
@@ -2270,7 +2949,7 @@
                                     </div>
                                 </div>
                                 <div class="message__footer">
-                                    <span class="message__authoring">Grade 1</span>
+                                    <span class="message__authoring">Grade 1 (For Stock-Exchange)</span>
                                 </div>
                             </div>
                         </div>
@@ -2281,8 +2960,8 @@
                                         <div style="display:flex;flex-direction: column;">
                                             <div class="card-subtitle">About VIBRAN</div>
                                             <div style="width:65%;">
-                                                Investors who invested on over 50 ideators are eligible for this reward.
-                                                Redeeming the 50 tokens obtained provides 80% immunity towards the transaction fee overhead for the next 10 investments.
+                                                Investors who have invested over 50 times are eligible for this reward.
+                                                Redeeming the 50 tokens obtained provides 80% immunity towards the transaction fee overhead for the next 10 stock-exchange investments.
                                                 <p>It is important to note that the investor must not have claimed any reward over the 50 investments made.</p>
                                             </div>
                                         </div>
@@ -2290,7 +2969,7 @@
                                     </div>
                                 </div>
                                 <div class="message__footer">
-                                    <span class="message__authoring">Grade 2</span>
+                                    <span class="message__authoring">Grade 2 (For Stock-Exchange)</span>
                                 </div>
                             </div>
                         </div>
@@ -2301,8 +2980,8 @@
                                         <div style="display:flex;flex-direction: column;">
                                             <div class="card-subtitle">About KRYPTON</div>
                                             <div style="width:65%;">
-                                                Investors who invested on over 20 ideators are eligible for this reward.
-                                                Redeeming the 20 tokens obtained provides 50% immunity towards the transaction fee overhead for the next 5 investments.
+                                                Investors who have invested over 20 times are eligible for this reward.
+                                                Redeeming the 20 tokens obtained provides 50% immunity towards the transaction fee overhead for the next 5 stock-exchange investments.
                                                 <p>It is important to note that the investor must not have claimed any reward over the 20 investments made.</p>
                                             </div>
                                         </div>
@@ -2310,7 +2989,7 @@
                                     </div>
                                 </div>
                                 <div class="message__footer">
-                                    <span class="message__authoring">Grade 3</span>
+                                    <span class="message__authoring">Grade 3 (For Stock-Exchange)</span>
                                 </div>
                             </div>
                         </div>
@@ -2321,8 +3000,8 @@
                                         <div style="display:flex;flex-direction: column;">
                                             <div class="card-subtitle">About ADAMANT</div>
                                             <div style="width:65%;">
-                                                Investors who invested on over 10 ideators are eligible for this reward.
-                                                Redeeming the 10 token can provides 10% immunity towards the transaction fee overhead for the next 10 investments.
+                                                Investors who have invested over 10 times are eligible for this reward.
+                                                Redeeming the 10 tokens can provides 10% immunity towards the transaction fee overhead for the next 10 stock-exchange investments.
                                                 <p>It is important to note that the investor must not have claimed any reward over the 10 investments made.</p>
                                             </div>
                                         </div>
@@ -2330,285 +3009,87 @@
                                     </div>
                                 </div>
                                 <div class="message__footer">
-                                    <span class="message__authoring">Grade 4</span>
+                                    <span class="message__authoring">Grade 4 (For Stock-Exchange)</span>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </div>
-                <div class="app-b">
-                    <div class="pad">
-                        <div class="pad__body" id="pad-attention">
-                            <h4 class="text-heading3 undefined">Attention!</h4>
-                            <p class="text-paragraph1 undefined">While investing in an ideator, make sure to analyse their growth, the different aspects the ideator is working on/is planning to.</p>
-                            <p class="text-paragraph1 undefined">Communicate with them personally on the Messaages Tab and make sure you are making the right choice.</p>
-                            <p class="text-paragraph1 undefined">Investment in this platform is subjected to risk. Ensure every transaction is proper and valid.</p>
-                        </div>
-                        <div class="pad__body" id="pad-graph">
-                            <h4 class="text-heading3 undefined">Growth</h4>
-                            <div id="calculator" style="width:100%; height: 300px;"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="app-skeleton" id="developersPage" style="display: none;">
-            <header class="app-header">
-                <div class="app-header__anchor">
-                    <img src="assets/tabIcon.png" style="height:35px;"/>
-                    <span class="app-header__anchor__text">Investopolis</span>
-                </div>
-                <nav>
-                    <ul class="nav">
-                        <li class="nav__item homeButton">
-                            <a class="nav__link" href="#">
-                                <span class="nav__link__element">Home</span>
-                            </a>
-                        </li>
-                        <li class="nav__item messagesButton">
-                            <a class="nav__link" href="#">
-                                <span class="nav__link__element">Messages</span>
-                            </a>
-                        </li>
-                        <li class="nav__item myProfileButton">
-                            <a class="nav__link" href="#">
-                                <span class="nav__link__element">My Profile</span>
-                            </a>
-                        </li>
-                        <li class="nav__item developersButton">
-                            <a class="nav__link nav__link--active" href="#">
-                                <span class="nav__link__element">Creators</span>
-                            </a>
-                        </li>
-                    </ul>
-                </nav>
-                <div class="logout">
-                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="30" height="30" viewBox="0 0 490.3 490.3" style="enable-background:new 0 0 490.3 490.3;" xml:space="preserve">
-                        <g>
-                            <path d="M0,121.05v248.2c0,34.2,27.9,62.1,62.1,62.1h200.6c34.2,0,62.1-27.9,62.1-62.1v-40.2c0-6.8-5.5-12.3-12.3-12.3    s-12.3,5.5-12.3,12.3v40.2c0,20.7-16.9,37.6-37.6,37.6H62.1c-20.7,0-37.6-16.9-37.6-37.6v-248.2c0-20.7,16.9-37.6,37.6-37.6h200.6    c20.7,0,37.6,16.9,37.6,37.6v40.2c0,6.8,5.5,12.3,12.3,12.3s12.3-5.5,12.3-12.3v-40.2c0-34.2-27.9-62.1-62.1-62.1H62.1    C27.9,58.95,0,86.75,0,121.05z"/>
-                            <path d="M385.4,337.65c2.4,2.4,5.5,3.6,8.7,3.6s6.3-1.2,8.7-3.6l83.9-83.9c4.8-4.8,4.8-12.5,0-17.3l-83.9-83.9    c-4.8-4.8-12.5-4.8-17.3,0s-4.8,12.5,0,17.3l63,63H218.6c-6.8,0-12.3,5.5-12.3,12.3c0,6.8,5.5,12.3,12.3,12.3h229.8l-63,63    C380.6,325.15,380.6,332.95,385.4,337.65z"/>
-                        </g>
-                    </svg>
-                </div>
-            </header>
-            <div class="app-container">
-                <div class="app-a">
-                    <div class="segment-topbar">
-                        <div class="segment-topbar__header">
-                            <h3 class="text-heading3 segment-topbar__title">Creators</h3>
-                        </div>
-                    </div>
-                    <div class="nav-section">
-                        <div class="nav-section__header">
-                            <h2 class="nav-section__title">Faculty Supervisor</h2>
-                        </div>
-                        <div class="nav-section__body">
-                            <ul class="nav">
-                                <li class="nav__item" id="rajendraButton">
-                                    <a class="nav__link nav__link--active" href="#">
-                                        <span class="channel-link conversation-link--unread">
-                                            <span class="channel-link__icon">#</span>
-                                            <span class="channel-link__element">Dr. Rajendra Hegadi</span>
-                                        </span>
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="nav-section">
-                        <div class="nav-section__header">
-                            <h2 class="nav-section__title">Developer Team</h2>
-                        </div>
-                        <div class="nav-section__body">
-                            <ul class="nav">
-                                <li class="nav__item" id="krishnaButton">
-                                    <a class="nav__link" href="#">
-                                        <span class="channel-link conversation-link--unread">
-                                            <span class="channel-link__icon">#</span>
-                                            <span class="channel-link__element">Krishna Paanchajanya</span>
-                                        </span>
-                                    </a>
-                                </li>
-                                <li class="nav__item" id="karthikButton">
-                                    <a class="nav__link " href="#">
-                                        <span class="channel-link conversation-link--unread">
-                                            <span class="channel-link__icon">#</span>
-                                            <span class="channel-link__element">Karthik Sajjan</span>
-                                        </span>
-                                    </a>
-                                </li>
-                                <li class="nav__item" id="deepakButton">
-                                    <a class="nav__link " href="#">
-                                        <span class="channel-link conversation-link--unread">
-                                            <span class="channel-link__icon">#</span>
-                                            <span class="channel-link__element">Karusala Deepak Chowdary</span>
-                                        </span>
-                                    </a>
-                                </li>
-                                <li class="nav__item" id="manojButton">
-                                    <a class="nav__link " href="#">
-                                        <span class="channel-link conversation-link--unread">
-                                            <span class="channel-link__icon">#</span>
-                                            <span class="channel-link__element">Manoj Sahit Reddy</span>
-                                        </span>
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <div class="app-main">
-                    <div class="channel-feed">
-                        <div class="segment-topbar">
-                            <div class="segment-topbar__header">
-                                <span class="segment-topbar__overline">Wallet Address:</span>
-                                <h4 class="text-heading4 segment-topbar__title">
-                                    <span class="channel-link ">
-                                        <span class="channel-link__icon">#</span>
-                                        <span class="channel-link__element username">Username</span>
-                                    </span>
-                                </h4>
-                            </div>
-                        </div>
-                        <div class="channel-feed__body">
-                            <div class="card" id="rajendraProfile">
-                                <div class="card-header">
-                                    <img class="card-avatar" src="assets/rajendra.jpeg" alt="avatar" />
-                                    <h1 class="card-fullname">Dr. Rajendra Hegadi</h1>
-                                    <h2 class="card-jobtitle">Ph.D., MGRRI, Chennai</h2>
-                                </div>
-                                <div class="card-main">
-                                    <div class="card-section">
-                                        <div class="card-content">
-                                            <div class="card-subtitle">ABOUT</div>
-                                            <p class="card-desc">Dr. Rajendra Hegadi is the HOD of Data Science and Intelligence Systems at Indian Institute of Information Technology, Dharwad. He has more than 25 years teaching experience at various capacities. He is a senior member of IEEE, member of CRSI, CSI and ISTE. He is a member of IEEE Standard Association-P2145 Standards Development Working Group Standard for Framework and Definitions for Blockchain Governance. His areas of interest are computer networking, information centric network, cryptography & network security and image processing.</p>
+                        <div class="channel-feed__body" id="token5content">
+                            <div class="message">
+                                <div class="message__body">
+                                    <div style="display:flex;justify-content: space-between;align-items: center;">
+                                        <div style="display:flex;flex-direction: column;">
+                                            <div class="card-subtitle">About TITAN</div>
+                                            <div style="width:65%;">
+                                                Investors who have invested over 16 times are eligible for this reward.
+                                                Redeeming the 16 tokens obtained provides immunity towards the transaction fee overhead for the next 20 real-estate investments.
+                                                <p>It is important to note that the investor must not have claimed any reward over the 16 investments made.</p>
+                                            </div>
                                         </div>
-                                        <div class="card-social">
-                                            <a href="mailto:rajendrahegadi@iiitdwd.ac.in">
-                                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#1e181e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                                    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
-                                                    <path d="M22 6l-10 7L2 6"></path>
-                                                </svg>
-                                            </a>
-                                            <a href="https://www.linkedin.com/in/dr-rajendra-hegadi-7463b420/">
-                                                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                                    <path d="M23.994 24v-.001H24v-8.802c0-4.306-.927-7.623-5.961-7.623-2.42 0-4.044 1.328-4.707 2.587h-.07V7.976H8.489v16.023h4.97v-7.934c0-2.089.396-4.109 2.983-4.109 2.549 0 2.587 2.384 2.587 4.243V24zM.396 7.977h4.976V24H.396zM2.882 0C1.291 0 0 1.291 0 2.882s1.291 2.909 2.882 2.909 2.882-1.318 2.882-2.909A2.884 2.884 0 002.882 0z" />
-                                                </svg>
-                                            </a>
-                                        </div>
+                                        <img style="width: 25%;border: 2px solid #03e9f4;padding: 5px;border-radius: 5px;" src="assets/Titan.avif"/>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="card" id="krishnaProfile" style="display:none;">
-                                <div class="card-header">
-                                    <img class="card-avatar" src="assets/KrishnaPaanchajanya.jpg" alt="avatar" />
-                                    <h1 class="card-fullname">Kuppa Venkata Krishna Paanchajanya</h1>
-                                    <h2 class="card-jobtitle">Blockchain Enthusiast</h2>
-                                </div>
-                                <div class="card-main">
-                                    <div class="card-section">
-                                        <div class="card-content">
-                                            <div class="card-subtitle">ABOUT</div>
-                                            <p class="card-desc">Krishna Paanchajanya, a final year student at IIIT Dharwad, obtained skill set in different realms of Computer Science in addition to reaching the pinnacle in academics; his ultimate goal being to ideate, design a tool that has socio-economic relevance.</p>
-                                        </div>
-                                        <div class="card-social">
-                                            <a href="mailto:19bcs063@iiitdwd.ac.in">
-                                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#1e181e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                                    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
-                                                    <path d="M22 6l-10 7L2 6"></path>
-                                                </svg>
-                                            </a>
-                                            <a href="https://www.linkedin.com/in/krishna-paanchajanya-5454b71a0/">
-                                                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                                    <path d="M23.994 24v-.001H24v-8.802c0-4.306-.927-7.623-5.961-7.623-2.42 0-4.044 1.328-4.707 2.587h-.07V7.976H8.489v16.023h4.97v-7.934c0-2.089.396-4.109 2.983-4.109 2.549 0 2.587 2.384 2.587 4.243V24zM.396 7.977h4.976V24H.396zM2.882 0C1.291 0 0 1.291 0 2.882s1.291 2.909 2.882 2.909 2.882-1.318 2.882-2.909A2.884 2.884 0 002.882 0z" />
-                                                </svg>
-                                            </a>
-                                        </div>
-                                    </div>
+                                <div class="message__footer">
+                                    <span class="message__authoring">Grade 1 (For Real-Estate)</span>
                                 </div>
                             </div>
-                            <div class="card" id="karthikProfile" style="display:none;">
-                                <div class="card-header">
-                                    <img class="card-avatar" src="assets/KarthikSajjan.jpg" alt="avatar" />
-                                    <h1 class="card-fullname">Karthik Sajjan</h1>
-                                    <h2 class="card-jobtitle">Blockchain Enthusiast</h2>
-                                </div>
-                                <div class="card-main">
-                                    <div class="card-section">
-                                        <div class="card-content">
-                                            <div class="card-subtitle">ABOUT</div>
-                                            <p class="card-desc">Karthik is currently pursuing his B. Tech from IIIT Dharwad. He is well-versed with various emerging technologies like Blockchain and Cloud Computing Platforms and has worked on a myriad of projects in them.</p>
+                        </div>
+                        <div class="channel-feed__body" id="token6content" style="display: none;">
+                            <div class="message">
+                                <div class="message__body">
+                                    <div style="display:flex;justify-content: space-between;align-items: center;">
+                                        <div style="display:flex;flex-direction: column;">
+                                            <div class="card-subtitle">About SAKAAR</div>
+                                            <div style="width:65%;">
+                                                Investors who have invested over 8 times are eligible for this reward.
+                                                Redeeming the 8 tokens obtained provides 80% immunity towards the transaction fee overhead for the next 10 real-estate investments.
+                                                <p>It is important to note that the investor must not have claimed any reward over the 8 investments made.</p>
+                                            </div>
                                         </div>
-                                        <div class="card-social">
-                                            <a href="mailto:19bcs049@iiitdwd.ac.in">
-                                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#1e181e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                                    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
-                                                    <path d="M22 6l-10 7L2 6"></path>
-                                                </svg>
-                                            </a>
-                                            <a href="https://www.linkedin.com/in/karthik-sajjan-3949691a6/">
-                                                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                                    <path d="M23.994 24v-.001H24v-8.802c0-4.306-.927-7.623-5.961-7.623-2.42 0-4.044 1.328-4.707 2.587h-.07V7.976H8.489v16.023h4.97v-7.934c0-2.089.396-4.109 2.983-4.109 2.549 0 2.587 2.384 2.587 4.243V24zM.396 7.977h4.976V24H.396zM2.882 0C1.291 0 0 1.291 0 2.882s1.291 2.909 2.882 2.909 2.882-1.318 2.882-2.909A2.884 2.884 0 002.882 0z" />
-                                                </svg>
-                                            </a>
-                                        </div>
+                                        <img style="width: 25%;border: 2px solid #03e9f4;padding: 5px;border-radius: 5px;" src="assets/Sakaar.jpg"/>
                                     </div>
+                                </div>
+                                <div class="message__footer">
+                                    <span class="message__authoring">Grade 2 (For Real-Estate)</span>
                                 </div>
                             </div>
-                            <div class="card" id="deepakProfile" style="display:none;">
-                                <div class="card-header">
-                                    <img class="card-avatar" src="assets/DeepakChowdary.jpg" alt="avatar" />
-                                    <h1 class="card-fullname">Karusala Deepak Chowdary</h1>
-                                    <h2 class="card-jobtitle">UI/UX Design</h2>
-                                </div>
-                                <div class="card-main">
-                                    <div class="card-section">
-                                        <div class="card-content">
-                                            <div class="card-subtitle">ABOUT</div>
-                                            <p class="card-desc">Deepak is currently pursuing his B. Tech from IIIT Dharwad. He is well-versed with various emerging technologies like Full Stack Web Development and Cloud Computing Platforms and has worked on a myriad of projects in them.</p>
+                        </div>
+                        <div class="channel-feed__body" id="token7content" style="display: none;">
+                            <div class="message">
+                                <div class="message__body">
+                                    <div style="display:flex;justify-content: space-between;align-items: center;">
+                                        <div style="display:flex;flex-direction: column;">
+                                            <div class="card-subtitle">About MORAG</div>
+                                            <div style="width:65%;">
+                                                Investors who have invested over 4 times are eligible for this reward.
+                                                Redeeming the 4 tokens obtained provides 50% immunity towards the transaction fee overhead for the next 5 real-estate investments.
+                                                <p>It is important to note that the investor must not have claimed any reward over the 4 investments made.</p>
+                                            </div>
                                         </div>
-                                        <div class="card-social">
-                                            <a href="mailto:19bcs050@iiitdwd.ac.in">
-                                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#1e181e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                                    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
-                                                    <path d="M22 6l-10 7L2 6"></path>
-                                                </svg>
-                                            </a>
-                                            <a href="https://www.linkedin.com/in/karusala-deepak-chowdary-3701111a5/">
-                                                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                                    <path d="M23.994 24v-.001H24v-8.802c0-4.306-.927-7.623-5.961-7.623-2.42 0-4.044 1.328-4.707 2.587h-.07V7.976H8.489v16.023h4.97v-7.934c0-2.089.396-4.109 2.983-4.109 2.549 0 2.587 2.384 2.587 4.243V24zM.396 7.977h4.976V24H.396zM2.882 0C1.291 0 0 1.291 0 2.882s1.291 2.909 2.882 2.909 2.882-1.318 2.882-2.909A2.884 2.884 0 002.882 0z" />
-                                                </svg>
-                                            </a>
-                                        </div>
+                                        <img style="width: 25%;border: 2px solid #03e9f4;padding: 5px;border-radius: 5px;" src="assets/Morag.jpg"/>
                                     </div>
+                                </div>
+                                <div class="message__footer">
+                                    <span class="message__authoring">Grade 3 (For Real-Estate)</span>
                                 </div>
                             </div>
-                            <div class="card" id="manojProfile" style="display:none;">
-                                <div class="card-header">
-                                    <img class="card-avatar" src="assets/ManojSahithReddy.jpg" alt="avatar" />
-                                    <h1 class="card-fullname">Vanga Manoj Sahit Reddy</h1>
-                                    <h2 class="card-jobtitle">Full Stack Developer</h2>
-                                </div>
-                                <div class="card-main">
-                                    <div class="card-section">
-                                        <div class="card-content">
-                                            <div class="card-subtitle">ABOUT</div>
-                                            <p class="card-desc">Manoj is currently pursuing his B. Tech from IIIT Dharwad. He is well-versed with various emerging technologies like Machine Learning, Deep Learning and Cloud Computing Platforms and has worked on a myriad of projects in them.</p>
+                        </div>
+                        <div class="channel-feed__body" id="token8content" style="display: none;">
+                            <div class="message">
+                                <div class="message__body">
+                                    <div style="display:flex;justify-content: space-between;align-items: center;">
+                                        <div style="display:flex;flex-direction: column;">
+                                            <div class="card-subtitle">About XANDAR</div>
+                                            <div style="width:65%;">
+                                                Investors who have invested over 2 times are eligible for this reward.
+                                                Redeeming the 2 tokens can provides 10% immunity towards the transaction fee overhead for the next 10 real-estate investments.
+                                                <p>It is important to note that the investor must not have claimed any reward over the 2 investments made.</p>
+                                            </div>
                                         </div>
-                                        <div class="card-social">
-                                            <a href="mailto:19bcs110@iiitdwd.ac.in">
-                                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#1e181e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                                    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
-                                                    <path d="M22 6l-10 7L2 6"></path>
-                                                </svg>
-                                            </a>
-                                            <a href="https://www.linkedin.com/in/manojsahith/">
-                                                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                                    <path d="M23.994 24v-.001H24v-8.802c0-4.306-.927-7.623-5.961-7.623-2.42 0-4.044 1.328-4.707 2.587h-.07V7.976H8.489v16.023h4.97v-7.934c0-2.089.396-4.109 2.983-4.109 2.549 0 2.587 2.384 2.587 4.243V24zM.396 7.977h4.976V24H.396zM2.882 0C1.291 0 0 1.291 0 2.882s1.291 2.909 2.882 2.909 2.882-1.318 2.882-2.909A2.884 2.884 0 002.882 0z" />
-                                                </svg>
-                                            </a>
-                                        </div>
+                                        <img style="width: 25%;border: 2px solid #03e9f4;padding: 5px;border-radius: 5px;" src="assets/Xandar.jpg"/>
                                     </div>
+                                </div>
+                                <div class="message__footer">
+                                    <span class="message__authoring">Grade 4 (For Real Estate)</span>
                                 </div>
                             </div>
                         </div>
@@ -2617,19 +3098,24 @@
                 <div class="app-b">
                     <div class="pad">
                         <div class="pad__body">
-                            <h4 class="text-heading3 undefined">TEAM</h4>
-                            <p class="text-paragraph1 undefined">The strength of the team is each individual member. The strength of each member is the team.</p>
-                            <p class="text-paragraph1 undefined">Alone we can do so little; together we can do so much.</p>
+                            <h4 class="text-heading3 undefined">Attention!</h4>
+                            <p class="text-paragraph1 undefined">While investing in an ideator, make sure to analyse their growth, the different aspects the ideator is working on/is planning to.</p>
+                            <p class="text-paragraph1 undefined">Communicate with them personally on the Messages Tab and make sure you are making the right choice.</p>
+                            <p class="text-paragraph1 undefined">Investment in this platform is subjected to risk. Ensure every transaction is proper and valid.</p>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+    <iframe name="ShareDocument" id="sharedoc" src="assets/ShareDocument.html" width="1" height="1"></iframe>
     <iframe name="DummyFrame" style="display:none;"></iframe>
     <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js'></script>
     <script src='web3.min.js'></script>
     <script src="https://www.desmos.com/api/v1.7/calculator.js?apiKey=dcb31709b452b1cf9dc26972add0fda6"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@turf/turf@6.5.0/turf.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/downloadjs/1.4.8/download.min.js" integrity="sha512-WiGQZv8WpmQVRUFXZywo7pHIO0G/o3RyiAJZj8YXNN4AV7ReR1RYWVmZJ6y3H06blPcjJmG/sBpOVZjTSFFlzQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script type='text/javascript' src='investor.js'></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAky5fqKd5-PO4f0Qc3516DfJIJaktRtIw&callback=initMap" async defer></script>
 </body>
 </html>

@@ -37,14 +37,14 @@
                                 <span class="nav__link__element">Home</span>
                             </a>
                         </li>
+                        <li class="nav__item participantsButton">
+                            <a class="nav__link " href="#">
+                                <span class="nav__link__element">Participants</span>
+                            </a>
+                        </li>
                         <li class="nav__item messagesButton">
                             <a class="nav__link " href="#">
                                 <span class="nav__link__element">Broadcast</span>
-                            </a>
-                        </li>
-                        <li class="nav__item developersButton">
-                            <a class="nav__link" href="#">
-                                <span class="nav__link__element">Creators</span>
                             </a>
                         </li>
                     </ul>
@@ -64,8 +64,15 @@
                         <div class="segment-topbar__header">
                             <h3 class="text-heading3 segment-topbar__title">Home</h3>
                         </div>
+                        <div class="segment-topbar__aside">
+                            <div class="button-toolbar">
+                                <a class="button button--primary button--size-lg" onclick="addAdmin();">
+                                    <svg class="button__icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M24 10h-10v-10h-4v10h-10v4h10v10h4v-10h10z"></path></svg>
+                                </a>
+                            </div>
+                        </div>
                     </div>
-                    <div class="nav-section">
+                    <div class="nav-section" style="max-height:90%;">
                         <div class="nav-section__header">
                             <h2 class="nav-section__title">Verifications</h2>
                         </div>
@@ -87,6 +94,16 @@
                                     </span>
                                 </h4>
                             </div>
+                            <div class="segment-topbar__aside" style="display:none;">
+                                <div class="button-toolbar">
+                                    <a class="button button--default" onclick="previousVerification();">
+                                        <svg class="button__icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" data-name="Flat Color"><path d="M17.45,2.11a1,1,0,0,0-1.05.09l-12,9a1,1,0,0,0,0,1.6l12,9a1,1,0,0,0,1.05.09A1,1,0,0,0,18,21V3A1,1,0,0,0,17.45,2.11Z"/></svg>
+                                    </a>
+                                    <a class="button button--default" onclick="nextVerification();">
+                                        <svg class="button__icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" data-name="Flat Color"><path d="M18.6,11.2l-12-9A1,1,0,0,0,5,3V21a1,1,0,0,0,.55.89,1,1,0,0,0,1-.09l12-9a1,1,0,0,0,0-1.6Z"/></svg>
+                                    </a>
+                                </div>
+                            </div>
                         </div>
                         <div id="userMarker" style="display:none;"></div>
                     </div>
@@ -94,11 +111,154 @@
                 <div class="app-b">
                     <div class="pad">
                         <div class="pad__body">
-                            <h4 class="text-heading3 undefined">About Investopolis</h4>
-                            <p class="text-paragraph1 undefined">Investopolis is an investment platform encompassing customer loyalty through blockchain wherein investors can invest upon ideators' companies which are unlisted in the stock market but would have high market value when deployed.</p>
-                            <p class="text-paragraph1 undefined">The investors on the platform are rewarded for various actions with tokens. As the utility of a token increases, the value of the token shall rise.</p>
-                            <p class="text-paragraph1 undefined">Every transaction an investor performs shall have a 1% transaction fee. He/she can pay by cryptocurrency or use a token he/she was rewarded prior.</p>
-                            <p class="text-paragraph1 undefined">In addition to transactions from investors to ideators, investors can transfer tokens/cryptocurrency to other investors as well.</p>
+                            <h4 class="text-heading3 undefined">The Verification Stage</h4>
+                            <p class="text-paragraph1 undefined">Aye Aye, Captain!</p>
+                            <p class="text-paragraph1 undefined">You are given the authority to enact a very important responsibility towards the Investopolis platform.</p>
+                            <p class="text-paragraph1 undefined">In addition to addressing various issues faced by the participants of this platform, you also have to verify new users and admit them into the network if and when successfully verified.</p>
+                            <p class="text-paragraph1 undefined">
+                                Although the concept of an administrator may seem to hint that there is centralization of some sort in this decentralized platform, it isn't! As long as a considerable number of administrators strive towards the
+                                maintenance of the Investopolis network, it will continue to show its decentralized nature.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="app-skeleton" id="participantsPage" style="display: none;">
+            <header class="app-header">
+                <div class="app-header__anchor">
+                    <img src="assets/tabIcon.png" style="height:35px;"/>
+                    <span class="app-header__anchor__text">Investopolis</span>
+                </div>
+                <nav>
+                    <ul class="nav">
+                        <li class="nav__item homeButton">
+                            <a class="nav__link " href="#">
+                                <span class="nav__link__element">Home</span>
+                            </a>
+                        </li>
+                        <li class="nav__item participantsButton">
+                            <a class="nav__link nav__link--active" href="#">
+                                <span class="nav__link__element">Participants</span>
+                            </a>
+                        </li>
+                        <li class="nav__item messagesButton">
+                            <a class="nav__link " href="#">
+                                <span class="nav__link__element">Broadcast</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+                <div class="logout">
+                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="30" height="30" viewBox="0 0 490.3 490.3" style="enable-background:new 0 0 490.3 490.3;" xml:space="preserve">
+                        <g>
+                            <path d="M0,121.05v248.2c0,34.2,27.9,62.1,62.1,62.1h200.6c34.2,0,62.1-27.9,62.1-62.1v-40.2c0-6.8-5.5-12.3-12.3-12.3    s-12.3,5.5-12.3,12.3v40.2c0,20.7-16.9,37.6-37.6,37.6H62.1c-20.7,0-37.6-16.9-37.6-37.6v-248.2c0-20.7,16.9-37.6,37.6-37.6h200.6    c20.7,0,37.6,16.9,37.6,37.6v40.2c0,6.8,5.5,12.3,12.3,12.3s12.3-5.5,12.3-12.3v-40.2c0-34.2-27.9-62.1-62.1-62.1H62.1    C27.9,58.95,0,86.75,0,121.05z"/>
+                            <path d="M385.4,337.65c2.4,2.4,5.5,3.6,8.7,3.6s6.3-1.2,8.7-3.6l83.9-83.9c4.8-4.8,4.8-12.5,0-17.3l-83.9-83.9    c-4.8-4.8-12.5-4.8-17.3,0s-4.8,12.5,0,17.3l63,63H218.6c-6.8,0-12.3,5.5-12.3,12.3c0,6.8,5.5,12.3,12.3,12.3h229.8l-63,63    C380.6,325.15,380.6,332.95,385.4,337.65z"/>
+                        </g>
+                    </svg>
+                </div>
+            </header>
+            <div class="app-container">
+                <div class="app-a">
+                    <div class="segment-topbar">
+                        <div class="segment-topbar__header">
+                            <h3 class="text-heading3 segment-topbar__title">Participants</h3>
+                        </div>
+                    </div>
+                    <div class="nav-section" style="max-height:90%;">
+                        <div class="nav-section__header">
+                            <h2 class="nav-section__title">Categories</h2>
+                        </div>
+                        <div class="nav-section__body">
+                            <ul class="nav">
+                                <li class="nav__item" id="ideatorsparticipants">
+                                    <a class="nav__link nav__link--active" href="#">
+                                        <span class="conversation-link conversation-link--online">
+                                            <span class="conversation-link__icon"></span>
+                                            <span class="conversation-link__element">Ideators</span>
+                                        </span>
+                                    </a>
+                                </li>
+                                <li class="nav__item" id="vendorsparticipants">
+                                    <a class="nav__link" href="#">
+                                        <span class="conversation-link conversation-link--online">
+                                            <span class="conversation-link__icon"></span>
+                                            <span class="conversation-link__element">Vendors</span>
+                                        </span>
+                                    </a>
+                                </li>
+                                <li class="nav__item" id="registrarsparticipants">
+                                    <a class="nav__link" href="#">
+                                        <span class="conversation-link conversation-link--online">
+                                            <span class="conversation-link__icon"></span>
+                                            <span class="conversation-link__element">Registrars</span>
+                                        </span>
+                                    </a>
+                                </li>
+                                <li class="nav__item" id="investorsparticipants">
+                                    <a class="nav__link" href="#">
+                                        <span class="conversation-link conversation-link--online">
+                                            <span class="conversation-link__icon"></span>
+                                            <span class="conversation-link__element">Investors</span>
+                                        </span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="app-main">
+                    <div class="channel-feed">
+                        <div class="segment-topbar">
+                            <div class="segment-topbar__header">
+                                <span class="segment-topbar__overline">Wallet Address:</span>
+                                <h4 class="text-heading4 segment-topbar__title">
+                                    <span class="channel-link">
+                                        <span class="channel-link__icon">#</span>
+                                        <span class="channel-link__element">Admin</span>
+                                    </span>
+                                </h4>
+                            </div>
+                            <div class="segment-topbar__aside" style="display:none;">
+                                <div class="button-toolbar">
+                                    <a class="button button--default" id="ideatorPButton" onclick="ideatorParticipants(this);">
+                                        <svg class="button__icon" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 50 50"><path d="M8 2L8 6L4 6L4 48L15 48L15 39L19 39L19 48L30 48L30 6L26 6L26 2 Z M 10 10L12 10L12 12L10 12 Z M 14 10L16 10L16 12L14 12 Z M 18 10L20 10L20 12L18 12 Z M 22 10L24 10L24 12L22 12 Z M 32 14L32 18L34 18L34 20L32 20L32 22L34 22L34 24L32 24L32 26L34 26L34 28L32 28L32 30L34 30L34 32L32 32L32 34L34 34L34 36L32 36L32 38L34 38L34 40L32 40L32 42L34 42L34 44L32 44L32 48L46 48L46 14 Z M 10 15L12 15L12 19L10 19 Z M 14 15L16 15L16 19L14 19 Z M 18 15L20 15L20 19L18 19 Z M 22 15L24 15L24 19L22 19 Z M 36 18L38 18L38 20L36 20 Z M 40 18L42 18L42 20L40 20 Z M 10 21L12 21L12 25L10 25 Z M 14 21L16 21L16 25L14 25 Z M 18 21L20 21L20 25L18 25 Z M 22 21L24 21L24 25L22 25 Z M 36 22L38 22L38 24L36 24 Z M 40 22L42 22L42 24L40 24 Z M 36 26L38 26L38 28L36 28 Z M 40 26L42 26L42 28L40 28 Z M 10 27L12 27L12 31L10 31 Z M 14 27L16 27L16 31L14 31 Z M 18 27L20 27L20 31L18 31 Z M 22 27L24 27L24 31L22 31 Z M 36 30L38 30L38 32L36 32 Z M 40 30L42 30L42 32L40 32 Z M 10 33L12 33L12 37L10 37 Z M 14 33L16 33L16 37L14 37 Z M 18 33L20 33L20 37L18 37 Z M 22 33L24 33L24 37L22 37 Z M 36 34L38 34L38 36L36 36 Z M 40 34L42 34L42 36L40 36 Z M 36 38L38 38L38 40L36 40 Z M 40 38L42 38L42 40L40 40 Z M 10 39L12 39L12 44L10 44 Z M 22 39L24 39L24 44L22 44 Z M 36 42L38 42L38 44L36 44 Z M 40 42L42 42L42 44L40 44Z"/></svg>
+                                    </a>
+                                    <a class="button button--default" id="vendorPButton" onclick="vendorParticipants(this);">
+                                        <svg class="button__icon" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 512 512" xml:space="preserve">
+                                            <g>
+                                                <g>
+                                                    <path d="M486.647,391.189c-51.2-26.948-90.359-41.899-125.133-47.812l3.789-5.205c1.485-2.039,1.988-4.634,1.374-7.083    l-7.919-31.684c21.222-29.935,33.775-67.328,33.775-102.784v-59.733C392.533,61.606,331.281,0.354,256,0.354    S119.467,61.606,119.467,136.887v59.733c0,35.456,12.553,72.849,33.775,102.784l-7.919,31.684    c-0.614,2.449-0.111,5.043,1.374,7.083l3.789,5.205c-34.773,5.914-73.933,20.864-125.133,47.812    C9.719,399.415,0,415.509,0,433.207v69.905c0,4.719,3.823,8.533,8.533,8.533h204.8h0.008l84.924-0.077    c0.137,0.009,0.265,0.077,0.401,0.077h204.8c4.71,0,8.533-3.814,8.533-8.533v-69.905C512,415.509,502.281,399.415,486.647,391.189    z M136.533,196.621v-59.733c0-65.877,53.589-119.467,119.467-119.467S375.467,71.01,375.467,136.887v59.733    c0,38.426-13.594,72.243-33.698,97.604c-0.307,0.29-0.691,0.478-0.947,0.802c-2.935,3.755-5.973,7.296-9.105,10.624    c-0.017,0.017-0.034,0.034-0.051,0.051c-2.065,2.202-4.233,4.156-6.374,6.161c-20.855,18.799-45.636,29.824-69.291,29.824    c-23.654,0-48.435-11.025-69.291-29.824c-2.142-2.005-4.309-3.959-6.374-6.161c-0.017-0.017-0.034-0.034-0.051-0.051    c-3.132-3.328-6.17-6.869-9.105-10.624c-0.256-0.324-0.64-0.512-0.947-0.802C150.127,268.864,136.533,235.046,136.533,196.621z     M277.001,418.487h-42.001L256,371.23L277.001,418.487z M162.842,331.354l3.831-15.309c0.026,0.026,0.043,0.043,0.068,0.068    c20.617,22.426,46.857,38.229,76.442,41.822c0.009,0,0.026,0.009,0.043,0.009l-23.151,52.105L162.842,331.354z M222.882,494.571    l6.613-59.017h53.009l0.606,5.402l6.007,53.555L222.882,494.571z M291.925,410.048l-23.151-52.105    c0.009,0,0.026-0.009,0.043-0.009c29.585-3.593,55.825-19.396,76.442-41.822l0.068-0.068l3.823,15.309L291.925,410.048z"/>
+                                                </g>
+                                            </g>
+                                        </svg>
+                                    </a>
+                                    <a class="button button--default" id="registrarPButton" onclick="registrarParticipants(this);">
+                                        <svg class="button__icon" xmlns="http://www.w3.org/2000/svg" viewBox="-2 0 19 19" class="cf-icon-svg"><path d="M14.427 14.75v.491H.573v-.49a.476.476 0 0 1 .475-.476h.411a.497.497 0 0 1-.002-.048v-.443a.476.476 0 0 1 .475-.475h.41V9.692h-.307a.554.554 0 1 1 0-1.108h10.963a.554.554 0 1 1 0 1.108h-.292v3.617h.362a.476.476 0 0 1 .475.475v.443a.364.364 0 0 1-.003.048h.412a.476.476 0 0 1 .475.475zm-1.72-7.043a5.182 5.182 0 1 0-10.364 0zm-9.188 5.602h1.109v-3.062a.554.554 0 1 0-1.109 0zm2.294-3.053v3.053h1.109v-3.053a.554.554 0 1 0-1.109 0zm2.294.008v3.045h1.109v-3.045a.554.554 0 1 0-1.109 0zm2.294.008v3.037h1.109v-3.037a.554.554 0 0 0-1.109 0z"/></svg>
+                                    </a>
+                                    <a class="button button--default" id="investorPButton" onclick="investorParticipants(this);">
+                                        <svg class="button__icon" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 216 256" xml:space="preserve">
+                                            <path d="M213.3,151.6l-19.9-52.4c0,0-2.1-20.8-4-28.8C181.1,34.6,141.1,2,97.7,2C44.9,2.1,2.1,45,2.1,97.8c0,29.3,13.5,57,36.5,75.1  V254h102v-27.2h15c20.8,0,37.7-16.9,37.7-37.7c0,0,0,0,0,0v-26.8h12.7c4.3,0,7.8-3.5,7.8-7.8c0,0,0,0,0,0  C213.9,153.5,213.7,152.6,213.3,151.6z M97.3,145.5c-29,0-52.5-23.5-52.5-52.5s23.5-52.5,52.5-52.5S149.7,64,149.8,93c0,0,0,0,0,0  c0.1,28.9-23.3,52.4-52.2,52.5C97.4,145.5,97.4,145.5,97.3,145.5L97.3,145.5z M102.3,87.9c-7.2-3-10.6-4.3-10.6-8  c0-2.6,2.9-5.3,8.2-5.3c4,0.1,8,1,11.6,2.6l2.9-10.3c-4.2-2.1-8.9-3.1-13.6-3v-8.2h-7.3v8.7c-9.7,2-15,8.2-15,16.2  c0,8.7,6,13.5,15.6,16.9c6.9,2.7,9.8,4.2,9.8,7.8s-2.9,6.3-9,6.3c-5-0.1-9.8-1.4-14.2-3.6l-2.6,10.6c3.1,1.7,9.4,3.4,15.6,3.4v8h7.3  v-8.2c10.6-2.4,15.6-8.6,15.6-16.9S112.2,91.5,102.3,87.9L102.3,87.9z"/>
+                                        </svg>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="channel-feed__body" id="ideatorsparticipantslist">
+                        </div>
+                        <div class="channel-feed__body" id="vendorsparticipantslist" style="display:none;">
+                        </div>
+                        <div class="channel-feed__body" id="registrarsparticipantslist" style="display:none;">
+                        </div>
+                        <div class="channel-feed__body" id="investorsparticipantslist" style="display:none;">
+                        </div>
+                    </div>
+                </div>
+                <div class="app-b">
+                    <div class="pad">
+                        <div class="pad__body">
+                            <h4 class="text-heading3 undefined">Growth</h4>
+                            <div id="calculator" style="width:100%; height: 300px;"></div>
                         </div>
                     </div>
                 </div>
@@ -117,14 +277,14 @@
                                 <span class="nav__link__element">Home</span>
                             </a>
                         </li>
+                        <li class="nav__item participantsButton">
+                            <a class="nav__link" href="#">
+                                <span class="nav__link__element">Participants</span>
+                            </a>
+                        </li>
                         <li class="nav__item messagesButton">
                             <a class="nav__link nav__link--active" href="#">
                                 <span class="nav__link__element">Broadcast</span>
-                            </a>
-                        </li>
-                        <li class="nav__item developersButton">
-                            <a class="nav__link" href="#">
-                                <span class="nav__link__element">Creators</span>
                             </a>
                         </li>
                     </ul>
@@ -180,6 +340,22 @@
                                         </span>
                                     </a>
                                 </li>
+                                <li class="nav__item" id="vendorsmessage">
+                                    <a class="nav__link" href="#">
+                                        <span class="conversation-link conversation-link--online">
+                                            <span class="conversation-link__icon"></span>
+                                            <span class="conversation-link__element">Vendors</span>
+                                        </span>
+                                    </a>
+                                </li>
+                                <li class="nav__item" id="registrarsmessage">
+                                    <a class="nav__link" href="#">
+                                        <span class="conversation-link conversation-link--online">
+                                            <span class="conversation-link__icon"></span>
+                                            <span class="conversation-link__element">Registrars</span>
+                                        </span>
+                                    </a>
+                                </li>
                                 <li class="nav__item" id="investorsmessage">
                                     <a class="nav__link" href="#">
                                         <span class="conversation-link conversation-link--online">
@@ -212,11 +388,58 @@
                                         <span class="channel-link__element">Admin</span>
                                     </span>
                                 </h4>
+                                <span class="nav-mobile" style="display:none;"></span>
+                            </div>
+                            <div style="display:flex;">
+                                <div class="segment-topbar__aside" style="display:none;">
+                                    <div class="button-toolbar">
+                                        <a id="everyoneMButton" class="button button--default" onclick="everyoneBroadcast();">
+                                            <svg style="height:1.4rem;" class="button__icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 -8 72 72" data-name="Layer 1"><path class="cls-1" d="M18.87,28.44c.2.21.41.4.63.6a10.59,10.59,0,0,0,14.15,0c.22-.2.43-.39.62-.6s.4-.43.58-.65a10.64,10.64,0,1,0-16.55,0C18.48,28,18.68,28.23,18.87,28.44Z"/><path class="cls-1" d="M41.63,25.76c.17.18.35.35.53.52a9,9,0,0,0,12.05,0c.19-.17.36-.34.53-.52a6.41,6.41,0,0,0,.49-.55,9,9,0,0,0-7-14.73,9,9,0,0,0-7,14.73C41.3,25.4,41.46,25.59,41.63,25.76Z"/><path class="cls-1" d="M9.49,45.52H43.66A1.57,1.57,0,0,0,44.83,45a1.24,1.24,0,0,0,.31-1,18.77,18.77,0,0,0-9.9-14.22,12.25,12.25,0,0,1-17.33,0A18.77,18.77,0,0,0,8,44a1.25,1.25,0,0,0,.31,1A1.57,1.57,0,0,0,9.49,45.52Z"/><path class="cls-1" d="M9.49,45.52H43.66A1.57,1.57,0,0,0,44.83,45a1.24,1.24,0,0,0,.31-1,18.77,18.77,0,0,0-9.9-14.22,12.25,12.25,0,0,1-17.33,0A18.77,18.77,0,0,0,8,44a1.25,1.25,0,0,0,.31,1A1.57,1.57,0,0,0,9.49,45.52Z"/><path class="cls-1" d="M64,39a16,16,0,0,0-8.42-12.11,10.41,10.41,0,0,1-14.76,0,16.59,16.59,0,0,0-3.13,2.16,18.81,18.81,0,0,1,8.26,11.24H62.73a1.33,1.33,0,0,0,1-.44A1.06,1.06,0,0,0,64,39Z"/></svg>
+                                        </a>
+                                        <a id="ideatorMButton" class="button button--default" onclick="ideatorBroadcast();">
+                                            <svg style="height:1.4rem;" class="button__icon" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 50 50"><path d="M8 2L8 6L4 6L4 48L15 48L15 39L19 39L19 48L30 48L30 6L26 6L26 2 Z M 10 10L12 10L12 12L10 12 Z M 14 10L16 10L16 12L14 12 Z M 18 10L20 10L20 12L18 12 Z M 22 10L24 10L24 12L22 12 Z M 32 14L32 18L34 18L34 20L32 20L32 22L34 22L34 24L32 24L32 26L34 26L34 28L32 28L32 30L34 30L34 32L32 32L32 34L34 34L34 36L32 36L32 38L34 38L34 40L32 40L32 42L34 42L34 44L32 44L32 48L46 48L46 14 Z M 10 15L12 15L12 19L10 19 Z M 14 15L16 15L16 19L14 19 Z M 18 15L20 15L20 19L18 19 Z M 22 15L24 15L24 19L22 19 Z M 36 18L38 18L38 20L36 20 Z M 40 18L42 18L42 20L40 20 Z M 10 21L12 21L12 25L10 25 Z M 14 21L16 21L16 25L14 25 Z M 18 21L20 21L20 25L18 25 Z M 22 21L24 21L24 25L22 25 Z M 36 22L38 22L38 24L36 24 Z M 40 22L42 22L42 24L40 24 Z M 36 26L38 26L38 28L36 28 Z M 40 26L42 26L42 28L40 28 Z M 10 27L12 27L12 31L10 31 Z M 14 27L16 27L16 31L14 31 Z M 18 27L20 27L20 31L18 31 Z M 22 27L24 27L24 31L22 31 Z M 36 30L38 30L38 32L36 32 Z M 40 30L42 30L42 32L40 32 Z M 10 33L12 33L12 37L10 37 Z M 14 33L16 33L16 37L14 37 Z M 18 33L20 33L20 37L18 37 Z M 22 33L24 33L24 37L22 37 Z M 36 34L38 34L38 36L36 36 Z M 40 34L42 34L42 36L40 36 Z M 36 38L38 38L38 40L36 40 Z M 40 38L42 38L42 40L40 40 Z M 10 39L12 39L12 44L10 44 Z M 22 39L24 39L24 44L22 44 Z M 36 42L38 42L38 44L36 44 Z M 40 42L42 42L42 44L40 44Z"/></svg>
+                                        </a>
+                                        <a id="vendorMButton" class="button button--default" onclick="vendorBroadcast();">
+                                            <svg style="height:1.4rem;" class="button__icon" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 512 512" xml:space="preserve">
+                                                <g>
+                                                    <g>
+                                                        <path d="M486.647,391.189c-51.2-26.948-90.359-41.899-125.133-47.812l3.789-5.205c1.485-2.039,1.988-4.634,1.374-7.083    l-7.919-31.684c21.222-29.935,33.775-67.328,33.775-102.784v-59.733C392.533,61.606,331.281,0.354,256,0.354    S119.467,61.606,119.467,136.887v59.733c0,35.456,12.553,72.849,33.775,102.784l-7.919,31.684    c-0.614,2.449-0.111,5.043,1.374,7.083l3.789,5.205c-34.773,5.914-73.933,20.864-125.133,47.812    C9.719,399.415,0,415.509,0,433.207v69.905c0,4.719,3.823,8.533,8.533,8.533h204.8h0.008l84.924-0.077    c0.137,0.009,0.265,0.077,0.401,0.077h204.8c4.71,0,8.533-3.814,8.533-8.533v-69.905C512,415.509,502.281,399.415,486.647,391.189    z M136.533,196.621v-59.733c0-65.877,53.589-119.467,119.467-119.467S375.467,71.01,375.467,136.887v59.733    c0,38.426-13.594,72.243-33.698,97.604c-0.307,0.29-0.691,0.478-0.947,0.802c-2.935,3.755-5.973,7.296-9.105,10.624    c-0.017,0.017-0.034,0.034-0.051,0.051c-2.065,2.202-4.233,4.156-6.374,6.161c-20.855,18.799-45.636,29.824-69.291,29.824    c-23.654,0-48.435-11.025-69.291-29.824c-2.142-2.005-4.309-3.959-6.374-6.161c-0.017-0.017-0.034-0.034-0.051-0.051    c-3.132-3.328-6.17-6.869-9.105-10.624c-0.256-0.324-0.64-0.512-0.947-0.802C150.127,268.864,136.533,235.046,136.533,196.621z     M277.001,418.487h-42.001L256,371.23L277.001,418.487z M162.842,331.354l3.831-15.309c0.026,0.026,0.043,0.043,0.068,0.068    c20.617,22.426,46.857,38.229,76.442,41.822c0.009,0,0.026,0.009,0.043,0.009l-23.151,52.105L162.842,331.354z M222.882,494.571    l6.613-59.017h53.009l0.606,5.402l6.007,53.555L222.882,494.571z M291.925,410.048l-23.151-52.105    c0.009,0,0.026-0.009,0.043-0.009c29.585-3.593,55.825-19.396,76.442-41.822l0.068-0.068l3.823,15.309L291.925,410.048z"/>
+                                                    </g>
+                                                </g>
+                                            </svg>
+                                        </a>
+                                        <a id="registrarMButton" class="button button--default" onclick="registrarBroadcast();">
+                                            <svg style="height:1.4rem;" class="button__icon" xmlns="http://www.w3.org/2000/svg" viewBox="-2 0 19 19" class="cf-icon-svg"><path d="M14.427 14.75v.491H.573v-.49a.476.476 0 0 1 .475-.476h.411a.497.497 0 0 1-.002-.048v-.443a.476.476 0 0 1 .475-.475h.41V9.692h-.307a.554.554 0 1 1 0-1.108h10.963a.554.554 0 1 1 0 1.108h-.292v3.617h.362a.476.476 0 0 1 .475.475v.443a.364.364 0 0 1-.003.048h.412a.476.476 0 0 1 .475.475zm-1.72-7.043a5.182 5.182 0 1 0-10.364 0zm-9.188 5.602h1.109v-3.062a.554.554 0 1 0-1.109 0zm2.294-3.053v3.053h1.109v-3.053a.554.554 0 1 0-1.109 0zm2.294.008v3.045h1.109v-3.045a.554.554 0 1 0-1.109 0zm2.294.008v3.037h1.109v-3.037a.554.554 0 0 0-1.109 0z"/></svg>
+                                        </a>
+                                        <a id="investorMButton" class="button button--default" onclick="investorBroadcast();">
+                                            <svg style="height:1.4rem;" class="button__icon" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 216 256" xml:space="preserve">
+                                                <path d="M213.3,151.6l-19.9-52.4c0,0-2.1-20.8-4-28.8C181.1,34.6,141.1,2,97.7,2C44.9,2.1,2.1,45,2.1,97.8c0,29.3,13.5,57,36.5,75.1  V254h102v-27.2h15c20.8,0,37.7-16.9,37.7-37.7c0,0,0,0,0,0v-26.8h12.7c4.3,0,7.8-3.5,7.8-7.8c0,0,0,0,0,0  C213.9,153.5,213.7,152.6,213.3,151.6z M97.3,145.5c-29,0-52.5-23.5-52.5-52.5s23.5-52.5,52.5-52.5S149.7,64,149.8,93c0,0,0,0,0,0  c0.1,28.9-23.3,52.4-52.2,52.5C97.4,145.5,97.4,145.5,97.3,145.5L97.3,145.5z M102.3,87.9c-7.2-3-10.6-4.3-10.6-8  c0-2.6,2.9-5.3,8.2-5.3c4,0.1,8,1,11.6,2.6l2.9-10.3c-4.2-2.1-8.9-3.1-13.6-3v-8.2h-7.3v8.7c-9.7,2-15,8.2-15,16.2  c0,8.7,6,13.5,15.6,16.9c6.9,2.7,9.8,4.2,9.8,7.8s-2.9,6.3-9,6.3c-5-0.1-9.8-1.4-14.2-3.6l-2.6,10.6c3.1,1.7,9.4,3.4,15.6,3.4v8h7.3  v-8.2c10.6-2.4,15.6-8.6,15.6-16.9S112.2,91.5,102.3,87.9L102.3,87.9z"/>
+                                            </svg>
+                                        </a>
+                                    </div>
+                                </div>
+                                <form class="form-search" style="display:none;width: 140px;">
+                                    <div class="form-group">
+                                        <div class="form-control form-control--with-addon">
+                                            <input name="query" placeholder="Search..." type="text" autocomplete="off" style="text-transform:uppercase;">
+                                            <div class="form-control__addon form-control__addon--prefix">
+                                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                                    <path d="M21.172 24l-7.387-7.387c-1.388.874-3.024 1.387-4.785 1.387-4.971 0-9-4.029-9-9s4.029-9 9-9 9 4.029 9 9c0 1.761-.514 3.398-1.387 4.785l7.387 7.387-2.828 2.828zm-12.172-8c3.859 0 7-3.14 7-7s-3.141-7-7-7-7 3.14-7 7 3.141 7 7 7z"></path>
+                                                </svg>
+                                            </div>
+                                        </div>
+                                        <ul style="display:none;list-style-type: none;position: absolute;backdrop-filter: blur(10px);background: rgba(30, 24, 30,0.5);margin-top: 0;z-index: 5;padding-left: 0;" class="useridslist"></ul>
+                                    </div>
+                                </form>
                             </div>
                         </div>
                         <div class="channel-feed__body" id="everyonemessagecontent">
                         </div>
                         <div class="channel-feed__body" id="ideatorsmessagecontent" style="display:none;">
+                        </div>
+                        <div class="channel-feed__body" id="vendorsmessagecontent" style="display:none;">
+                        </div>
+                        <div class="channel-feed__body" id="registrarsmessagecontent" style="display:none;">
                         </div>
                         <div class="channel-feed__body" id="investorsmessagecontent" style="display:none;">
                         </div>
@@ -248,278 +471,12 @@
                 </div>
             </div>
         </div>
-        <div class="app-skeleton" id="developersPage" style="display: none;">
-            <header class="app-header">
-                <div class="app-header__anchor">
-                    <img src="assets/tabIcon.png" style="height:35px;"/>
-                    <span class="app-header__anchor__text">Investopolis</span>
-                </div>
-                <nav>
-                    <ul class="nav">
-                        <li class="nav__item homeButton">
-                            <a class="nav__link" href="#">
-                                <span class="nav__link__element">Home</span>
-                            </a>
-                        </li>
-                        <li class="nav__item messagesButton">
-                            <a class="nav__link" href="#">
-                                <span class="nav__link__element">Broadcast</span>
-                            </a>
-                        </li>
-                        <li class="nav__item developersButton">
-                            <a class="nav__link nav__link--active" href="#">
-                                <span class="nav__link__element">Creators</span>
-                            </a>
-                        </li>
-                    </ul>
-                </nav>
-                <div class="logout">
-                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="30" height="30" viewBox="0 0 490.3 490.3" style="enable-background:new 0 0 490.3 490.3;" xml:space="preserve">
-                        <g>
-                            <path d="M0,121.05v248.2c0,34.2,27.9,62.1,62.1,62.1h200.6c34.2,0,62.1-27.9,62.1-62.1v-40.2c0-6.8-5.5-12.3-12.3-12.3    s-12.3,5.5-12.3,12.3v40.2c0,20.7-16.9,37.6-37.6,37.6H62.1c-20.7,0-37.6-16.9-37.6-37.6v-248.2c0-20.7,16.9-37.6,37.6-37.6h200.6    c20.7,0,37.6,16.9,37.6,37.6v40.2c0,6.8,5.5,12.3,12.3,12.3s12.3-5.5,12.3-12.3v-40.2c0-34.2-27.9-62.1-62.1-62.1H62.1    C27.9,58.95,0,86.75,0,121.05z"/>
-                            <path d="M385.4,337.65c2.4,2.4,5.5,3.6,8.7,3.6s6.3-1.2,8.7-3.6l83.9-83.9c4.8-4.8,4.8-12.5,0-17.3l-83.9-83.9    c-4.8-4.8-12.5-4.8-17.3,0s-4.8,12.5,0,17.3l63,63H218.6c-6.8,0-12.3,5.5-12.3,12.3c0,6.8,5.5,12.3,12.3,12.3h229.8l-63,63    C380.6,325.15,380.6,332.95,385.4,337.65z"/>
-                        </g>
-                    </svg>
-                </div>
-            </header>
-            <div class="app-container">
-                <div class="app-a">
-                    <div class="segment-topbar">
-                        <div class="segment-topbar__header">
-                            <h3 class="text-heading3 segment-topbar__title">Creators</h3>
-                        </div>
-                    </div>
-                    <div class="nav-section">
-                        <div class="nav-section__header">
-                            <h2 class="nav-section__title">Faculty Supervisor</h2>
-                        </div>
-                        <div class="nav-section__body">
-                            <ul class="nav">
-                                <li class="nav__item" id="rajendraButton">
-                                    <a class="nav__link nav__link--active" href="#">
-                                        <span class="channel-link conversation-link--unread">
-                                            <span class="channel-link__icon">#</span>
-                                            <span class="channel-link__element">Dr. Rajendra Hegadi</span>
-                                        </span>
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="nav-section">
-                        <div class="nav-section__header">
-                            <h2 class="nav-section__title">Developer Team</h2>
-                        </div>
-                        <div class="nav-section__body">
-                            <ul class="nav">
-                                <li class="nav__item" id="krishnaButton">
-                                    <a class="nav__link" href="#">
-                                        <span class="channel-link conversation-link--unread">
-                                            <span class="channel-link__icon">#</span>
-                                            <span class="channel-link__element">Krishna Paanchajanya</span>
-                                        </span>
-                                    </a>
-                                </li>
-                                <li class="nav__item" id="karthikButton">
-                                    <a class="nav__link " href="#">
-                                        <span class="channel-link conversation-link--unread">
-                                            <span class="channel-link__icon">#</span>
-                                            <span class="channel-link__element">Karthik Sajjan</span>
-                                        </span>
-                                    </a>
-                                </li>
-                                <li class="nav__item" id="deepakButton">
-                                    <a class="nav__link " href="#">
-                                        <span class="channel-link conversation-link--unread">
-                                            <span class="channel-link__icon">#</span>
-                                            <span class="channel-link__element">Karusala Deepak Chowdary</span>
-                                        </span>
-                                    </a>
-                                </li>
-                                <li class="nav__item" id="manojButton">
-                                    <a class="nav__link " href="#">
-                                        <span class="channel-link conversation-link--unread">
-                                            <span class="channel-link__icon">#</span>
-                                            <span class="channel-link__element">Manoj Sahit Reddy</span>
-                                        </span>
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <div class="app-main">
-                    <div class="channel-feed">
-                        <div class="segment-topbar">
-                            <div class="segment-topbar__header">
-                                <span class="segment-topbar__overline">Wallet Address: </span>
-                                <h4 class="text-heading4 segment-topbar__title">
-                                    <span class="channel-link ">
-                                        <span class="channel-link__icon">#</span>
-                                        <span class="channel-link__element">Admin</span>
-                                    </span>
-                                </h4>
-                            </div>
-                        </div>
-                        <div class="channel-feed__body">
-                            <div class="card" id="rajendraProfile">
-                                <div class="card-header">
-                                    <img class="card-avatar" src="assets/rajendra.jpeg" alt="avatar" />
-                                    <h1 class="card-fullname">Dr. Rajendra Hegadi</h1>
-                                    <h2 class="card-jobtitle">Ph.D., MGRRI, Chennai</h2>
-                                </div>
-                                <div class="card-main">
-                                    <div class="card-section">
-                                        <div class="card-content">
-                                            <div class="card-subtitle">ABOUT</div>
-                                            <p class="card-desc">Dr. Rajendra Hegadi is the HOD of Data Science and Intelligence Systems at Indian Institute of Information Technology, Dharwad. He has more than 25 years teaching experience at various capacities. He is a senior member of IEEE, member of CRSI, CSI and ISTE. He is a member of IEEE Standard Association-P2145 Standards Development Working Group Standard for Framework and Definitions for Blockchain Governance. His areas of interest are computer networking, information centric network, cryptography & network security and image processing.</p>
-                                        </div>
-                                        <div class="card-social">
-                                            <a href="mailto:rajendrahegadi@iiitdwd.ac.in">
-                                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#1e181e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                                    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
-                                                    <path d="M22 6l-10 7L2 6"></path>
-                                                </svg>
-                                            </a>
-                                            <a href="https://www.linkedin.com/in/dr-rajendra-hegadi-7463b420/">
-                                                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                                    <path d="M23.994 24v-.001H24v-8.802c0-4.306-.927-7.623-5.961-7.623-2.42 0-4.044 1.328-4.707 2.587h-.07V7.976H8.489v16.023h4.97v-7.934c0-2.089.396-4.109 2.983-4.109 2.549 0 2.587 2.384 2.587 4.243V24zM.396 7.977h4.976V24H.396zM2.882 0C1.291 0 0 1.291 0 2.882s1.291 2.909 2.882 2.909 2.882-1.318 2.882-2.909A2.884 2.884 0 002.882 0z" />
-                                                </svg>
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="card" id="krishnaProfile" style="display:none;">
-                                <div class="card-header">
-                                    <img class="card-avatar" src="assets/KrishnaPaanchajanya.jpg" alt="avatar" />
-                                    <h1 class="card-fullname">Kuppa Venkata Krishna Paanchajanya</h1>
-                                    <h2 class="card-jobtitle">Blockchain Enthusiast</h2>
-                                </div>
-                                <div class="card-main">
-                                    <div class="card-section">
-                                        <div class="card-content">
-                                            <div class="card-subtitle">ABOUT</div>
-                                            <p class="card-desc">Krishna Paanchajanya, a final year student at IIIT Dharwad, obtained skill set in different realms of Computer Science in addition to reaching the pinnacle in academics; his ultimate goal being to ideate, design a tool that has socio-economic relevance.</p>
-                                        </div>
-                                        <div class="card-social">
-                                            <a href="mailto:19bcs063@iiitdwd.ac.in">
-                                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#1e181e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                                    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
-                                                    <path d="M22 6l-10 7L2 6"></path>
-                                                </svg>
-                                            </a>
-                                            <a href="https://www.linkedin.com/in/krishna-paanchajanya-5454b71a0/">
-                                                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                                    <path d="M23.994 24v-.001H24v-8.802c0-4.306-.927-7.623-5.961-7.623-2.42 0-4.044 1.328-4.707 2.587h-.07V7.976H8.489v16.023h4.97v-7.934c0-2.089.396-4.109 2.983-4.109 2.549 0 2.587 2.384 2.587 4.243V24zM.396 7.977h4.976V24H.396zM2.882 0C1.291 0 0 1.291 0 2.882s1.291 2.909 2.882 2.909 2.882-1.318 2.882-2.909A2.884 2.884 0 002.882 0z" />
-                                                </svg>
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="card" id="karthikProfile" style="display:none;">
-                                <div class="card-header">
-                                    <img class="card-avatar" src="assets/KarthikSajjan.jpg" alt="avatar" />
-                                    <h1 class="card-fullname">Karthik Sajjan</h1>
-                                    <h2 class="card-jobtitle">Blockchain Enthusiast</h2>
-                                </div>
-                                <div class="card-main">
-                                    <div class="card-section">
-                                        <div class="card-content">
-                                            <div class="card-subtitle">ABOUT</div>
-                                            <p class="card-desc">Karthik is currently pursuing his B. Tech from IIIT Dharwad. He is well-versed with various emerging technologies like Blockchain and Cloud Computing Platforms and has worked on a myriad of projects in them.</p>
-                                        </div>
-                                        <div class="card-social">
-                                            <a href="mailto:19bcs049@iiitdwd.ac.in">
-                                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#1e181e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                                    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
-                                                    <path d="M22 6l-10 7L2 6"></path>
-                                                </svg>
-                                            </a>
-                                            <a href="https://www.linkedin.com/in/karthik-sajjan-3949691a6/">
-                                                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                                    <path d="M23.994 24v-.001H24v-8.802c0-4.306-.927-7.623-5.961-7.623-2.42 0-4.044 1.328-4.707 2.587h-.07V7.976H8.489v16.023h4.97v-7.934c0-2.089.396-4.109 2.983-4.109 2.549 0 2.587 2.384 2.587 4.243V24zM.396 7.977h4.976V24H.396zM2.882 0C1.291 0 0 1.291 0 2.882s1.291 2.909 2.882 2.909 2.882-1.318 2.882-2.909A2.884 2.884 0 002.882 0z" />
-                                                </svg>
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="card" id="deepakProfile" style="display:none;">
-                                <div class="card-header">
-                                    <img class="card-avatar" src="assets/DeepakChowdary.jpg" alt="avatar" />
-                                    <h1 class="card-fullname">Karusala Deepak Chowdary</h1>
-                                    <h2 class="card-jobtitle">UI/UX Design</h2>
-                                </div>
-                                <div class="card-main">
-                                    <div class="card-section">
-                                        <div class="card-content">
-                                            <div class="card-subtitle">ABOUT</div>
-                                            <p class="card-desc">Deepak is currently pursuing his B. Tech from IIIT Dharwad. He is well-versed with various emerging technologies like Full Stack Web Development and Cloud Computing Platforms and has worked on a myriad of projects in them.</p>
-                                        </div>
-                                        <div class="card-social">
-                                            <a href="mailto:19bcs050@iiitdwd.ac.in">
-                                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#1e181e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                                    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
-                                                    <path d="M22 6l-10 7L2 6"></path>
-                                                </svg>
-                                            </a>
-                                            <a href="https://www.linkedin.com/in/karusala-deepak-chowdary-3701111a5/">
-                                                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                                    <path d="M23.994 24v-.001H24v-8.802c0-4.306-.927-7.623-5.961-7.623-2.42 0-4.044 1.328-4.707 2.587h-.07V7.976H8.489v16.023h4.97v-7.934c0-2.089.396-4.109 2.983-4.109 2.549 0 2.587 2.384 2.587 4.243V24zM.396 7.977h4.976V24H.396zM2.882 0C1.291 0 0 1.291 0 2.882s1.291 2.909 2.882 2.909 2.882-1.318 2.882-2.909A2.884 2.884 0 002.882 0z" />
-                                                </svg>
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="card" id="manojProfile" style="display:none;">
-                                <div class="card-header">
-                                    <img class="card-avatar" src="assets/ManojSahithReddy.jpg" alt="avatar" />
-                                    <h1 class="card-fullname">Vanga Manoj Sahit Reddy</h1>
-                                    <h2 class="card-jobtitle">Full Stack Developer</h2>
-                                </div>
-                                <div class="card-main">
-                                    <div class="card-section">
-                                        <div class="card-content">
-                                            <div class="card-subtitle">ABOUT</div>
-                                            <p class="card-desc">Manoj is currently pursuing his B. Tech from IIIT Dharwad. He is well-versed with various emerging technologies like Machine Learning, Deep Learning and Cloud Computing Platforms and has worked on a myriad of projects in them.</p>
-                                        </div>
-                                        <div class="card-social">
-                                            <a href="mailto:19bcs110@iiitdwd.ac.in">
-                                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#1e181e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                                    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
-                                                    <path d="M22 6l-10 7L2 6"></path>
-                                                </svg>
-                                            </a>
-                                            <a href="https://www.linkedin.com/in/manojsahith/">
-                                                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                                    <path d="M23.994 24v-.001H24v-8.802c0-4.306-.927-7.623-5.961-7.623-2.42 0-4.044 1.328-4.707 2.587h-.07V7.976H8.489v16.023h4.97v-7.934c0-2.089.396-4.109 2.983-4.109 2.549 0 2.587 2.384 2.587 4.243V24zM.396 7.977h4.976V24H.396zM2.882 0C1.291 0 0 1.291 0 2.882s1.291 2.909 2.882 2.909 2.882-1.318 2.882-2.909A2.884 2.884 0 002.882 0z" />
-                                                </svg>
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="app-b">
-                    <div class="pad">
-                        <div class="pad__body">
-                            <h4 class="text-heading3 undefined">TEAM</h4>
-                            <p class="text-paragraph1 undefined">The strength of the team is each individual member. The strength of each member is the team.</p>
-                            <p class="text-paragraph1 undefined">Alone we can do so little; together we can do so much.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
     </div>
     <iframe name="DummyFrame" style="display:none;"></iframe>
     <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js'></script>
     <script src='web3.min.js'></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+    <script src="https://www.desmos.com/api/v1.7/calculator.js?apiKey=dcb31709b452b1cf9dc26972add0fda6"></script>
     <script type='text/javascript' src='admin.js'></script>
 </body>
 </html>

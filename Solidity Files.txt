@@ -1,51 +1,92 @@
+context.sol
+
+// SPDX-License-Identifier: MIT
+// OpenZeppelin Contracts v4.4.1 (utils/Context.sol)
+
+pragma solidity ^0.8.0;
+abstract contract Context
+{
+    function _msgSender() internal view virtual returns (address)
+    {
+        return msg.sender;
+    }
+    function _msgData() internal view virtual returns (bytes calldata)
+    {
+        return msg.data;
+    }
+}
+
+
 users.sol
+
+//SPDX-License-Identifier: UNLICENSED
 
 pragma solidity ^0.8.0;
 import "./context.sol";
 contract users is Context
 {
     event registerevent(string success);
-    address[] private _admins=[0x10046aF8439F1c7571ffbc6CAb2AC0F1E866ac55];
+    event adminEvent(string success);
+    address[] private _admins=[0xEa710763C426eCedF44e99559d20664d76DE4d52];
     struct User
     {
         string userid;
-        string password;
+        bytes32 password;
         address metamaskaddress;
         string role;
         string aadharNum;
         string home;
         string mobile;
         string verified;
+        address verifiedBy;
         string idimage;
     }
     User[] private _totalusers;
+    User[] private _verifiedUsers;
     User[] private _unverifiedUsers;
+    string[] private _discardedProofs;
     string[] private _userids;
+    bool private locked;
+    modifier lock
+    {
+        require(!locked, "Function is locked");
+        locked = true;
+        _;
+        locked = false;
+    }
     function _areEqual(string memory a, string memory b) private pure returns (bool)
     {
         return (keccak256(abi.encodePacked(a)) == keccak256(abi.encodePacked(b)));
     }
-    function login(string memory id, string memory pwd, address currentUser) public returns (string memory)
+    function _isadmin(address[] memory admin, address currentUser) private pure returns (bool)
+    {
+        for(uint i=0;i<admin.length;i++)
+        {
+            if(admin[i]==currentUser)
+            return true;
+        }
+        return false;
+    }
+    function login(string memory id, string memory pwd2, address currentUser) public view returns (string memory)
     {
         bytes memory tempEmptyStringTest = bytes(id);
+        bytes32 pwd = keccak256(abi.encodePacked(pwd2));
         if (tempEmptyStringTest.length!=0)
         {
             for(uint i=0; i<_totalusers.length;i++)
             {
                 if(_areEqual(_totalusers[i].userid,id))
                 {
-                    if(_areEqual(_totalusers[i].password,pwd) && _areEqual(_totalusers[i].verified,"YES"))
+                    if(_totalusers[i].password==pwd && _areEqual(_totalusers[i].verified,"YES"))
                     {
                         return _totalusers[i].role;
                     }
-                    else if(_areEqual(_totalusers[i].password,pwd) && _areEqual(_totalusers[i].verified,"YET"))
+                    else if(_totalusers[i].password==pwd && _areEqual(_totalusers[i].verified,"YET"))
                     {
                         return "YET";
                     }
-                    else if(_areEqual(_totalusers[i].password,pwd) && _areEqual(_totalusers[i].verified,"NOPE"))
+                    else if(_totalusers[i].password==pwd && _areEqual(_totalusers[i].verified,"NOPE"))
                     {
-                        _totalusers[i].userid="";
-                        _totalusers[i].metamaskaddress=0x0000000000000000000000000000000000000000;
                         return "NOPE";
                     }
                     else
@@ -75,8 +116,6 @@ contract users is Context
                     }
                     else if(_areEqual(_totalusers[i].verified,"NOPE"))
                     {
-                        _totalusers[i].userid="";
-                        _totalusers[i].metamaskaddress=0x0000000000000000000000000000000000000000;
                         return "NOPE";
                     }
                     else
@@ -88,14 +127,29 @@ contract users is Context
         }
         return "NO";
     }
-    function register(string memory id, string memory pwd, address currentUser, string memory rl, string memory idproof) public
+    function registerPossible(string memory id, address currentUser) public view returns (string memory)
+    {
+        if(_isadmin(_admins, currentUser))
+        {
+            return "NO";
+        }
+        for(uint i=0; i<_totalusers.length;i++)
+        {
+            if(_totalusers[i].metamaskaddress==currentUser || _areEqual(_totalusers[i].userid,id))
+            {
+                return "NO";
+            }
+        }
+        return "YES";
+    }
+    function register(string memory id, string memory pwd, address currentUser, string memory rl, string memory idproof) public lock
     {
         if(_isadmin(_admins, currentUser))
         {
             emit registerevent("NO");
             return;
         }
-        for(uint i=0; i<_totalusers.length;i++)
+        for(uint i=0;i<_totalusers.length;i++)
         {
             if(_totalusers[i].metamaskaddress==currentUser || _areEqual(_totalusers[i].userid,id))
             {
@@ -105,7 +159,7 @@ contract users is Context
         }
         User memory new_user;
         new_user.userid = id;
-        new_user.password = pwd;
+        new_user.password = keccak256(abi.encodePacked(pwd));
         new_user.metamaskaddress = currentUser;
         new_user.role = rl;
         new_user.idimage = idproof;
@@ -115,7 +169,7 @@ contract users is Context
     }
     function userid(address currentUser) public view returns (string memory)
     {
-        for(uint i=0; i<_totalusers.length;i++)
+        for(uint i=0;i<_totalusers.length;i++)
         {
             if(_totalusers[i].metamaskaddress==currentUser)
             {
@@ -137,77 +191,123 @@ contract users is Context
     }
     function verify(address verifiedUser, string memory status, string memory aadhar, string memory homeaddress, string memory phone) public
     {
+        require(_isadmin(_admins, _msgSender()), "Admin: caller is not the admin");
         for(uint i=0; i<_totalusers.length;i++)
         {
-            if(_totalusers[i].metamaskaddress==verifiedUser)
+            if(_areEqual(_totalusers[i].aadharNum,aadhar))
+            {
+                status = "NOPE";
+            }
+        }
+        for(uint i=0; i<_totalusers.length;i++)
+        {
+            if(_totalusers[i].metamaskaddress==verifiedUser && _areEqual(_totalusers[i].verified,"YET"))
             {
                 _totalusers[i].verified = status;
                 if(_areEqual(_totalusers[i].verified,"YES"))
                 {
+                    _totalusers[i].verifiedBy=_msgSender();
                     _totalusers[i].aadharNum = aadhar;
                     _totalusers[i].home = homeaddress;
                     _totalusers[i].mobile = phone;
                 }
+                else if(_areEqual(_totalusers[i].verified,"NOPE"))
+                {
+                    _totalusers[i].userid="";
+                    _totalusers[i].metamaskaddress=0x0000000000000000000000000000000000000000;
+                    _discardedProofs.push(_totalusers[i].idimage);
+                }
             }
         }
     }
-    function _isadmin(address[] memory admin, address currentUser) private pure returns (bool)
-    {
-        for(uint i=0; i<admin.length;i++)
-        {
-            if(admin[i]==currentUser)
-            return true;
-        }
-        return false;
-    }
     function unverified() public returns(User[] memory)
     {
-        require(_isadmin(_admins, _msgSender()), "Ownable: caller is not the owner");
+        require(_isadmin(_admins, _msgSender()), "Admin: caller is not the admin");
         delete _unverifiedUsers;
         for(uint i=0;i<_totalusers.length;i++)
         {
             if(_areEqual(_totalusers[i].verified,"YET"))
             {
-
                 _unverifiedUsers.push(_totalusers[i]);
             }
         }
         return _unverifiedUsers;
     }
-    function userids() public returns(string[] memory)
+    function usersdb() public returns(User[] memory)
     {
-        delete _userids;
+        require(_isadmin(_admins, _msgSender()), "Admin: caller is not the admin");
+        delete _verifiedUsers;
         for(uint i=0;i<_totalusers.length;i++)
         {
             if(_areEqual(_totalusers[i].verified,"YES"))
             {
-                _userids.push(_totalusers[i].userid);
+                _verifiedUsers.push(_totalusers[i]);
             }
         }
-        return _userids;
+        return _verifiedUsers;
+    }
+    function addAdmin(address newAdmin) public
+    {
+        require(_isadmin(_admins, _msgSender()), "Admin: caller is not the admin");
+        for(uint i=0; i<_totalusers.length;i++)
+        {
+            if(_totalusers[i].metamaskaddress==newAdmin)
+            {
+                emit adminEvent("NO");
+                return;
+            }
+        }
+        _admins.push(newAdmin);
+        emit adminEvent("YES");
+    }
+    function removableFiles() public view returns(string[] memory)
+    {
+        require(_isadmin(_admins, _msgSender()), "Admin: caller is not the admin");
+        return _discardedProofs;
+    }
+    function getInfo(string memory id) public view returns(string[2] memory)
+    {
+        for(uint i=0; i<_totalusers.length;i++)
+        {
+            if(_areEqual(_totalusers[i].userid,id) && _areEqual(_totalusers[i].role, "ideator"))
+            {
+                return [_totalusers[i].home, _totalusers[i].mobile];
+            }
+        }
+        return ["NA", "NA"];
+    }
+    function userids() public returns(string[] memory)
+    {
+        delete _userids;
+        if(_isadmin(_admins, _msgSender()))
+        {
+            for(uint i=0;i<_totalusers.length;i++)
+            {
+                if(_areEqual(_totalusers[i].verified,"YES"))
+                {
+                    _userids.push(_totalusers[i].userid);
+                }
+            }
+            return _userids;
+        }
+        else
+        {
+            for(uint i=0;i<_totalusers.length;i++)
+            {
+                if(_areEqual(_totalusers[i].verified,"YES") && !_areEqual(_totalusers[i].role,"registrar"))
+                {
+                    _userids.push(_totalusers[i].userid);
+                }
+            }
+            return _userids;
+        }
     }
 }
-
-context.sol
-
-
-// SPDX-License-Identifier: MIT
-// OpenZeppelin Contracts v4.4.1 (utils/Context.sol)
-
-pragma solidity ^0.8.0;
-abstract contract Context {
-    function _msgSender() internal view virtual returns (address) {
-        return msg.sender;
-    }
-
-    function _msgData() internal view virtual returns (bytes calldata) {
-        return msg.data;
-    }
-}
-
 
 
 Messages.sol
+
+//SPDX-License-Identifier: UNLICENSED
 
 pragma solidity ^0.8.0;
 contract messages
@@ -281,6 +381,24 @@ contract messages
                 new_message.viewedby = "ideator";
                 _messages.push(new_message);
             }
+            else if(_areEqual(receivers,"vendors"))
+            {
+                Message memory new_message;
+                new_message.senderID = sender;
+                new_message.message = message;
+                new_message.timestamp = block.timestamp;
+                new_message.viewedby = "vendor";
+                _messages.push(new_message);
+            }
+            else if(_areEqual(receivers,"registrars"))
+            {
+                Message memory new_message;
+                new_message.senderID = sender;
+                new_message.message = message;
+                new_message.timestamp = block.timestamp;
+                new_message.viewedby = "registrar";
+                _messages.push(new_message);
+            }
             else
             {
                 Message memory new_message;
@@ -308,17 +426,18 @@ contract messages
 }
 
 
-platform.sol
+shares.sol
+
+//SPDX-License-Identifier: UNLICENSED
 
 pragma solidity ^0.8.0;
-import "./ERC20.sol";
-contract platform is ERC20
+contract shares
 {
     event infoupdated(string success);
-    event sharesBoughtEvent(string success);
-    event tokenActivated(string success);
-    event sharesShared(string success);
-    event tokensShared(string success);
+    event sharesBoughtEvent(string success, bytes32 verificationStr);
+    event sharesShared(string success, bytes32 verificationStr);
+    event interestMarked(string success);
+    event disinterestMarked(string success);
     struct Profile
     {
         string name;
@@ -327,6 +446,7 @@ contract platform is ERC20
         string[] investors;
         uint[][] sharesbought;
         uint[][] boughtFor;
+        bytes32[][] verifyStrings;
         uint[] assets;
         uint[] liabilities;
         uint pv;
@@ -335,25 +455,50 @@ contract platform is ERC20
         uint[] timestamp;
         address metamaskaddress;
     }
-    struct InvestorProfile
-    {
-        string userid;
-        uint investments;
-        uint activation;
-        uint remaining;
-    }
     Profile[] private _ideators;
-    InvestorProfile[] private _investors;
-    Profile new_ideator;
+    mapping (string => string[][]) private _interested;
+    mapping (bytes32 => string[5]) private _verificationStrings;
+    mapping (string => address) private _investors;
+    Profile private new_ideator;
+    bool private locked;
+    modifier lock
+    {
+        require(!locked, "Function is locked");
+        locked = true;
+        _;
+        locked = false;
+    }
     function getBalance() public view returns (uint256)
     {
         return address(this).balance;
     }
     receive() external payable {}
     fallback() external payable {}
-    function _areEqual(string memory a, string memory b) private pure returns (bool)
+    function _areEqual(string memory a, string memory b) internal pure returns (bool)
     {
         return (keccak256(abi.encodePacked(a)) == keccak256(abi.encodePacked(b)));
+    }
+    function uint256ToString(uint256 value) public pure returns (string memory)
+    {
+        if(value==0)
+        {
+            return "0";
+        }
+        uint256 temp = value;
+        uint256 digits;
+        while (temp != 0)
+        {
+            digits++;
+            temp /= 10;
+        }
+        bytes memory buffer = new bytes(digits);
+        while (value != 0)
+        {
+            digits -= 1;
+            buffer[digits] = bytes1(uint8(48 + uint256(value % 10)));
+            value /= 10;
+        }
+        return string(buffer);
     }
     function addIdeator(string memory title, string memory id, string memory desc, uint a, uint l, uint value, uint count, address metamask) public
     {
@@ -370,7 +515,6 @@ contract platform is ERC20
         _ideators.push(new_ideator);
         delete new_ideator;
         emit infoupdated("YES");
-        return;
     }
     function updateIdeator(string memory id, string memory desc, uint a, uint l) public
     {
@@ -387,7 +531,6 @@ contract platform is ERC20
             }
         }
         emit infoupdated("NO");
-        return;
     }
     function getIdeator(string memory id) public view returns(Profile memory)
     {
@@ -401,82 +544,34 @@ contract platform is ERC20
         }
         return a;
     }
-    function getInvestor(string memory id) public returns(InvestorProfile memory)
-    {
-        InvestorProfile memory new_investor;
-        for(uint i=0;i<_investors.length;i++)
-        {
-            if(_areEqual(_investors[i].userid, id))
-            {
-                return _investors[i];
-            }
-        }
-        new_investor.userid = id;
-        new_investor.investments=0;
-        new_investor.activation=0;
-        new_investor.remaining=0;
-        _investors.push(new_investor);
-        return new_investor;
-    }
     function retrieve() public view returns(Profile[] memory)
     {
         return _ideators;
     }
-    function activateToken(string memory id, uint grade) public
+    function invest(string memory id, string memory investorid, uint boughtCount, uint bVal, uint dec, address metamask, string memory combin) public lock payable
     {
-        for(uint i=0;i<_investors.length;i++)
-        {
-            if(_areEqual(_investors[i].userid, id))
-            {
-                if(grade==1)
-                {
-                    _investors[i].activation=1;
-                    _investors[i].remaining=20;
-                    _investors[i].investments-=100;
-                    _burn(_msgSender(), 100);
-                    emit tokenActivated("YES");
-                    return;
-                }
-                else if(grade==2)
-                {
-                    _investors[i].activation=2;
-                    _investors[i].remaining=10;
-                    _investors[i].investments-=50;
-                    _burn(_msgSender(), 50);
-                    emit tokenActivated("YES");
-                    return;
-                }
-                else if(grade==3)
-                {
-                    _investors[i].activation=3;
-                    _investors[i].remaining=5;
-                    _investors[i].investments-=20;
-                    _burn(_msgSender(), 20);
-                    emit tokenActivated("YES");
-                    return;
-                }
-                else if(grade==4)
-                {
-                    _investors[i].activation=4;
-                    _investors[i].remaining=10;
-                    _investors[i].investments-=10;
-                    _burn(_msgSender(), 10);
-                    emit tokenActivated("YES");
-                    return;
-                }
-            }
-        }
-        emit tokenActivated("NO");
-    }
-    function invest(string memory id, string memory investorid, uint boughtCount, uint bVal) public payable
-    {
-        InvestorProfile memory new_investor;
+        bytes32 verifystr = keccak256(bytes(combin));
+        uint256 mul = 1000000000000000000;
         for(uint i=0;i<_ideators.length;i++)
         {
             if(_areEqual(_ideators[i].userid,id))
             {
-                (bool sent,) = address(_ideators[i].metamaskaddress).call{value: boughtCount*bVal*1000000000000000000}("");
+                if(_ideators[i].sharesLeft<boughtCount)
+                {
+                    emit sharesBoughtEvent("NO", "");
+                    return;
+                }
+                for(uint itr=0;itr<dec;itr++)
+                {
+                    mul/=10;
+                }
+                (bool sent,) = address(_ideators[i].metamaskaddress).call{value: boughtCount*bVal*mul}("");
                 require(sent, "Transaction Failed");
+                (bool sent1,) = 0xEa710763C426eCedF44e99559d20664d76DE4d52.call{value: address(this).balance}("");
+                require(sent1, "Transaction Failed");
+                bVal = bVal*mul;
+                _investors[investorid] = metamask;
+                _verificationStrings[verifystr] = [id, investorid, uint256ToString(boughtCount), uint256ToString(block.timestamp),uint256ToString(boughtCount)];
                 for(uint j=0;j<_ideators[i].investors.length;j++)
                 {
                     if(_areEqual(_ideators[i].investors[j], investorid))
@@ -484,69 +579,88 @@ contract platform is ERC20
                         _ideators[i].sharesbought[j].push(boughtCount);
                         _ideators[i].sharesLeft-=boughtCount;
                         _ideators[i].boughtFor[j].push(bVal);
-                        for(uint k=0;k<_investors.length;k++)
-                        {
-                            if(_areEqual(_investors[k].userid, investorid))
-                            {
-                                _investors[k].investments += 1;
-                                _mint(_msgSender(), 1);
-                                if(_investors[k].activation!=0)
-                                {
-                                    _investors[k].remaining-=1;
-                                    if(_investors[k].remaining==0)
-                                    {
-                                        _investors[k].activation=0;
-                                    }
-                                }
-                                emit sharesBoughtEvent("YES");
-                                return;
-                            }
-                        }
-                        new_investor.userid = investorid;
-                        new_investor.investments=1;
-                        _mint(_msgSender(), 1);
-                        new_investor.activation=0;
-                        new_investor.remaining=0;
-                        _investors.push(new_investor);
-                        emit sharesBoughtEvent("YES");
+                        _ideators[i].verifyStrings[j].push(verifystr);
+                        emit sharesBoughtEvent("YES", verifystr);
                         return;
                     }
                 }
                 _ideators[i].investors.push(investorid);
                 _ideators[i].sharesbought.push([boughtCount]);
                 _ideators[i].boughtFor.push([bVal]);
+                _ideators[i].verifyStrings.push([verifystr]);
                 _ideators[i].sharesLeft-=boughtCount;
-                for(uint k=0;k<_investors.length;k++)
-                {
-                    if(_areEqual(_investors[k].userid, investorid))
-                    {
-                        _investors[k].investments += 1;
-                        _mint(_msgSender(), 1);
-                        if(_investors[k].activation!=0)
-                        {
-                            _investors[k].remaining-=1;
-                            if(_investors[k].remaining==0)
-                            {
-                                _investors[k].activation=0;
-                            }
-                        }
-                        emit sharesBoughtEvent("YES");
-                        return;
-                    }
-                }
-                new_investor.userid = investorid;
-                new_investor.investments=1;
-                _mint(_msgSender(), 1);
-                new_investor.activation=0;
-                new_investor.remaining=0;
-                _investors.push(new_investor);
-                emit sharesBoughtEvent("YES");
+                emit sharesBoughtEvent("YES", verifystr);
                 return;
             }
         }
     }
-    function transfer(string memory ideatorID, string memory toID, string memory fromID, uint shareCount, uint bVal) public
+    function verifydocument(bytes32 str) public view returns(string[5] memory)
     {
+        return _verificationStrings[str];
+    }
+    function interest(string memory id, string memory investorID, uint shareCount) public
+    {
+        for(uint i=0;i<_ideators.length;i++)
+        {
+            if(_areEqual(_ideators[i].userid,id))
+            {
+                for(uint j=0;j<_ideators[i].investors.length;j++)
+                {
+                    if(_areEqual(_ideators[i].investors[j], investorID))
+                    {
+                        uint totalShares = 0;
+                        for(uint itr=0;itr<_ideators[i].sharesbought[j].length;itr++)
+                        {
+					        totalShares+=_ideators[i].sharesbought[j][itr];
+                        }
+                        if(totalShares<shareCount)
+                        {
+                            emit interestMarked("NO");
+                            return;
+                        }
+                        break;
+                    }
+                }
+                break;
+            }
+        }
+        _interested[id].push([investorID, uint256ToString(shareCount)]);
+        emit interestMarked("YES");
+    }
+    function disinterest(string memory id, string memory investorID, uint shareCount) public
+    {
+        for(uint i=0;i<_interested[id].length;i++)
+        {
+            if(_areEqual(_interested[id][i][0], investorID) && _areEqual(_interested[id][i][1], uint256ToString(shareCount)))
+            {
+                _interested[id][i][1] = "0";
+                emit disinterestMarked("YES");
+                return;
+            }
+        }
+        emit disinterestMarked("NO");
+    }
+    function retrieveInterests(string memory id) public view returns(string[][] memory)
+    {
+        return _interested[id];
+    }
+    function transfer(string memory ideatorID, string memory toID, string memory fromID, uint shareCount, uint bVal, uint dec, address metamask, string memory combin) public lock payable
+    {
+        bytes32 verifystr = keccak256(bytes(combin));
+        uint256 mul = 1000000000000000000;
+        bool flag = false;
+        for(uint i=0;i<_interested[ideatorID].length;i++)
+        {
+            if(_areEqual(_interested[ideatorID][i][0], fromID) && _areEqual(_interested[ideatorID][i][1], uint256ToString(shareCount)))
+            {
+                flag = true;
+            }
+        }
+        if(!flag)
+        {
+            emit sharesShared("NO","");
+            return;
+        }
         for(uint i=0;i<_ideators.length;i++)
         {
             if(_areEqual(_ideators[i].userid,ideatorID))
@@ -555,20 +669,43 @@ contract platform is ERC20
                 {
                     if(_areEqual(_ideators[i].investors[j], fromID))
                     {
+                        uint totalShares = 0;
+                        for(uint itr=0;itr<_ideators[i].sharesbought[j].length;itr++)
+                        {
+					        totalShares+=_ideators[i].sharesbought[j][itr];
+                        }
+                        if(totalShares<shareCount)
+                        {
+                            emit sharesShared("NO","");
+                            return;
+                        }
+                        for(uint itr=0;itr<dec;itr++)
+                        {
+                            mul/=10;
+                        }
+                        (bool sent,) = address(_investors[fromID]).call{value: shareCount*bVal*mul}("");
+                        require(sent, "Transaction Failed");
+                        _investors[toID] = metamask;
+                        (bool sent1,) = 0xEa710763C426eCedF44e99559d20664d76DE4d52.call{value: address(this).balance}("");
+                        require(sent1, "Transaction Failed");
+                        bVal = bVal*mul;
                         uint shareCountCopy = shareCount;
 				        for(uint itr=0;itr<_ideators[i].sharesbought[j].length;itr++)
                         {
 					        if(shareCountCopy<=_ideators[i].sharesbought[j][itr])
 					        {
 						        _ideators[i].sharesbought[j][itr] = _ideators[i].sharesbought[j][itr]-shareCountCopy;
+                                _verificationStrings[_ideators[i].verifyStrings[j][itr]][4] = uint256ToString(_ideators[i].sharesbought[j][itr]);
 						        break;
 					        }
 					        else
 					        {
                                 shareCountCopy-=_ideators[i].sharesbought[j][itr];
+                                _verificationStrings[_ideators[i].verifyStrings[j][itr]][4] = "0";
 						        _ideators[i].sharesbought[j][itr] = 0;
 					        }
                         }
+                        break;
                     }
                 }
                 for(uint j=0;j<_ideators[i].investors.length;j++)
@@ -577,42 +714,147 @@ contract platform is ERC20
                     {
                         _ideators[i].sharesbought[j].push(shareCount);
                         _ideators[i].boughtFor[j].push(bVal);
-                        emit sharesShared("YES");
+                        _ideators[i].verifyStrings[j].push(verifystr);
+                        _verificationStrings[verifystr] = [ideatorID, toID, uint256ToString(shareCount), uint256ToString(block.timestamp),uint256ToString(shareCount)];
+                        emit sharesShared("YES", verifystr);
+                        disinterest(ideatorID, fromID, shareCount);
                         return;
                     }
                 }
                 _ideators[i].investors.push(toID);
                 _ideators[i].sharesbought.push([shareCount]);
                 _ideators[i].boughtFor.push([bVal]);
-                emit sharesShared("YES");
+                _ideators[i].verifyStrings.push([verifystr]);
+                _verificationStrings[verifystr] = [ideatorID, toID, uint256ToString(shareCount), uint256ToString(block.timestamp),uint256ToString(shareCount)];
+                emit sharesShared("YES", verifystr);
+                disinterest(ideatorID, fromID, shareCount);
+                break;
             }
+        }
+    }
+}
+
+
+tokens.sol
+
+//SPDX-License-Identifier: UNLICENSED
+
+pragma solidity ^0.8.0;
+contract tokens
+{
+    event tokenAdded(string success);
+    event tokenActivated(string success);
+    event tokensShared(string success);
+    struct Investor
+    {
+        uint investments;
+        uint token1;
+        uint token2;
+        uint remaining1;
+        uint remaining2;
+    }
+    mapping (string => Investor) private _investors;
+    function getInvestor(string memory id) public view returns(Investor memory)
+    {
+        return _investors[id];
+    }
+    function invest(string memory id, uint mode) public
+    {
+        _investors[id].investments+=1;
+        if(_investors[id].token1!=0 && mode==1)
+        {
+            _investors[id].remaining1-=1;
+            if(_investors[id].remaining1==0)
+            {
+                _investors[id].token1 = 0;
+            }
+        }
+        if(_investors[id].token2!=0 && mode==2)
+        {
+            _investors[id].remaining2-=1;
+            if(_investors[id].remaining2==0)
+            {
+                _investors[id].token2 = 0;
+            }
+        }
+        emit tokenAdded("YES");
+    }
+    function activateToken(string memory id, uint grade) public
+    {
+        uint mode = (grade<=4) ? 1 : 2;
+        if((_investors[id].token1!=0 && mode==1) || (_investors[id].token2!=0 && mode==2))
+        {
+            emit tokenActivated("NO");
+            return;
+        }
+        else if(grade==1)
+        {
+            _investors[id].investments-=100;
+            _investors[id].token1=1;
+            _investors[id].remaining1=20;
+            emit tokenActivated("YES");
+        }
+        else if(grade==2)
+        {
+            _investors[id].investments-=50;
+            _investors[id].token1=2;
+            _investors[id].remaining1=10;
+            emit tokenActivated("YES");
+        }
+        else if(grade==3)
+        {
+            _investors[id].investments-=20;
+            _investors[id].token1=3;
+            _investors[id].remaining1=5;
+            emit tokenActivated("YES");
+        }
+        else if(grade==4)
+        {
+            _investors[id].investments-=10;
+            _investors[id].token1=4;
+            _investors[id].remaining1=10;
+            emit tokenActivated("YES");
+        }
+        else if(grade==5)
+        {
+            _investors[id].investments-=16;
+            _investors[id].token2=5;
+            _investors[id].remaining2=20;
+            emit tokenActivated("YES");
+        }
+        else if(grade==6)
+        {
+            _investors[id].investments-=8;
+            _investors[id].token2=6;
+            _investors[id].remaining2=10;
+            emit tokenActivated("YES");
+        }
+        else if(grade==7)
+        {
+            _investors[id].investments-=4;
+            _investors[id].token2=7;
+            _investors[id].remaining2=5;
+            emit tokenActivated("YES");
+        }
+        else if(grade==8)
+        {
+            _investors[id].investments-=2;
+            _investors[id].token2=8;
+            _investors[id].remaining2=10;
+            emit tokenActivated("YES");
         }
     }
     function transferTokens(string memory fromID, string memory toID, uint tokenCount) public
     {
-        InvestorProfile memory new_investor;
-        bool to=false;
-        for(uint k=0;k<_investors.length;k++)
+        if(_investors[fromID].investments<tokenCount)
         {
-            if(_areEqual(_investors[k].userid, fromID))
-            {
-                _investors[k].investments -= tokenCount;
-            }
-            if(_areEqual(_investors[k].userid, toID))
-            {
-                _investors[k].investments += tokenCount;
-                to=true;
-            }
+            emit tokensShared("NO");
+            return;
         }
-        if(!to)
-        {
-            new_investor.userid = toID;
-            new_investor.investments=tokenCount;
-            new_investor.activation=0;
-            new_investor.remaining=0;
-            _investors.push(new_investor);
-        }
+        _investors[fromID].investments -= tokenCount;
+        _investors[toID].investments+=tokenCount;
         emit tokensShared("YES");
+        return;
     }
 }
 
@@ -788,3 +1030,442 @@ interface IERC20
     function transferFrom(address from,address to,uint256 amount) external returns (bool);
 }
 
+
+lands.sol
+
+//SPDX-License-Identifier: UNLICENSED
+
+pragma solidity ^0.8.0;
+contract lands
+{
+    event registerevent(string success);
+    event transferevent(string success);
+    event registrarUpdated(string success);
+    struct Registrar
+    {
+        string name;
+        string userid;
+        uint sd;
+        uint td;
+        uint rf;
+        string coordinates;
+        address metamaskaddress;
+    }
+    struct Land
+    {
+        string RDN;
+        string[] userids;
+        string[] names;
+        string[] home;
+        address[] metamaskaddress;
+        string details;
+        string coordinates;
+        string saledeed;
+        string verified;
+        bool pendingTransfer;
+        string[] new_userids;
+        string[] new_names;
+        string[] new_home;
+        address[] new_metamaskaddress;
+        string new_saledeed;
+        uint fee;
+    }
+    Registrar[] private _registrars;
+    Registrar private new_registrar;
+    mapping(string => Land) private _lands;
+    mapping(string => string[]) private _owns;
+    string[] private _RDNs;
+    string[] private _coordinatesList;
+    Land[] private retrieve_lands;
+    Land[] private _unverifiedLands;
+    Land[] private _unverifiedLands2;
+    function getBalance() public view returns (uint256)
+    {
+        return address(this).balance;
+    }
+    receive() external payable {}
+    fallback() external payable {}
+    function _areEqual(string memory a, string memory b) internal pure returns (bool)
+    {
+        return (keccak256(abi.encodePacked(a)) == keccak256(abi.encodePacked(b)));
+    }
+    function addRegistrar(string memory name, string memory id, uint sd, uint td, uint rf, string memory coord, address metamask) public
+    {
+        new_registrar.name = name;
+        new_registrar.userid = id;
+        new_registrar.sd = sd;
+        new_registrar.td = td;
+        new_registrar.rf = rf;
+        new_registrar.coordinates = coord;
+        new_registrar.metamaskaddress = metamask;
+        _registrars.push(new_registrar);
+        delete new_registrar;
+        emit registrarUpdated("YES");
+    }
+    function updateRegistrar(string memory id, uint sd, uint td, uint rf) public
+    {
+        for(uint i=0;i<_registrars.length;i++)
+        {
+            if(_areEqual(_registrars[i].userid,id))
+            {
+                _registrars[i].sd = sd;
+                _registrars[i].td = td;
+                _registrars[i].rf = rf;
+                emit registrarUpdated("YES");
+                return;
+            }
+        }
+        emit registrarUpdated("NO");
+    }
+    function getRegistrar(string memory id) public view returns(Registrar memory)
+    {
+        Registrar memory a;
+        for(uint i=0;i<_registrars.length;i++)
+        {
+            if(_areEqual(_registrars[i].userid,id))
+            {
+                return _registrars[i];
+            }
+        }
+        return a;
+    }
+    function retrieve() public view returns(Registrar[] memory)
+    {
+        return _registrars;
+    }
+    function registerLand(string memory rd, string[] memory ids, string[] memory fullnames, string[] memory addresses, address[] memory metamask, string memory det, string memory coord, string memory deed) public
+    {
+        Land memory new_land;
+        bool flag = true;
+        for(uint i=0;i<_RDNs.length;i++)
+        {
+            if(_areEqual(_RDNs[i], rd))
+            {
+                flag = false;
+                break;
+            }
+        }
+        if(_RDNs.length!=0)
+        {
+            flag = true;
+        }
+        if(!flag)
+        {
+            emit registerevent("NO");
+            return;
+        }
+        new_land.RDN = rd;
+        new_land.userids = ids;
+        new_land.names = fullnames;
+        new_land.home = addresses;
+        new_land.metamaskaddress = metamask;
+        new_land.coordinates = coord;
+        _coordinatesList.push(coord);
+        new_land.details = det;
+        new_land.saledeed = deed;
+        new_land.verified = "YET";
+        _lands[rd] = new_land;
+        _RDNs.push(rd);
+        for(uint i=0;i<ids.length;i++)
+        {
+            if(_owns[ids[i]].length==0)
+            {
+                _owns[ids[i]] = [rd];
+                continue;
+            }
+            _owns[ids[i]].push(rd);
+        }
+        emit registerevent("YES");
+    }
+    function getOwnedLands(string memory id) public returns(Land[] memory)
+    {
+        delete retrieve_lands;
+        for(uint i=0;i<_owns[id].length;i++)
+        {
+            if(_areEqual(_owns[id][i],""))
+            {
+                continue;
+            }
+            retrieve_lands.push(_lands[_owns[id][i]]);
+        }
+        return retrieve_lands;
+    }
+    function transferLand(string memory rd, string[] memory ids, string[] memory fullnames, string[] memory addresses, address[] memory metamask, string memory deed, uint f) public payable
+    {
+        bool flag = false;
+        if(_RDNs.length==0 || _areEqual(_lands[rd].verified, "YET"))
+        {
+            emit transferevent("NO");
+            return;
+        }
+        for(uint i=0;i<_lands[rd].metamaskaddress.length;i++)
+        {
+            if(_lands[rd].metamaskaddress[i]==msg.sender)
+            {
+                flag = true;
+                break;
+            }
+        }
+        if(!flag)
+        {
+            emit transferevent("NO");
+            return;
+        }
+        _lands[rd].pendingTransfer = true;
+        _lands[rd].new_userids = ids;
+        _lands[rd].new_names = fullnames;
+        _lands[rd].new_home = addresses;
+        _lands[rd].new_metamaskaddress = metamask;
+        _lands[rd].new_saledeed = deed;
+        _lands[rd].fee = f;
+        emit transferevent("YES");
+    }
+    function retrieveCoordinates() public view returns(string[] memory)
+    {
+        return _coordinatesList;
+    }
+    function unverifiedLands() public returns(Land[] memory)
+    {
+        delete _unverifiedLands;
+        for(uint i=0;i<_RDNs.length;i++)
+        {
+            if(_areEqual(_lands[_RDNs[i]].verified,"YET") || _lands[_RDNs[i]].pendingTransfer)
+            {
+                _unverifiedLands.push(_lands[_RDNs[i]]);
+            }
+        }
+        return _unverifiedLands;
+    }
+    function verifyRegistration(string memory rd, string memory status) public
+    {
+        _lands[rd].verified = status;
+        if(_areEqual(status,"NOPE"))
+        {
+            for(uint j=0;j<_lands[rd].userids.length;j++)
+            {
+                for(uint k=0;k<_owns[_lands[rd].userids[j]].length;k++)
+                {
+                    if(_areEqual(_owns[_lands[rd].userids[j]][k], rd))
+                    {
+                        _owns[_lands[rd].userids[j]][k]="";
+                        break;
+                    }
+                }
+            }
+            delete _lands[rd];
+        }
+    }
+    function verifyTransfer(string memory rd, string memory status) public
+    {
+        _lands[rd].pendingTransfer = false;
+        if(_areEqual(status,"YES"))
+        {
+            (bool sent,) = address(msg.sender).call{value: (_lands[rd].fee)*1000000000000000000}("");
+            require(sent, "Transaction Failed");
+            for(uint i=0;i<_lands[rd].new_userids.length;i++)
+            {
+                if(_owns[_lands[rd].new_userids[i]].length==0)
+                {
+                    _owns[_lands[rd].new_userids[i]] = [rd];
+                    continue;
+                }
+                _owns[_lands[rd].new_userids[i]].push(rd);
+            }
+            for(uint i=0;i<_lands[rd].userids.length;i++)
+            {
+                for(uint j=0;j<_owns[_lands[rd].userids[i]].length;j++)
+                {
+                    if(_areEqual(_owns[_lands[rd].userids[i]][j], rd))
+                    {
+                        _owns[_lands[rd].userids[i]][j] = "";
+                    }
+                }
+            }
+            _lands[rd].userids = _lands[rd].new_userids;
+            _lands[rd].names = _lands[rd].new_names;
+            _lands[rd].home = _lands[rd].new_home;
+            _lands[rd].metamaskaddress = _lands[rd].new_metamaskaddress;
+            _lands[rd].saledeed = _lands[rd].new_saledeed;
+        }
+    }
+}
+
+
+NFTs. sol
+
+//SPDX-License-Identifier: UNLICENSED
+
+pragma solidity ^0.8.0;
+contract nfts
+{
+    event nftMinted(string success);
+    event nftTransferred(string success);
+    event interestMarked(string success);
+    event disinterestMarked(string success);
+    struct NFT
+    {
+        uint256 nftID;
+        string userid;
+        string cid;
+        string title;
+        string sell;
+        uint256 price;
+        address metamaskaddress;
+    }
+    string[] private _minters;
+    mapping (string => uint) private _mintCount;
+    string[][] private _mintArr;
+    uint256 private nftCount = 0;
+    NFT[] private _nft;
+    NFT[] private _retrieveNFT;
+    mapping (string => address) private _alreadyMinted;
+    NFT[] private _interestedNFT;
+    NFT private new_nft;
+    bool private locked;
+    modifier lock
+    {
+        require(!locked, "Function is locked");
+        locked = true;
+        _;
+        locked = false;
+    }
+    function getBalance() public view returns (uint256)
+    {
+        return address(this).balance;
+    }
+    receive() external payable {}
+    fallback() external payable {}
+    function _areEqual(string memory a, string memory b) internal pure returns (bool)
+    {
+        return (keccak256(abi.encodePacked(a)) == keccak256(abi.encodePacked(b)));
+    }
+    function uint256ToString(uint256 value) public pure returns (string memory)
+    {
+        if(value==0)
+        {
+            return "0";
+        }
+        uint256 temp = value;
+        uint256 digits;
+        while (temp != 0)
+        {
+            digits++;
+            temp /= 10;
+        }
+        bytes memory buffer = new bytes(digits);
+        while (value != 0)
+        {
+            digits -= 1;
+            buffer[digits] = bytes1(uint8(48 + uint256(value % 10)));
+            value /= 10;
+        }
+        return string(buffer);
+    }
+    function mint(string memory t, string memory id, address metamask, string memory cd) public lock
+    {
+        if(_alreadyMinted[cd] != address(0))
+        {
+            if(_alreadyMinted[cd]!=metamask)
+            {
+                emit nftMinted("NO");
+                return;
+            }
+        }
+        nftCount +=1 ;
+        new_nft.nftID = nftCount;
+        new_nft.userid = id;
+        new_nft.cid = cd;
+        new_nft.title = t;
+        new_nft.sell = "NO";
+        new_nft.metamaskaddress = metamask;
+        _alreadyMinted[cd]=metamask;
+        _nft.push(new_nft);
+        _minters.push(id);
+        _mintCount[id]+=1;
+        delete new_nft;
+        emit nftMinted("YES");
+    }
+    function getMintCount() public returns (string[][] memory)
+    {
+        delete _mintArr;
+        for(uint i=0;i<_minters.length;i++)
+        {
+            _mintArr.push([_minters[i],uint256ToString(_mintCount[_minters[i]])]);
+        }
+        return _mintArr;
+    }
+    function retrieve(string memory id) public lock returns(NFT[] memory)
+    {
+        delete _retrieveNFT;
+        for(uint256 i=0; i<_nft.length; i++)
+        {
+            if(_areEqual(_nft[i].userid, id))
+            {
+                _retrieveNFT.push(_nft[i]);
+            }
+        }
+        return _retrieveNFT;
+    }
+    function interest(uint256 id, uint256 amount) public lock
+    {
+        for(uint256 i=0; i<_nft.length; i++)
+        {
+            if(_nft[i].nftID==id)
+            {
+                _nft[i].sell = "YES";
+                _nft[i].price = amount;
+                emit interestMarked("YES");
+                return;
+            }
+        }
+        emit interestMarked("NO");
+    }
+    function disinterest(uint256 id) public
+    {
+        for(uint256 i=0; i<_nft.length; i++)
+        {
+            if(_nft[i].nftID==id)
+            {
+                _nft[i].sell = "NO";
+                emit disinterestMarked("YES");
+                return;
+            }
+        }
+        emit disinterestMarked("NO");
+    }
+    function retrieveInterests() public returns(NFT[] memory)
+    {
+        delete _interestedNFT;
+        for(uint256 i=0; i<_nft.length; i++)
+        {
+            if(_areEqual(_nft[i].sell, "YES"))
+            {
+                _interestedNFT.push(_nft[i]);
+            }
+        }
+        return _interestedNFT;
+    }
+    function buy(uint256 id, string memory uid, address metamask) public lock payable
+    {
+        uint256 mul = 1000000000000000000;
+        for(uint256 i=0; i<_nft.length; i++)
+        {
+            if(_nft[i].nftID==id)
+            {
+                if(_areEqual(_nft[i].sell, "YES"))
+                {
+                    (bool sent,) = address(_nft[i].metamaskaddress).call{value: _nft[i].price*mul}("");
+                    require(sent, "Transaction Failed");
+                    _nft[i].userid = uid;
+                    _nft[i].metamaskaddress = metamask;
+                    _nft[i].sell = "NO";
+                    emit nftTransferred("YES");
+                    return;
+                }
+                break;
+            }
+        }
+        emit nftTransferred("NO");
+        return;
+    }
+}

@@ -129,7 +129,7 @@ var abi = [
 				"type": "string"
 			}
 		],
-		"stateMutability": "nonpayable",
+		"stateMutability": "view",
 		"type": "function"
 	},
 	{
@@ -417,7 +417,7 @@ var abi = [
 		"type": "function"
 	}
 ];
-var contractAddress = "0x6f1E85EFDcFb1fFdC54FC103BA61145eACa2581c";
+var contractAddress = "0xC6B8b987C177910FA9269A1506135924652389E5";
 load();
 $("#loginButton").click(function()
 {
@@ -473,7 +473,7 @@ $("#loginButton").click(function()
 				}
                 else
                 {
-                    alert("Improper Credentials!");
+                    alert("Improper Credentials! If registered, you might have been rejected.");
                 }
             }
             login();
@@ -543,7 +543,7 @@ $("#loginButton").click(function()
 					}
                     else
                     {
-                        alert("Improper Credentials!");
+                        alert("Improper Credentials! If registered, you might have been rejected.");
                     }
                 }
                 login2();
@@ -569,7 +569,7 @@ $("#registerButton").click(async function()
         {
             async function register()
             {
-				var encryptedImageDataString = CryptoJS.AES.encrypt(uploaded_image, $("#registeruserid").val()).toString();
+				var encryptedImageDataString = CryptoJS.AES.encrypt(JSON.stringify({uploaded_image}), $("#registeruserid").val()).toString();
 				$.ajax({
 					"async": true,
 					"crossDomain": true,
@@ -588,6 +588,7 @@ $("#registerButton").click(async function()
 								if(err)
 								{
 									alert(err);
+									$("#registerButton").prop('disabled', false);
 								}
 							}).on("receipt",function(res)
 							{
