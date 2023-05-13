@@ -1,0 +1,355 @@
+Future Scope:
+
+- Twilio SMS Service - Paid
+- Upscaling in terms of Smart Contracts for Load Handling
+* Draw.io Chart for entire application
+* Hide contract address, API keys of Web3storage and Google Maps
+* Reloading for marketvalue refresh
+* Combining subsequent transactions
+* Visibility with window sizes css
+
+Security Considerations:
+
+- Encryptions for Brute Force - Secured
+- Fradulent Resource Consumption - Secured
+- Race Conditions - Secured
+- Authorization - Secured
+
+------------------------------------------------------------------------------------------------------------------------------------------------
+
+Files:
+
+- index.html - Tick
+- welcome.css - Tick
+- welcome.js - Tick
+- login.html - Tick
+- login.css - Tick
+- login.js - Tick
+- home.css - Tick
+- admin.html - Tick
+- admin.js - Tick
+- ideator.html - Tick
+- ideator.js - Tick
+- investor.html - Tick
+- investor.js - Tick
+- vendor.html - Tick
+- vendor.js - Tick
+- registrar.html - Tick
+- registrar.js - Tick
+- 404.html - Tick
+
+-----------------------------------------
+
+Subregistrar:
+
+- Registers through login.html
+- Creates a profile as soon as he logs in for the first time
+- Profile creation includes
+	- Full Name (non-editable further)
+	- Region restriction (non-editable further, google maps, check for overlap)
+	- Stamp Duty (editable)
+	- Transfer Duty (editable)
+	- Registration fees (editable)
+	- Messages
+- Verification
+	- View Slots and Transaction Details
+		- Name of the Deed - DEED OF SALE (OR) SALE DEED
+		- Executant User IDs (Non-editable, automatically loaded)
+		- Executant Wallet Addresses (Non-editable, automatically loaded)
+		- Executant Names (Non-editable, automatically loaded)
+		- Executant Ages
+		- Executant Addresses (Editable, automatically loaded)
+		- Executant Aadhars (Editable, automatically loaded)
+		- Executant Photographs (Non-Editable, automatically loaded)
+		- Claimant User IDs (Non-editable)
+		- Claimant Wallet Addresses (Non-editable)
+		- Claimant Names (Non-editable)
+		- Claimant Ages (Non-editable)
+		- Claimant Addresses (Non-editable)
+		- Claimant Aadhars (Non-editable)
+		- Claimant Photographs (Non-editable)
+		- Description of the property sold (automatically loaded)
+		- Conditions and Clauses of Sale
+		- Payment Details (Advance, Mode)
+		- Testatum:
+			- Witness User ID
+			- Witness Full Names
+			- Witness Ages
+			- Witness Addresses
+		- Sale Deed Proforma Generated after Claimant Accepts
+		- Slot Allotment after Proceed aftr Claimant Accepts
+	- Accept/Reject
+- No transaction fees
+
+Investor:
+
+- Register land on platform
+	- Info about already registered lands should be submitted first for any further transactions
+	- Already registered once at SRO
+		- YES
+			- User ID(es)
+			- Wallet Address(es) - automatically loaded once User IDs are mentioned
+			- Full Name(s)
+			- Address(es) - automatically loaded once User IDs are mentioned, editable
+		 	- Regular Document Number
+			- Property Details
+			- Property marked on Map (if land, google maps)
+			- Sale Deed Document Upload
+			- Link Documents Upload
+			- Photographs of all the owners
+			- Verified by Subregistrar
+		- NO
+			- Visit the SRO
+- Owned Properties
+	- User IDs (non-editable)
+	- Wallet Addresses (non-editable)
+	- Regular Document Number (non-editable)
+	- Full Names (non-editable)
+	- Addresses (non-editable)
+	- Property details (non-editable)
+	- Property marked on Map (non-editable, if land, google maps)
+	- Sale Deed Uploaded (non-editable)
+	- Link Document Uploaded (non-editable)
+	- Photographs of all the owners (non-editable)
+	- Verification Status by Sub-Registrar (non-editable)
+	- Sale Control Panel
+		- Price
+		- Time Window for Execution
+		- Contact
+		- Interested Buyers
+			- User ID
+			- Quoted Price
+			- Contact
+			- Accept/Reject
+				- Transfer of Ownership:
+					- Name of the Deed - DEED OF SALE (OR) SALE DEED
+					- Executant User IDs (Non-editable, automatically loaded)
+					- Executant Wallet Addresses (Non-editable, automatically loaded)
+					- Executant Names (Non-editable, automatically loaded)
+					- Executant Ages
+					- Executant Addresses (Editable, automatically loaded)
+					- Executant Aadhars (Editable, automatically loaded)
+					- Executant Photographs (Non-Editable, automatically loaded)
+					- Claimant User IDs (Non-editable)
+					- Claimant Wallet Addresses (Non-editable)
+					- Claimant Names (Non-editable)
+					- Claimant Ages (Non-editable)
+					- Claimant Addresses (Non-editable)
+					- Claimant Aadhars (Non-editable)
+					- Claimant Photographs (Non-editable)
+					- Description of the property sold (automatically loaded)
+					- Conditions and Clauses of Sale
+					- Payment Details (Advance, Mode)
+					- Testatum:
+						- Witness User ID
+						- Witness Full Names
+						- Witness Ages
+						- Witness Addresses
+					- Sale Deed Proforma Generated after Claimant Accepts
+					- Slot Allotment after Proceed aftr Claimant Accepts
+				- Investopolis Fees - 0.001%
+- Other Properties (Search Properties for sale, Search by region restricted as per sub-registrar)
+	- Continuously check whether still for sale
+	- User IDs (non-editable)
+	- Wallet Addresses (non-editable)
+	- Regular Document Number (non-editable)
+	- Full Names (non-editable)
+	- Addresses (non-editable)
+	- Property details (non-editable)
+	- Property marked on Map (non-editable, if land, google maps)
+	- Sale Deed Uploaded (non-editable)
+	- Link Document Uploaded (non-editable)
+	- Photographs of all the owners (non-editable)
+	- Verification Status by Sub-Registrar (non-editable)
+	- Buying Control Panel
+		- Price
+		- Time Window for Execution
+		- Contact
+		- Interested Buyers
+			- User ID
+			- Quoted Price
+			- Contact
+			- Show Interest
+				- Transfer of Ownership:
+					- Review Application for SRO
+					- Name of the Deed - DEED OF SALE (OR) SALE DEED (Non-editable)
+					- Executant User IDs (Non-editable)
+					- Executant Wallet Addresses (Non-editable)
+					- Executant Names (Non-editable)
+					- Executant Ages (Non-editable)
+					- Executant Addresses (Non-editable)
+					- Executant Aadhars (Non-editable)
+					- Executant Photographs (Non-editable)
+					- Claimant User IDs
+					- Claimant Wallet Addresses
+					- Claimant Names
+					- Claimant Ages
+					- Claimant Addresses
+					- Claimant Aadhars
+					- Claimant Photographs
+					- Description of the property sold
+					- Conditions and Clauses of Sale
+					- Payment Details (Advance, Mode)
+					- Testatum:
+						- Witness User ID
+						- Witness Full Names
+						- Witness Ages
+						- Witness Addresses
+					- Sale Deed Proforma Generated after you accept
+					- Slot Allotment after executant proceeds
+				- Investopolis Fees - 0.001%
+
+----------------------------------------------------------------
+
+Survey Questionnaire
+
+
+How important is a loyalty program to you when considering an investment platform?
+a. Not important
+b. Somewhat important
+c. Very important
+
+Have you ever participated in a loyalty program offered by an investment platform?
+a. Yes
+b. No
+
+What type of rewards do you expect from a loyalty program offered by an investment platform?
+a. Cashback
+b. Discounts on fees
+c. Exclusive investment opportunities
+d. Other (please specify)
+
+How frequently would you like to receive rewards from the loyalty program?
+a. Monthly
+b. Quarterly
+c. Annually
+d. Other (please specify)
+
+Would you be willing to invest a larger amount in the platform in order to participate in the loyalty program?
+a. Yes
+b. No
+
+How easy do you expect the process of enrolling in and using the loyalty program to be?
+a. Very easy
+b. Somewhat easy
+c. Somewhat difficult
+d. Very difficult
+
+How important is the transparency of the loyalty program and rewards system to you?
+a. Not important
+b. Somewhat important
+c. Very important
+
+Would you like to see any additional features offered as part of the loyalty program? If so, please specify.
+
+Do you have any suggestions for improving the loyalty program offered by Investopolis? If so, please specify.
+
+Would you be more likely to recommend the investment platform to friends and family if it offered a loyalty program?
+a. Yes
+b. No
+c. No difference.
+
+How familiar are you with the customer loyalty program offered by our investment platform?
+a. Not familiar
+b. Somewhat familiar
+c. Very familiar
+
+Have you enrolled in the customer loyalty program offered by our investment platform?
+a. Yes
+b. No
+
+How likely are you to recommend the customer loyalty program offered by our investment platform to a friend or family member?
+a. Very likely
+b. Somewhat likely
+c. Not likely
+
+What motivated you to enroll in the customer loyalty program offered by our investment platform?
+a. Rewards and incentives
+b. Convenience
+c. Improved investment experience
+d. Other (please specify)
+
+How satisfied are you with the rewards and incentives offered by the customer loyalty program?
+a. Very satisfied
+b. Somewhat satisfied
+c. Not satisfied
+
+Have the rewards and incentives offered by the customer loyalty program influenced your investment behavior (e.g. repeat purchases, referrals, etc.)?
+a. Yes
+b. No
+
+How easy is it for you to participate in the customer loyalty program offered by our platform?
+a. Very easy
+b. Somewhat easy
+c. Not easy
+
+
+Have you faced any challenges while participating in the customer loyalty program offered by Investopolis?
+a. Yes
+b. No
+
+If yes, please specify the challenges faced while participating in the customer loyalty program.
+
+How do you believe the customer loyalty program offered by our real estate business can be improved?
+a. More rewards and incentives
+b. Improved user experience
+c. Simplified enrollment process
+d. Other (please specify)
+
+How likely are you to continue using the customer loyalty program offered by our real estate business in the future?
+a. Very likely
+b. Somewhat likely
+c. Not likely
+
+Is there anything else you would like to share regarding the customer loyalty program offered by our real estate business?
+
+
+What is your understanding of tokenization and blockchain technology?
+a. Limited understanding
+b. Moderate understanding
+c. Strong understanding
+
+Have you used or participated in any reward systems that use tokenization in blockchain?
+a. Yes
+b. No
+
+What is your perception of the benefits of using tokenization in reward systems compared to traditional reward systems?
+a. More secure
+b. More efficient
+c. More transparent
+d. Other (please specify)
+
+What is your perception of the challenges associated with using tokenization in reward systems compared to traditional reward systems?
+a. Complexity
+b. Adoption and awareness
+c. Regulation and legal issues
+d. Other (please specify)
+
+How do you believe the use of tokenization in reward systems can impact customer behavior and loyalty?
+a. Increased customer engagement and participation
+b. Improved customer satisfaction
+c. Increased customer retention
+d. Other (please specify)
+
+How do you believe the use of tokenization in reward systems can impact the overall business performance and growth?
+a. Improved operational efficiency
+b. Increased customer acquisition and loyalty
+c. Improved financial performance
+d. Other (please specify)
+
+What is your perception of the current state of the market in terms of the use of tokenization in reward systems?
+a. Emerging market
+b. Niche market
+c. Mainstream market
+
+How likely are you to participate in a reward system that uses tokenization in blockchain in the future?
+a. Very likely
+b. Somewhat likely
+c. Not likely
+
+Is there anything else you would like to share regarding the use of tokenization in reward systems through high-end literature review and analysis?
+
+{
+  "cid": "bafkreibwktz5ijntvr2uv2byzs6kncbudr7mwclw7hkxlizamhdqtasuke",
+  "carCid": "bagbaieraj4xxesdmptudt3bvtj7pne3yiki7ft5plue2dzvthibounbe73aq"
+}
